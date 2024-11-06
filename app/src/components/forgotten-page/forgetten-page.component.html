@@ -1,0 +1,11 @@
+<div class="forgetten-page-container">
+  <h2>Forgotten Password</h2>
+  <form (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="email">Enter your email:</label>
+      <input type="email" id="email" [(ngModel)]="email" name="email" required placeholder="Enter your email" />
+    </div>
+    <button type="submit" class="reset-btn">Submit</button>
+  </form>
+  <p *ngIf="isEmailSent" class="success-message">A reset link has been sent to your email address.</p>
+</div>

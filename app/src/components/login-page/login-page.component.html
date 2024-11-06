@@ -1,0 +1,20 @@
+<div class="login-container">
+    <form (ngSubmit)="onSubmit()">
+        <div class="signinup">
+            <h2 class="signin">Login</h2>
+            <h2 (click)="navigateToRegisterform()" class="signup">Register</h2>
+        </div>
+      <div>
+        <label for="email">Email:</label>
+        <input type="email" id="email" [(ngModel)]="email" name="email" required />
+      </div>
+      <div>
+        <label for="password">Password:</label>
+        <input type="password" id="password" [(ngModel)]="password" name="password" required />
+      </div>
+      <button type="submit" class="login-btn">Login</button>
+        <button type="button" (click)="navigateToForgotPassword()" class="forget-btn">Forgotten Password</button>
+        <a (click)="navigateToReset()">Reset Password?</a>
+    </form>
+  </div>
+  

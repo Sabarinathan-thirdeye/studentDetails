@@ -1,0 +1,341 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "E:\\Sabari\\Works\\interview task\\studentDetails_Api\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{E8CBBCA3-7BFA-45AF-9BC0-D17AE017A336}|UsersDetailsApi.csproj|e:\\sabari\\works\\interview task\\studentdetails_api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E8CBBCA3-7BFA-45AF-9BC0-D17AE017A336}|UsersDetailsApi.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E8CBBCA3-7BFA-45AF-9BC0-D17AE017A336}|UsersDetailsApi.csproj|e:\\sabari\\works\\interview task\\studentdetails_api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{E8CBBCA3-7BFA-45AF-9BC0-D17AE017A336}|UsersDetailsApi.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|E:\\Sabari\\UserTypeRepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E8CBBCA3-7BFA-45AF-9BC0-D17AE017A336}|UsersDetailsApi.csproj|e:\\sabari\\works\\interview task\\studentdetails_api\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E8CBBCA3-7BFA-45AF-9BC0-D17AE017A336}|UsersDetailsApi.csproj|solutionrelative:controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E8CBBCA3-7BFA-45AF-9BC0-D17AE017A336}|UsersDetailsApi.csproj|e:\\sabari\\works\\interview task\\studentdetails_api\\nonentity\\claimdata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E8CBBCA3-7BFA-45AF-9BC0-D17AE017A336}|UsersDetailsApi.csproj|solutionrelative:nonentity\\claimdata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E8CBBCA3-7BFA-45AF-9BC0-D17AE017A336}|UsersDetailsApi.csproj|e:\\sabari\\works\\interview task\\studentdetails_api\\repository\\userrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E8CBBCA3-7BFA-45AF-9BC0-D17AE017A336}|UsersDetailsApi.csproj|solutionrelative:repository\\userrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E8CBBCA3-7BFA-45AF-9BC0-D17AE017A336}|UsersDetailsApi.csproj|e:\\sabari\\works\\interview task\\studentdetails_api\\nonentity\\usermodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E8CBBCA3-7BFA-45AF-9BC0-D17AE017A336}|UsersDetailsApi.csproj|solutionrelative:nonentity\\usermodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E8CBBCA3-7BFA-45AF-9BC0-D17AE017A336}|UsersDetailsApi.csproj|e:\\sabari\\works\\interview task\\studentdetails_api\\nonentity\\apiresult.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E8CBBCA3-7BFA-45AF-9BC0-D17AE017A336}|UsersDetailsApi.csproj|solutionrelative:nonentity\\apiresult.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E8CBBCA3-7BFA-45AF-9BC0-D17AE017A336}|UsersDetailsApi.csproj|e:\\sabari\\works\\interview task\\studentdetails_api\\irepository\\iuserrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E8CBBCA3-7BFA-45AF-9BC0-D17AE017A336}|UsersDetailsApi.csproj|solutionrelative:irepository\\iuserrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E8CBBCA3-7BFA-45AF-9BC0-D17AE017A336}|UsersDetailsApi.csproj|e:\\sabari\\works\\interview task\\studentdetails_api\\nonentity\\usertypemastermodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E8CBBCA3-7BFA-45AF-9BC0-D17AE017A336}|UsersDetailsApi.csproj|solutionrelative:nonentity\\usertypemastermodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E8CBBCA3-7BFA-45AF-9BC0-D17AE017A336}|UsersDetailsApi.csproj|e:\\sabari\\works\\interview task\\studentdetails_api\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E8CBBCA3-7BFA-45AF-9BC0-D17AE017A336}|UsersDetailsApi.csproj|solutionrelative:models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E8CBBCA3-7BFA-45AF-9BC0-D17AE017A336}|UsersDetailsApi.csproj|e:\\sabari\\works\\interview task\\studentdetails_api\\nonentity\\loginmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E8CBBCA3-7BFA-45AF-9BC0-D17AE017A336}|UsersDetailsApi.csproj|solutionrelative:nonentity\\loginmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E8CBBCA3-7BFA-45AF-9BC0-D17AE017A336}|UsersDetailsApi.csproj|e:\\sabari\\works\\interview task\\studentdetails_api\\models\\usersdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E8CBBCA3-7BFA-45AF-9BC0-D17AE017A336}|UsersDetailsApi.csproj|solutionrelative:models\\usersdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E8CBBCA3-7BFA-45AF-9BC0-D17AE017A336}|UsersDetailsApi.csproj|e:\\sabari\\works\\interview task\\studentdetails_api\\controllers\\logincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E8CBBCA3-7BFA-45AF-9BC0-D17AE017A336}|UsersDetailsApi.csproj|solutionrelative:controllers\\logincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E8CBBCA3-7BFA-45AF-9BC0-D17AE017A336}|UsersDetailsApi.csproj|e:\\sabari\\works\\interview task\\studentdetails_api\\repository\\userrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E8CBBCA3-7BFA-45AF-9BC0-D17AE017A336}|UsersDetailsApi.csproj|solutionrelative:repository\\userrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E8CBBCA3-7BFA-45AF-9BC0-D17AE017A336}|UsersDetailsApi.csproj|e:\\sabari\\works\\interview task\\studentdetails_api\\middleware\\jwtmiddleware.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E8CBBCA3-7BFA-45AF-9BC0-D17AE017A336}|UsersDetailsApi.csproj|solutionrelative:middleware\\jwtmiddleware.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E8CBBCA3-7BFA-45AF-9BC0-D17AE017A336}|UsersDetailsApi.csproj|e:\\sabari\\works\\interview task\\studentdetails_api\\services\\cryptoservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E8CBBCA3-7BFA-45AF-9BC0-D17AE017A336}|UsersDetailsApi.csproj|solutionrelative:services\\cryptoservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E8CBBCA3-7BFA-45AF-9BC0-D17AE017A336}|UsersDetailsApi.csproj|e:\\sabari\\works\\interview task\\studentdetails_api\\services\\jwtservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E8CBBCA3-7BFA-45AF-9BC0-D17AE017A336}|UsersDetailsApi.csproj|solutionrelative:services\\jwtservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E8CBBCA3-7BFA-45AF-9BC0-D17AE017A336}|UsersDetailsApi.csproj|e:\\sabari\\works\\interview task\\studentdetails_api\\irepository\\iuserrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E8CBBCA3-7BFA-45AF-9BC0-D17AE017A336}|UsersDetailsApi.csproj|solutionrelative:irepository\\iuserrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E8CBBCA3-7BFA-45AF-9BC0-D17AE017A336}|UsersDetailsApi.csproj|e:\\sabari\\works\\interview task\\studentdetails_api\\instructions.txt||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{E8CBBCA3-7BFA-45AF-9BC0-D17AE017A336}|UsersDetailsApi.csproj|solutionrelative:instructions.txt||{8B382828-6202-11D1-8870-0000F87579D2}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 7,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "UserTypeRepo.cs",
+              "DocumentMoniker": "E:\\Sabari\\UserTypeRepo.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\UserTypeRepo.cs",
+              "ToolTip": "E:\\Sabari\\UserTypeRepo.cs",
+              "RelativeToolTip": "..\\..\\..\\UserTypeRepo.cs",
+              "ViewState": "AgIAAKYAAAAAAAAAAAAAAL8AAAAUAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-23T05:28:18.712Z",
+              "IsPinned": true
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "IUserRepo.cs",
+              "DocumentMoniker": "E:\\Sabari\\Works\\interview task\\studentDetails_Api\\IRepository\\IUserRepo.cs",
+              "RelativeDocumentMoniker": "IRepository\\IUserRepo.cs",
+              "ToolTip": "E:\\Sabari\\Works\\interview task\\studentDetails_Api\\IRepository\\IUserRepo.cs",
+              "RelativeToolTip": "IRepository\\IUserRepo.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB8AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-26T13:05:13.106Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "UserModel.cs",
+              "DocumentMoniker": "E:\\Sabari\\Works\\interview task\\studentDetails_Api\\NonEntity\\UserModel.cs",
+              "RelativeDocumentMoniker": "NonEntity\\UserModel.cs",
+              "ToolTip": "E:\\Sabari\\Works\\interview task\\studentDetails_Api\\NonEntity\\UserModel.cs",
+              "RelativeToolTip": "NonEntity\\UserModel.cs",
+              "ViewState": "AgIAAAIAAAAAAAAAAAAmwCIAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-26T07:53:51.62Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "UserRepo.cs",
+              "DocumentMoniker": "E:\\Sabari\\Works\\interview task\\studentDetails_Api\\Repository\\UserRepo.cs",
+              "RelativeDocumentMoniker": "Repository\\UserRepo.cs",
+              "ToolTip": "E:\\Sabari\\Works\\interview task\\studentDetails_Api\\Repository\\UserRepo.cs",
+              "RelativeToolTip": "Repository\\UserRepo.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAJoAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-26T12:22:47.241Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "ApiResult.cs",
+              "DocumentMoniker": "E:\\Sabari\\Works\\interview task\\studentDetails_Api\\NonEntity\\ApiResult.cs",
+              "RelativeDocumentMoniker": "NonEntity\\ApiResult.cs",
+              "ToolTip": "E:\\Sabari\\Works\\interview task\\studentDetails_Api\\NonEntity\\ApiResult.cs",
+              "RelativeToolTip": "NonEntity\\ApiResult.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEcAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-26T12:22:35.084Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "ClaimData.cs",
+              "DocumentMoniker": "E:\\Sabari\\Works\\interview task\\studentDetails_Api\\NonEntity\\ClaimData.cs",
+              "RelativeDocumentMoniker": "NonEntity\\ClaimData.cs",
+              "ToolTip": "E:\\Sabari\\Works\\interview task\\studentDetails_Api\\NonEntity\\ClaimData.cs",
+              "RelativeToolTip": "NonEntity\\ClaimData.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-26T12:06:59.934Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "E:\\Sabari\\Works\\interview task\\studentDetails_Api\\appsettings.json",
+              "RelativeDocumentMoniker": "appsettings.json",
+              "ToolTip": "E:\\Sabari\\Works\\interview task\\studentDetails_Api\\appsettings.json",
+              "RelativeToolTip": "appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2024-10-26T08:02:35.829Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "E:\\Sabari\\Works\\interview task\\studentDetails_Api\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "E:\\Sabari\\Works\\interview task\\studentDetails_Api\\Program.cs*",
+              "RelativeToolTip": "Program.cs*",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAA+AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-25T07:51:42.435Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "UserController.cs",
+              "DocumentMoniker": "E:\\Sabari\\Works\\interview task\\studentDetails_Api\\Controllers\\UserController.cs",
+              "RelativeDocumentMoniker": "Controllers\\UserController.cs",
+              "ToolTip": "E:\\Sabari\\Works\\interview task\\studentDetails_Api\\Controllers\\UserController.cs",
+              "RelativeToolTip": "Controllers\\UserController.cs",
+              "ViewState": "AgIAAGkAAAAAAAAAAAAAAHkAAAAvAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-26T13:13:30.033Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "UserTypeMasterModel.cs",
+              "DocumentMoniker": "E:\\Sabari\\Works\\interview task\\studentDetails_Api\\NonEntity\\UserTypeMasterModel.cs",
+              "RelativeDocumentMoniker": "NonEntity\\UserTypeMasterModel.cs",
+              "ToolTip": "E:\\Sabari\\Works\\interview task\\studentDetails_Api\\NonEntity\\UserTypeMasterModel.cs",
+              "RelativeToolTip": "NonEntity\\UserTypeMasterModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-26T12:19:20.41Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "User.cs",
+              "DocumentMoniker": "E:\\Sabari\\Works\\interview task\\studentDetails_Api\\Models\\User.cs",
+              "RelativeDocumentMoniker": "Models\\User.cs",
+              "ToolTip": "E:\\Sabari\\Works\\interview task\\studentDetails_Api\\Models\\User.cs",
+              "RelativeToolTip": "Models\\User.cs",
+              "ViewState": "AgIAAA4AAAAAAAAAAAA9wCUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-26T12:51:11.373Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "LogInModel.cs",
+              "DocumentMoniker": "E:\\Sabari\\Works\\interview task\\studentDetails_Api\\NonEntity\\LogInModel.cs",
+              "RelativeDocumentMoniker": "NonEntity\\LogInModel.cs",
+              "ToolTip": "E:\\Sabari\\Works\\interview task\\studentDetails_Api\\NonEntity\\LogInModel.cs",
+              "RelativeToolTip": "NonEntity\\LogInModel.cs",
+              "ViewState": "AgIAAA0AAAAAAAAAAAAcwF0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-26T12:36:36.379Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "UsersDBContext.cs",
+              "DocumentMoniker": "E:\\Sabari\\Works\\interview task\\studentDetails_Api\\Models\\UsersDBContext.cs",
+              "RelativeDocumentMoniker": "Models\\UsersDBContext.cs",
+              "ToolTip": "E:\\Sabari\\Works\\interview task\\studentDetails_Api\\Models\\UsersDBContext.cs",
+              "RelativeToolTip": "Models\\UsersDBContext.cs",
+              "ViewState": "AgIAACEAAAAAAAAAAAAmwBEAAAAyAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-26T12:49:58.582Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "UserRepository.cs",
+              "DocumentMoniker": "E:\\Sabari\\Works\\interview task\\studentDetails_Api\\Repository\\UserRepository.cs",
+              "RelativeDocumentMoniker": "Repository\\UserRepository.cs",
+              "ToolTip": "E:\\Sabari\\Works\\interview task\\studentDetails_Api\\Repository\\UserRepository.cs",
+              "RelativeToolTip": "Repository\\UserRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-25T10:57:10.07Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "JwtMiddleware.cs",
+              "DocumentMoniker": "E:\\Sabari\\Works\\interview task\\studentDetails_Api\\Middleware\\JwtMiddleware.cs",
+              "RelativeDocumentMoniker": "Middleware\\JwtMiddleware.cs",
+              "ToolTip": "E:\\Sabari\\Works\\interview task\\studentDetails_Api\\Middleware\\JwtMiddleware.cs",
+              "RelativeToolTip": "Middleware\\JwtMiddleware.cs",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAwwCoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-26T04:55:57.635Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "CryptoServices.cs",
+              "DocumentMoniker": "E:\\Sabari\\Works\\interview task\\studentDetails_Api\\Services\\CryptoServices.cs",
+              "RelativeDocumentMoniker": "Services\\CryptoServices.cs",
+              "ToolTip": "E:\\Sabari\\Works\\interview task\\studentDetails_Api\\Services\\CryptoServices.cs",
+              "RelativeToolTip": "Services\\CryptoServices.cs",
+              "ViewState": "AgIAAE0AAAAAAAAAAAAIwG8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-26T06:02:46.671Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "JwtServices.cs",
+              "DocumentMoniker": "E:\\Sabari\\Works\\interview task\\studentDetails_Api\\Services\\JwtServices.cs",
+              "RelativeDocumentMoniker": "Services\\JwtServices.cs",
+              "ToolTip": "E:\\Sabari\\Works\\interview task\\studentDetails_Api\\Services\\JwtServices.cs",
+              "RelativeToolTip": "Services\\JwtServices.cs",
+              "ViewState": "AgIAAFgAAAAAAAAAAAAcwGoAAAA6AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-26T04:58:16.851Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "IUserRepository.cs",
+              "DocumentMoniker": "E:\\Sabari\\Works\\interview task\\studentDetails_Api\\IRepository\\IUserRepository.cs",
+              "RelativeDocumentMoniker": "IRepository\\IUserRepository.cs",
+              "ToolTip": "E:\\Sabari\\Works\\interview task\\studentDetails_Api\\IRepository\\IUserRepository.cs",
+              "RelativeToolTip": "IRepository\\IUserRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-25T10:55:32.85Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "LoginController.cs",
+              "DocumentMoniker": "E:\\Sabari\\Works\\interview task\\studentDetails_Api\\Controllers\\LoginController.cs",
+              "RelativeDocumentMoniker": "Controllers\\LoginController.cs",
+              "ToolTip": "E:\\Sabari\\Works\\interview task\\studentDetails_Api\\Controllers\\LoginController.cs",
+              "RelativeToolTip": "Controllers\\LoginController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-26T13:11:15.813Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "Instructions.txt",
+              "DocumentMoniker": "E:\\Sabari\\Works\\interview task\\studentDetails_Api\\Instructions.txt",
+              "RelativeDocumentMoniker": "Instructions.txt",
+              "ToolTip": "E:\\Sabari\\Works\\interview task\\studentDetails_Api\\Instructions.txt",
+              "RelativeToolTip": "Instructions.txt",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAC4AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003109|",
+              "WhenOpened": "2024-10-26T12:38:36.837Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

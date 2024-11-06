@@ -1,0 +1,1 @@
+Scaffold-DbContext -Connection Name=StudentCS Microsoft.EntityFrameworkCore.SqlServer -Context "StudentDBContext" -Project studentDetails_Api -outputdir Models -Force -UseDatabaseNames
