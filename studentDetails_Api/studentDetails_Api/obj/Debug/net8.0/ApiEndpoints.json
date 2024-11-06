@@ -1,0 +1,60 @@
+[
+  {
+    "ContainingType": "studentDetails_Api.Controllers.StudentController",
+    "Method": "GetAllStudents",
+    "RelativePath": "api/Student",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "studentDetails_Api.Controllers.StudentController",
+    "Method": "AddorUpdateStudentDetails",
+    "RelativePath": "api/Student/AddorStudentStudentDetails",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "details",
+        "Type": "studentDetails_Api.NonEntity.studentDetailModel",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "studentDetails_Api.Controllers.StudentController",
+    "Method": "DeleteStudentDetails",
+    "RelativePath": "api/Student/Deactivate/{id}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "studentDetails_Api.Controllers.StudentController",
+    "Method": "GetStudentDetailsbyID",
+    "RelativePath": "api/Student/GetStudent/{studentID}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "studentID",
+        "Type": "System.Int64",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  }
+]
