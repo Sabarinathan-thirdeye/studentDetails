@@ -25,7 +25,7 @@ namespace studentDetails_Api.Repository
         }
 
         /// <summary>
-        /// Retrieves all user details 
+        /// Retrieves all ACTIVE user details 
         /// </summary>
         public ApiResult<studentDetailModel> GetStudentDetails()
         {
@@ -44,7 +44,46 @@ namespace studentDetails_Api.Repository
                         email = s.email,
                         mobileNumber = s.mobileNumber,
                         createdOn = s.createdOn,
-                        createBy = s.createBy,
+                        createdBy = s.createdBy,
+                        modifiedBy = s.modifiedBy,
+                        modifiedOn = s.modifiedOn,
+                        studentPassword = s.studentPassword,
+                        studentstatus = s.studentstatus
+                    }).ToList();
+
+                if (StudentList.Count > 0)
+                {
+                    return result.SuccessResponse("Success", StudentList);
+                }
+                return result.SuccessResponse("No data found", StudentList);
+            }
+            catch (Exception ex)
+            {
+                return result.ExceptionResponse("Error retrieving student details.", ex);
+            }
+        }
+
+        /// <summary>
+        /// Retrieves all ACTIVE user details 
+        /// </summary>
+        public ApiResult<studentDetailModel> GetStudentDetailsInActive()
+        {
+            ApiResult<studentDetailModel> result = new ApiResult<studentDetailModel>();
+            try
+            {
+                var StudentList = _context.studentDetails
+                    .Where(u => u.studentstatus == 99)
+                    .Select(s => new studentDetailModel
+                    {
+                        studentID = s.studentID,
+                        firstName = s.firstName,
+                        lastName = s.lastName,
+                        dateOfBirth = (DateOnly)s.dateOfBirth,
+                        gender = s.gender,
+                        email = s.email,
+                        mobileNumber = s.mobileNumber,
+                        createdOn = s.createdOn,
+                        createdBy = s.createdBy,
                         modifiedBy = s.modifiedBy,
                         modifiedOn = s.modifiedOn,
                         studentPassword = s.studentPassword,
@@ -73,29 +112,30 @@ namespace studentDetails_Api.Repository
             ApiResult<studentDetailModel> result = new ApiResult<studentDetailModel>();
             try
             {
-                var StudentList = _context.studentDetails.Where(u => u.studentID == studentID && u.studentstatus != 99)
-                    .Select(s => new studentDetailModel
-                    {
-                        studentID = s.studentID,
-                        firstName = s.firstName,
-                        lastName = s.lastName,
-                        dateOfBirth = s.dateOfBirth,
-                        gender = s.gender,
-                        email = s.email,
-                        mobileNumber = s.mobileNumber,
-                        createdOn = s.createdOn,
-                        createBy = s.createBy,
-                        modifiedBy = s.modifiedBy,
-                        modifiedOn = s.modifiedOn,
-                        studentPassword = s.studentPassword,
-                        studentstatus = s.studentstatus
-                    }).ToList();
-
-                if (StudentList.Count > 0)
+                var student = _context.studentDetails.Where(u => u.studentID == studentID && u.studentstatus != 99)
+                .Select(s => new studentDetailModel
                 {
-                    return result.SuccessResponse("Success", StudentList);
+                    studentID = s.studentID,
+                    firstName = s.firstName,
+                    lastName = s.lastName,
+                    dateOfBirth = s.dateOfBirth,
+                    gender = s.gender,
+                    email = s.email,
+                    mobileNumber = s.mobileNumber,
+                    createdOn = s.createdOn,
+                    createdBy = s.createdBy,
+                    modifiedBy = s.modifiedBy,
+                    modifiedOn = s.modifiedOn,
+                    studentPassword = s.studentPassword,
+                    studentstatus = s.studentstatus
+                }).FirstOrDefault(); // Use FirstOrDefault to return a single student detail
+
+                if (student != null)
+                {
+                    return result.SuccessResponse("Success", student); // Return the single student
                 }
-                return result.SuccessResponse("No data found", StudentList);
+                return result.SuccessResponse("No data found", student); // Return the result with null if no data is found
+
             }
             catch (Exception)
             {
@@ -143,7 +183,7 @@ namespace studentDetails_Api.Repository
                         email = role.email,
                         mobileNumber = role.mobileNumber,
                         createdOn = DateTime.Now,
-                        createBy = role.createBy,
+                        createdBy = role.createdBy,
                         modifiedOn = DateTime.Now,
                         modifiedBy = role.modifiedBy,
                         studentPassword = role.studentPassword,
@@ -162,48 +202,52 @@ namespace studentDetails_Api.Repository
         }
 
         /// <summary>
-        /// Delete usertype by Id
+        /// Inactive usertype by Id
         /// </summary>
         /// <param name="StudentID"></param>
         /// <returns></returns>
-        public async Task<ApiResult<studentDetailModel>> DeleteStudentDetails(int id)
+        public async Task<ApiResult<studentDetailModel>> UpdateStudentStatusAsync(long studentID)
         {
-            ApiResult<studentDetailModel> result = new ApiResult<studentDetailModel>();
-
+            var result = new ApiResult<studentDetailModel>();
             try
             {
                 // Find the student by ID
-                var student = await _context.studentDetails.FindAsync(id);
+                var student = await _context.studentDetails.FindAsync(studentID);
 
-                if (student != null)
+                if (student == null)
                 {
-                    // Remove the student from the context
-                    _context.studentDetails.Remove(student);
-                    await _context.SaveChangesAsync();
+                    result.ResponseCode = 0;
+                    result.Message = "Student not found";
+                    return result;
+                }
 
-                    // Indicate success in the response
-                    result.ResponseCode = 1;
-                    result.Message = "Student deleted successfully.";
-                }
-                else
+                if (student.studentstatus == 99)
                 {
-                    // Handle case where the student is not found
-                    result.ResponseCode = 0; // Indicate student not found
-                    result.Message = "Student not found.";
+                     result.Message = "Student is already deactivated"; // Return 400 if already deactivated
+                    return result;
                 }
+
+                // Set student status to 99 (inactive)
+                student.studentstatus = 99;
+
+                // Save the changes
+                await _context.SaveChangesAsync();
+                _context.Update(student);
+                result.ResponseCode = 1;
+                result.Message = "Student status updated to inactive successfully";
             }
             catch (Exception ex)
             {
-                // Log the error (you might want to use a logging framework)
-                result.ResponseCode = -1; // Indicate an error occurred
-                result.Message = "Error while deleting student.";
-                result.ErrorDesc = ex.Message; // Include error details
+                result.ResponseCode = -1;
+                result.Message = "An error occurred while updating the student status";
+                result.ErrorDesc = ex.Message;
             }
 
-            return result; // Ensure to return the result
+            return result;
         }
 
-       
+
+
 
         //public async Task<studentDetail> GetByEmailAsync(string email)
         //{

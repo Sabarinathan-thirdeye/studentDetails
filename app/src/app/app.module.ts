@@ -29,7 +29,8 @@ import { StudentdetailsPageComponent } from '../components/studentdetails-page/s
     AppRoutingModule,
     FormsModule,
     CommonModule,
-    HttpClientModule
+    HttpClientModule,
+    
   ],
   providers: [
     DatePipe,  // Add the DatePipe in providers

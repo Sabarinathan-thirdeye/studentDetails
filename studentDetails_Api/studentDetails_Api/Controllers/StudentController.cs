@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using studentDetails_Api.IRepository;
 using studentDetails_Api.Models;
 using studentDetails_Api.NonEntity;
@@ -52,6 +53,30 @@ namespace studentDetails_Api.Controllers
             try
             {
                 result = _studentRepo.GetStudentDetails();
+                if (result.ResponseCode == 1)
+                {
+                    return Ok(result);
+                }
+                return StatusCode(StatusCodes.Status412PreconditionFailed, result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, result.ExceptionResponse("We don't have a student details ", ex)); ;
+            }
+
+        }
+
+        /// <summary>
+        /// Retrive the All Inactive Student Details 
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("InActive")]
+        public IActionResult GetAllStudentsInActive()
+        {
+            ApiResult<studentDetailModel> result = new ApiResult<studentDetailModel>();
+            try
+            {
+                result = _studentRepo.GetStudentDetailsInActive();
                 if (result.ResponseCode == 1)
                 {
                     return Ok(result);
@@ -127,14 +152,12 @@ namespace studentDetails_Api.Controllers
         [HttpPost("Deactivate/{id}")]
         public async Task<IActionResult> DeleteStudentDetails(int id)
         {
-            ApiResult<studentDetailModel> result;
-
             try
             {
-                // Await the asynchronous delete operation
-                result = await _studentRepo.DeleteStudentDetails(id);
+                // Call the repository method to set student status to 99 (inactive)
+                var result = await _studentRepo.UpdateStudentStatusAsync(id);
 
-                // Handle the response based on ResponseCode
+                // Handle response based on ResponseCode
                 if (result.ResponseCode == 1)
                 {
                     return Ok(result); // Success
@@ -148,11 +171,10 @@ namespace studentDetails_Api.Controllers
                     return StatusCode(StatusCodes.Status412PreconditionFailed, result); // Precondition failed
                 }
 
-                return StatusCode(StatusCodes.Status500InternalServerError, result); // Handle other errors
+                return StatusCode(StatusCodes.Status500InternalServerError, result); // Other errors
             }
             catch (Exception ex)
             {
-                // Return an error response
                 return StatusCode(StatusCodes.Status500InternalServerError,
                     new ApiResult<studentDetailModel>
                     {
@@ -162,6 +184,9 @@ namespace studentDetails_Api.Controllers
                     });
             }
         }
+
+
+
 
 
     }

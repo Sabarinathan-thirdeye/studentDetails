@@ -6,10 +6,15 @@ namespace studentDetails_Api.IRepository
     public interface IStudentRepo
     {
         /// <summary>
-        /// Retrive the All StudentDetails
+        /// Retrive the All active StudentDetails
         /// </summary>
         /// <returns></returns>
         ApiResult<studentDetailModel> GetStudentDetails();
+        /// <summary>
+        /// Retrive the Inactive StudentDetails
+        /// </summary>
+        /// <returns></returns>
+         ApiResult<studentDetailModel> GetStudentDetailsInActive();
         /// <summary>
         /// Retrive the All StudentDetails by UserID
         /// </summary>
@@ -23,11 +28,12 @@ namespace studentDetails_Api.IRepository
         /// <returns></returns>
         Task<ApiResult<studentDetailModel>> AddorupdateStudentDetails(studentDetailModel role);
         /// <summary>
-        /// Deleted the StudentDetails using Student Id 
+        /// Updates the student status to inactive using Student ID.
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="studentID"></param>
         /// <returns></returns>
-        Task<ApiResult<studentDetailModel>> DeleteStudentDetails(int id);
-        
+        Task<ApiResult<studentDetailModel>> UpdateStudentStatusAsync(long studentID);
+
+
     }
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { StudentDetail } from '../../model/student.model';
 import { StudentDetailsService } from '../../services/apiservices.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-studentdetails-page',
@@ -16,13 +17,15 @@ export class StudentdetailsPageComponent implements OnInit {
   showModal = false;
   studentToEdit: StudentDetail | null = null;
 
-  constructor(private studentDetailsService: StudentDetailsService) {}
+  constructor(private studentDetailsService: StudentDetailsService, private router: Router) { }
 
   ngOnInit(): void {
     this.loading = true;
     this.getAllStudentDetails();
   }
-  //getAll
+
+  //API
+  // Get all student details
   getAllStudentDetails() {
     this.studentDetailsService.getAllStudents().subscribe({
       next: (resp: any) => {
@@ -39,54 +42,59 @@ export class StudentdetailsPageComponent implements OnInit {
       }
     });
   }
-  //Pop-up open
+
+  // Add or update student
+  addOrUpdateStudent(): void {
+    if (!this.studentToEdit) return;
+    this.studentDetailsService.addOrUpdateStudentDetails(this.studentToEdit).subscribe({
+      next: (response) => {
+        alert(`${this.studentToEdit?.studentID ? 'Student updated' : 'Student added'} successfully`);
+        this.closeModal();
+        this.getAllStudentDetails();
+      },
+      error: (error) => {
+        console.error('Error updating/adding student:', error);
+        alert('Failed to update/add student');
+      }
+    });
+  }
+
+  // Delete (deactivate) student
+  deleteStudent(studentID: number): void {
+    if (confirm('Are you sure you want to delete this student?')) {
+      this.studentDetailsService.deactivateStudent(studentID).subscribe({
+        next: (response) => {
+          alert('Student deactivated successfully');
+          this.getAllStudentDetails(); // Refresh the student list after deactivation
+        },
+        error: (err) => {
+          console.error('Error deactivating student:', err);
+          alert('Failed to deactivate student');
+        }
+      });
+    }
+  }
+
+  // Filter student details
+  filterStudents() {
+    this.filteredStudentDetails = this.studentDetail.filter(student =>
+      student.firstName.toLowerCase().includes(this.searchText.toLowerCase()));
+  }
+
+  //Add Student
+  navigateToaddStudent() {
+    this.router.navigate(['/register']);
+  }
+
+  // Open modal to add/edit student
   openModal(student?: StudentDetail) {
     this.studentToEdit = student ? { ...student } : {} as StudentDetail;
     this.showModal = true;
   }
 
-  // addOrUpdateStudent
-  // addOrUpdateStudent(updatedStudent: StudentDetail) {
-  //   this.studentDetailsService.addOrUpdateStudentDetails(updatedStudent).subscribe({
-  //     next: () => {
-  //       this.getAllStudentDetails();
-  //       this.closeModal();
-  //     },
-  //     error: err => {
-  //       console.error('Error saving student:', err);
-  //       this.error = 'Failed to save student details';
-  //     }
-  //   });
-  // }
-
-  // deleteStudent
-  deleteStudent(studentID: number) {
-    if (confirm('Are you sure you want to delete this student?')) {
-      this.studentDetailsService.deleteStudent(studentID).subscribe({
-        next: (resp: any) => {
-          if (resp.responseCode === 1) {
-            this.getAllStudentDetails(); // Refresh the student list
-          } else {
-            this.error = resp.message; // Show the error message if the deletion fails
-          }
-        },
-        error: err => {
-          console.error('Error deleting student:', err);
-          this.error = 'Error deleting student';
-        }
-      });
-    }
-  }
-  
-  // pop-up close 
+  // Close modal
   closeModal() {
     this.showModal = false;
     this.studentToEdit = null;
   }
-
-  filterStudents() {
-    this.filteredStudentDetails = this.studentDetail.filter(student => 
-      student.firstName.toLowerCase().includes(this.searchText.toLowerCase()) );
-  }
-  
 }

@@ -56,5 +56,15 @@
       }
     ],
     "ReturnTypes": []
+  },
+  {
+    "ContainingType": "studentDetails_Api.Controllers.StudentController",
+    "Method": "GetAllStudentsInActive",
+    "RelativePath": "api/Student/InActive",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
   }
 ]

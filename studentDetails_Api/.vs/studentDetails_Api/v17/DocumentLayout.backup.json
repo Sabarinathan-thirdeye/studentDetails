@@ -1,9 +1,33 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "E:\\Sabari\\Works\\studentDetails_Api\\",
+  "WorkspaceRootPath": "E:\\Sabari\\Project\\studentDetails\\studentDetails_Api\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{8457EA34-0857-4FE9-940B-D99766E78372}|studentDetails_Api\\studentDetails_Api.csproj|e:\\sabari\\works\\studentdetails_api\\studentdetails_api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{8457EA34-0857-4FE9-940B-D99766E78372}|studentDetails_Api\\studentDetails_Api.csproj|e:\\sabari\\project\\studentdetails\\studentdetails_api\\studentdetails_api\\repository\\studentrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8457EA34-0857-4FE9-940B-D99766E78372}|studentDetails_Api\\studentDetails_Api.csproj|solutionrelative:studentdetails_api\\repository\\studentrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8457EA34-0857-4FE9-940B-D99766E78372}|studentDetails_Api\\studentDetails_Api.csproj|e:\\sabari\\project\\studentdetails\\studentdetails_api\\studentdetails_api\\nonentity\\studentdetailmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8457EA34-0857-4FE9-940B-D99766E78372}|studentDetails_Api\\studentDetails_Api.csproj|solutionrelative:studentdetails_api\\nonentity\\studentdetailmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8457EA34-0857-4FE9-940B-D99766E78372}|studentDetails_Api\\studentDetails_Api.csproj|e:\\sabari\\project\\studentdetails\\studentdetails_api\\studentdetails_api\\models\\studentdetail.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8457EA34-0857-4FE9-940B-D99766E78372}|studentDetails_Api\\studentDetails_Api.csproj|solutionrelative:studentdetails_api\\models\\studentdetail.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8457EA34-0857-4FE9-940B-D99766E78372}|studentDetails_Api\\studentDetails_Api.csproj|e:\\sabari\\project\\studentdetails\\studentdetails_api\\studentdetails_api\\models\\studentdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8457EA34-0857-4FE9-940B-D99766E78372}|studentDetails_Api\\studentDetails_Api.csproj|solutionrelative:studentdetails_api\\models\\studentdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8457EA34-0857-4FE9-940B-D99766E78372}|studentDetails_Api\\studentDetails_Api.csproj|e:\\sabari\\project\\studentdetails\\studentdetails_api\\studentdetails_api\\controllers\\studentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8457EA34-0857-4FE9-940B-D99766E78372}|studentDetails_Api\\studentDetails_Api.csproj|solutionrelative:studentdetails_api\\controllers\\studentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8457EA34-0857-4FE9-940B-D99766E78372}|studentDetails_Api\\studentDetails_Api.csproj|e:\\sabari\\project\\studentdetails\\studentdetails_api\\studentdetails_api\\irepository\\istudentrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8457EA34-0857-4FE9-940B-D99766E78372}|studentDetails_Api\\studentDetails_Api.csproj|solutionrelative:studentdetails_api\\irepository\\istudentrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8457EA34-0857-4FE9-940B-D99766E78372}|studentDetails_Api\\studentDetails_Api.csproj|e:\\sabari\\project\\studentdetails\\studentdetails_api\\studentdetails_api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{8457EA34-0857-4FE9-940B-D99766E78372}|studentDetails_Api\\studentDetails_Api.csproj|solutionrelative:studentdetails_api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -14,15 +38,93 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "StudentDBContext.cs",
+              "DocumentMoniker": "E:\\Sabari\\Project\\studentDetails\\studentDetails_Api\\studentDetails_Api\\Models\\StudentDBContext.cs",
+              "RelativeDocumentMoniker": "studentDetails_Api\\Models\\StudentDBContext.cs",
+              "ToolTip": "E:\\Sabari\\Project\\studentDetails\\studentDetails_Api\\studentDetails_Api\\Models\\StudentDBContext.cs",
+              "RelativeToolTip": "studentDetails_Api\\Models\\StudentDBContext.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-07T08:09:50.386Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "StudentRepo.cs",
+              "DocumentMoniker": "E:\\Sabari\\Project\\studentDetails\\studentDetails_Api\\studentDetails_Api\\Repository\\StudentRepo.cs",
+              "RelativeDocumentMoniker": "studentDetails_Api\\Repository\\StudentRepo.cs",
+              "ToolTip": "E:\\Sabari\\Project\\studentDetails\\studentDetails_Api\\studentDetails_Api\\Repository\\StudentRepo.cs*",
+              "RelativeToolTip": "studentDetails_Api\\Repository\\StudentRepo.cs*",
+              "ViewState": "AgIAAMEAAAAAAAAAAAAuwLQAAAA3AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-07T05:51:51.428Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "IStudentRepo.cs",
+              "DocumentMoniker": "E:\\Sabari\\Project\\studentDetails\\studentDetails_Api\\studentDetails_Api\\IRepository\\IStudentRepo.cs",
+              "RelativeDocumentMoniker": "studentDetails_Api\\IRepository\\IStudentRepo.cs",
+              "ToolTip": "E:\\Sabari\\Project\\studentDetails\\studentDetails_Api\\studentDetails_Api\\IRepository\\IStudentRepo.cs",
+              "RelativeToolTip": "studentDetails_Api\\IRepository\\IStudentRepo.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwBAAAABAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-07T05:42:50.025Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "studentDetail.cs",
+              "DocumentMoniker": "E:\\Sabari\\Project\\studentDetails\\studentDetails_Api\\studentDetails_Api\\Models\\studentDetail.cs",
+              "RelativeDocumentMoniker": "studentDetails_Api\\Models\\studentDetail.cs",
+              "ToolTip": "E:\\Sabari\\Project\\studentDetails\\studentDetails_Api\\studentDetails_Api\\Models\\studentDetail.cs",
+              "RelativeToolTip": "studentDetails_Api\\Models\\studentDetail.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-07T05:40:47.871Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "studentDetailModel.cs",
+              "DocumentMoniker": "E:\\Sabari\\Project\\studentDetails\\studentDetails_Api\\studentDetails_Api\\NonEntity\\studentDetailModel.cs",
+              "RelativeDocumentMoniker": "studentDetails_Api\\NonEntity\\studentDetailModel.cs",
+              "ToolTip": "E:\\Sabari\\Project\\studentDetails\\studentDetails_Api\\studentDetails_Api\\NonEntity\\studentDetailModel.cs",
+              "RelativeToolTip": "studentDetails_Api\\NonEntity\\studentDetailModel.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAkwCIAAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-07T05:38:41.757Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "StudentController.cs",
+              "DocumentMoniker": "E:\\Sabari\\Project\\studentDetails\\studentDetails_Api\\studentDetails_Api\\Controllers\\StudentController.cs",
+              "RelativeDocumentMoniker": "studentDetails_Api\\Controllers\\StudentController.cs",
+              "ToolTip": "E:\\Sabari\\Project\\studentDetails\\studentDetails_Api\\studentDetails_Api\\Controllers\\StudentController.cs",
+              "RelativeToolTip": "studentDetails_Api\\Controllers\\StudentController.cs",
+              "ViewState": "AgIAAIoAAAAAAAAAAAApwEQAAAAVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-07T05:25:34.874Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
               "Title": "Program.cs",
-              "DocumentMoniker": "E:\\Sabari\\Works\\studentDetails_Api\\studentDetails_Api\\Program.cs",
+              "DocumentMoniker": "E:\\Sabari\\Project\\studentDetails\\studentDetails_Api\\studentDetails_Api\\Program.cs",
               "RelativeDocumentMoniker": "studentDetails_Api\\Program.cs",
-              "ToolTip": "E:\\Sabari\\Works\\studentDetails_Api\\studentDetails_Api\\Program.cs",
+              "ToolTip": "E:\\Sabari\\Project\\studentDetails\\studentDetails_Api\\studentDetails_Api\\Program.cs",
               "RelativeToolTip": "studentDetails_Api\\Program.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",

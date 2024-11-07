@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "vbXUe4WoaYQ=",
+  "dgSpecHash": "cWmPybsnCE4=",
   "success": true,
-  "projectFilePath": "E:\\Sabari\\Works\\studentDetails_Api\\studentDetails_Api\\studentDetails_Api.csproj",
+  "projectFilePath": "E:\\Sabari\\Project\\studentDetails\\studentDetails_Api\\studentDetails_Api\\studentDetails_Api.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Developer20\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\Developer20\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",
