@@ -2,6 +2,7 @@
 using studentDetails_Api.Models;
 using studentDetails_Api.NonEntity;
 using studentDetails_Api.IRepository;
+using Microsoft.AspNetCore.Mvc;
 
 namespace studentDetails_Api.Repository
 {
@@ -246,19 +247,6 @@ namespace studentDetails_Api.Repository
             return result;
         }
 
-
-
-
-        //public async Task<studentDetail> GetByEmailAsync(string email)
-        //{
-        //    return await _context.studentDetails.FirstOrDefaultAsync(s => s.email == email);
-        //}
-
-        //public async Task UpdateAsync(studentDetail entity)
-        //{
-        //    _context.studentDetails.Update(entity);
-        //    await _context.SaveChangesAsync();
-        //}
     }
 
 }

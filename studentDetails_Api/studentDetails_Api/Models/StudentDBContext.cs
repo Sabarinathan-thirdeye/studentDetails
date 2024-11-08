@@ -15,6 +15,8 @@ public partial class StudentDBContext : DbContext
     {
     }
 
+    public virtual DbSet<LoginRequest> LoginRequests { get; set; }
+
     public virtual DbSet<studentDetail> studentDetails { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -22,6 +24,16 @@ public partial class StudentDBContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<LoginRequest>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToTable("LoginRequest");
+
+            entity.Property(e => e.email).HasMaxLength(100);
+            entity.Property(e => e.studentPassword).HasMaxLength(100);
+        });
+
         modelBuilder.Entity<studentDetail>(entity =>
         {
             entity.HasKey(e => e.studentID).HasName("PK_StudentID_StudentDetails");

@@ -3,32 +3,48 @@
   "WorkspaceRootPath": "E:\\Sabari\\Project\\studentDetails\\studentDetails_Api\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{8457EA34-0857-4FE9-940B-D99766E78372}|studentDetails_Api\\studentDetails_Api.csproj|e:\\sabari\\project\\studentdetails\\studentdetails_api\\studentdetails_api\\irepository\\istudentrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8457EA34-0857-4FE9-940B-D99766E78372}|studentDetails_Api\\studentDetails_Api.csproj|solutionrelative:studentdetails_api\\irepository\\istudentrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{8457EA34-0857-4FE9-940B-D99766E78372}|studentDetails_Api\\studentDetails_Api.csproj|e:\\sabari\\project\\studentdetails\\studentdetails_api\\studentdetails_api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8457EA34-0857-4FE9-940B-D99766E78372}|studentDetails_Api\\studentDetails_Api.csproj|solutionrelative:studentdetails_api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8457EA34-0857-4FE9-940B-D99766E78372}|studentDetails_Api\\studentDetails_Api.csproj|e:\\sabari\\project\\studentdetails\\studentdetails_api\\studentdetails_api\\repository\\studentrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8457EA34-0857-4FE9-940B-D99766E78372}|studentDetails_Api\\studentDetails_Api.csproj|solutionrelative:studentdetails_api\\repository\\studentrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{8457EA34-0857-4FE9-940B-D99766E78372}|studentDetails_Api\\studentDetails_Api.csproj|e:\\sabari\\project\\studentdetails\\studentdetails_api\\studentdetails_api\\middleware\\jwtmiddleware.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8457EA34-0857-4FE9-940B-D99766E78372}|studentDetails_Api\\studentDetails_Api.csproj|solutionrelative:studentdetails_api\\middleware\\jwtmiddleware.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8457EA34-0857-4FE9-940B-D99766E78372}|studentDetails_Api\\studentDetails_Api.csproj|e:\\sabari\\project\\studentdetails\\studentdetails_api\\studentdetails_api\\models\\studentdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8457EA34-0857-4FE9-940B-D99766E78372}|studentDetails_Api\\studentDetails_Api.csproj|solutionrelative:studentdetails_api\\models\\studentdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{8457EA34-0857-4FE9-940B-D99766E78372}|studentDetails_Api\\studentDetails_Api.csproj|e:\\sabari\\project\\studentdetails\\studentdetails_api\\studentdetails_api\\services\\jwtservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8457EA34-0857-4FE9-940B-D99766E78372}|studentDetails_Api\\studentDetails_Api.csproj|solutionrelative:studentdetails_api\\services\\jwtservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8457EA34-0857-4FE9-940B-D99766E78372}|studentDetails_Api\\studentDetails_Api.csproj|e:\\sabari\\project\\studentdetails\\studentdetails_api\\studentdetails_api\\nonentity\\studentdetailmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8457EA34-0857-4FE9-940B-D99766E78372}|studentDetails_Api\\studentDetails_Api.csproj|solutionrelative:studentdetails_api\\nonentity\\studentdetailmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{8457EA34-0857-4FE9-940B-D99766E78372}|studentDetails_Api\\studentDetails_Api.csproj|e:\\sabari\\project\\studentdetails\\studentdetails_api\\studentdetails_api\\services\\cryptoservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8457EA34-0857-4FE9-940B-D99766E78372}|studentDetails_Api\\studentDetails_Api.csproj|solutionrelative:studentdetails_api\\services\\cryptoservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8457EA34-0857-4FE9-940B-D99766E78372}|studentDetails_Api\\studentDetails_Api.csproj|e:\\sabari\\project\\studentdetails\\studentdetails_api\\studentdetails_api\\models\\studentdetail.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8457EA34-0857-4FE9-940B-D99766E78372}|studentDetails_Api\\studentDetails_Api.csproj|solutionrelative:studentdetails_api\\models\\studentdetail.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{8457EA34-0857-4FE9-940B-D99766E78372}|studentDetails_Api\\studentDetails_Api.csproj|e:\\sabari\\project\\studentdetails\\studentdetails_api\\studentdetails_api\\controllers\\logincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8457EA34-0857-4FE9-940B-D99766E78372}|studentDetails_Api\\studentDetails_Api.csproj|solutionrelative:studentdetails_api\\controllers\\logincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{8457EA34-0857-4FE9-940B-D99766E78372}|studentDetails_Api\\studentDetails_Api.csproj|e:\\sabari\\project\\studentdetails\\studentdetails_api\\studentdetails_api\\controllers\\studentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{8457EA34-0857-4FE9-940B-D99766E78372}|studentDetails_Api\\studentDetails_Api.csproj|solutionrelative:studentdetails_api\\controllers\\studentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8457EA34-0857-4FE9-940B-D99766E78372}|studentDetails_Api\\studentDetails_Api.csproj|e:\\sabari\\project\\studentdetails\\studentdetails_api\\studentdetails_api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8457EA34-0857-4FE9-940B-D99766E78372}|studentDetails_Api\\studentDetails_Api.csproj|solutionrelative:studentdetails_api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{8457EA34-0857-4FE9-940B-D99766E78372}|studentDetails_Api\\studentDetails_Api.csproj|e:\\sabari\\project\\studentdetails\\studentdetails_api\\studentdetails_api\\nonentity\\studentdetailmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8457EA34-0857-4FE9-940B-D99766E78372}|studentDetails_Api\\studentDetails_Api.csproj|solutionrelative:studentdetails_api\\nonentity\\studentdetailmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8457EA34-0857-4FE9-940B-D99766E78372}|studentDetails_Api\\studentDetails_Api.csproj|e:\\sabari\\project\\studentdetails\\studentdetails_api\\studentdetails_api\\irepository\\iloginrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8457EA34-0857-4FE9-940B-D99766E78372}|studentDetails_Api\\studentDetails_Api.csproj|solutionrelative:studentdetails_api\\irepository\\iloginrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8457EA34-0857-4FE9-940B-D99766E78372}|studentDetails_Api\\studentDetails_Api.csproj|e:\\sabari\\project\\studentdetails\\studentdetails_api\\studentdetails_api\\nonentity\\loginresponsemodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8457EA34-0857-4FE9-940B-D99766E78372}|studentDetails_Api\\studentDetails_Api.csproj|solutionrelative:studentdetails_api\\nonentity\\loginresponsemodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8457EA34-0857-4FE9-940B-D99766E78372}|studentDetails_Api\\studentDetails_Api.csproj|e:\\sabari\\project\\studentdetails\\studentdetails_api\\studentdetails_api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{8457EA34-0857-4FE9-940B-D99766E78372}|studentDetails_Api\\studentDetails_Api.csproj|solutionrelative:studentdetails_api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8457EA34-0857-4FE9-940B-D99766E78372}|studentDetails_Api\\studentDetails_Api.csproj|e:\\sabari\\project\\studentdetails\\studentdetails_api\\studentdetails_api\\repository\\loginrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8457EA34-0857-4FE9-940B-D99766E78372}|studentDetails_Api\\studentDetails_Api.csproj|solutionrelative:studentdetails_api\\repository\\loginrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -38,71 +54,19 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 5,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "StudentDBContext.cs",
-              "DocumentMoniker": "E:\\Sabari\\Project\\studentDetails\\studentDetails_Api\\studentDetails_Api\\Models\\StudentDBContext.cs",
-              "RelativeDocumentMoniker": "studentDetails_Api\\Models\\StudentDBContext.cs",
-              "ToolTip": "E:\\Sabari\\Project\\studentDetails\\studentDetails_Api\\studentDetails_Api\\Models\\StudentDBContext.cs",
-              "RelativeToolTip": "studentDetails_Api\\Models\\StudentDBContext.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-07T08:09:50.386Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "StudentRepo.cs",
-              "DocumentMoniker": "E:\\Sabari\\Project\\studentDetails\\studentDetails_Api\\studentDetails_Api\\Repository\\StudentRepo.cs",
-              "RelativeDocumentMoniker": "studentDetails_Api\\Repository\\StudentRepo.cs",
-              "ToolTip": "E:\\Sabari\\Project\\studentDetails\\studentDetails_Api\\studentDetails_Api\\Repository\\StudentRepo.cs",
-              "RelativeToolTip": "studentDetails_Api\\Repository\\StudentRepo.cs",
-              "ViewState": "AgIAAL8AAAAAAAAAAAAIwAoAAAAfAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-07T05:51:51.428Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "IStudentRepo.cs",
-              "DocumentMoniker": "E:\\Sabari\\Project\\studentDetails\\studentDetails_Api\\studentDetails_Api\\IRepository\\IStudentRepo.cs",
-              "RelativeDocumentMoniker": "studentDetails_Api\\IRepository\\IStudentRepo.cs",
-              "ToolTip": "E:\\Sabari\\Project\\studentDetails\\studentDetails_Api\\studentDetails_Api\\IRepository\\IStudentRepo.cs*",
-              "RelativeToolTip": "studentDetails_Api\\IRepository\\IStudentRepo.cs*",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAqwCAAAAAsAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-07T05:42:50.025Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "studentDetail.cs",
-              "DocumentMoniker": "E:\\Sabari\\Project\\studentDetails\\studentDetails_Api\\studentDetails_Api\\Models\\studentDetail.cs",
-              "RelativeDocumentMoniker": "studentDetails_Api\\Models\\studentDetail.cs",
-              "ToolTip": "E:\\Sabari\\Project\\studentDetails\\studentDetails_Api\\studentDetails_Api\\Models\\studentDetail.cs",
-              "RelativeToolTip": "studentDetails_Api\\Models\\studentDetail.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAyAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-07T05:40:47.871Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 6,
               "Title": "studentDetailModel.cs",
               "DocumentMoniker": "E:\\Sabari\\Project\\studentDetails\\studentDetails_Api\\studentDetails_Api\\NonEntity\\studentDetailModel.cs",
               "RelativeDocumentMoniker": "studentDetails_Api\\NonEntity\\studentDetailModel.cs",
               "ToolTip": "E:\\Sabari\\Project\\studentDetails\\studentDetails_Api\\studentDetails_Api\\NonEntity\\studentDetailModel.cs",
               "RelativeToolTip": "studentDetails_Api\\NonEntity\\studentDetailModel.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAkwCIAAAAqAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-07T05:38:41.757Z",
+              "WhenOpened": "2024-11-08T13:18:44.953Z",
               "EditorCaption": ""
             },
             {
@@ -113,22 +77,126 @@
               "RelativeDocumentMoniker": "studentDetails_Api\\Controllers\\StudentController.cs",
               "ToolTip": "E:\\Sabari\\Project\\studentDetails\\studentDetails_Api\\studentDetails_Api\\Controllers\\StudentController.cs",
               "RelativeToolTip": "studentDetails_Api\\Controllers\\StudentController.cs",
-              "ViewState": "AgIAAIoAAAAAAAAAAAApwEQAAAAVAAAAAAAAAA==",
+              "ViewState": "AgIAACsAAAAAAAAAAAAswMYAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-07T05:25:34.874Z",
+              "WhenOpened": "2024-11-08T11:10:33.342Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 4,
+              "Title": "LogInController.cs",
+              "DocumentMoniker": "E:\\Sabari\\Project\\studentDetails\\studentDetails_Api\\studentDetails_Api\\Controllers\\LogInController.cs",
+              "RelativeDocumentMoniker": "studentDetails_Api\\Controllers\\LogInController.cs",
+              "ToolTip": "E:\\Sabari\\Project\\studentDetails\\studentDetails_Api\\studentDetails_Api\\Controllers\\LogInController.cs",
+              "RelativeToolTip": "studentDetails_Api\\Controllers\\LogInController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAjAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-08T07:03:40.484Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "CryptoServices.cs",
+              "DocumentMoniker": "E:\\Sabari\\Project\\studentDetails\\studentDetails_Api\\studentDetails_Api\\Services\\CryptoServices.cs",
+              "RelativeDocumentMoniker": "studentDetails_Api\\Services\\CryptoServices.cs",
+              "ToolTip": "E:\\Sabari\\Project\\studentDetails\\studentDetails_Api\\studentDetails_Api\\Services\\CryptoServices.cs",
+              "RelativeToolTip": "studentDetails_Api\\Services\\CryptoServices.cs",
+              "ViewState": "AgIAACEAAAAAAAAAAAAAAD4AAAADAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-08T12:51:06.044Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "JwtServices.cs",
+              "DocumentMoniker": "E:\\Sabari\\Project\\studentDetails\\studentDetails_Api\\studentDetails_Api\\Services\\JwtServices.cs",
+              "RelativeDocumentMoniker": "studentDetails_Api\\Services\\JwtServices.cs",
+              "ToolTip": "E:\\Sabari\\Project\\studentDetails\\studentDetails_Api\\studentDetails_Api\\Services\\JwtServices.cs",
+              "RelativeToolTip": "studentDetails_Api\\Services\\JwtServices.cs",
+              "ViewState": "AgIAAF4AAAAAAAAAAAAAAHsAAAADAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-08T12:51:34.282Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
               "Title": "Program.cs",
               "DocumentMoniker": "E:\\Sabari\\Project\\studentDetails\\studentDetails_Api\\studentDetails_Api\\Program.cs",
               "RelativeDocumentMoniker": "studentDetails_Api\\Program.cs",
-              "ToolTip": "E:\\Sabari\\Project\\studentDetails\\studentDetails_Api\\studentDetails_Api\\Program.cs",
-              "RelativeToolTip": "studentDetails_Api\\Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "ToolTip": "E:\\Sabari\\Project\\studentDetails\\studentDetails_Api\\studentDetails_Api\\Program.cs*",
+              "RelativeToolTip": "studentDetails_Api\\Program.cs*",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAmAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-11-06T13:04:00.548Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "JwtMiddleware.cs",
+              "DocumentMoniker": "E:\\Sabari\\Project\\studentDetails\\studentDetails_Api\\studentDetails_Api\\Middleware\\JwtMiddleware.cs",
+              "RelativeDocumentMoniker": "studentDetails_Api\\Middleware\\JwtMiddleware.cs",
+              "ToolTip": "E:\\Sabari\\Project\\studentDetails\\studentDetails_Api\\studentDetails_Api\\Middleware\\JwtMiddleware.cs",
+              "RelativeToolTip": "studentDetails_Api\\Middleware\\JwtMiddleware.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAiwCUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-08T10:52:34.96Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "ILogInRepo.cs",
+              "DocumentMoniker": "E:\\Sabari\\Project\\studentDetails\\studentDetails_Api\\studentDetails_Api\\IRepository\\ILogInRepo.cs",
+              "RelativeDocumentMoniker": "studentDetails_Api\\IRepository\\ILogInRepo.cs",
+              "ToolTip": "E:\\Sabari\\Project\\studentDetails\\studentDetails_Api\\studentDetails_Api\\IRepository\\ILogInRepo.cs",
+              "RelativeToolTip": "studentDetails_Api\\IRepository\\ILogInRepo.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAoAAABUAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-08T12:03:46.427Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "LogInResponseModel.cs",
+              "DocumentMoniker": "E:\\Sabari\\Project\\studentDetails\\studentDetails_Api\\studentDetails_Api\\NonEntity\\LogInResponseModel.cs",
+              "RelativeDocumentMoniker": "studentDetails_Api\\NonEntity\\LogInResponseModel.cs",
+              "ToolTip": "E:\\Sabari\\Project\\studentDetails\\studentDetails_Api\\studentDetails_Api\\NonEntity\\LogInResponseModel.cs",
+              "RelativeToolTip": "studentDetails_Api\\NonEntity\\LogInResponseModel.cs",
+              "ViewState": "AgIAAAoAAAAAAAAAAAA8wCEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-08T13:18:28.837Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "LogInRepo.cs",
+              "DocumentMoniker": "E:\\Sabari\\Project\\studentDetails\\studentDetails_Api\\studentDetails_Api\\Repository\\LogInRepo.cs",
+              "RelativeDocumentMoniker": "studentDetails_Api\\Repository\\LogInRepo.cs",
+              "ToolTip": "E:\\Sabari\\Project\\studentDetails\\studentDetails_Api\\studentDetails_Api\\Repository\\LogInRepo.cs",
+              "RelativeToolTip": "studentDetails_Api\\Repository\\LogInRepo.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-08T11:55:25.593Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "E:\\Sabari\\Project\\studentDetails\\studentDetails_Api\\studentDetails_Api\\appsettings.json",
+              "RelativeDocumentMoniker": "studentDetails_Api\\appsettings.json",
+              "ToolTip": "E:\\Sabari\\Project\\studentDetails\\studentDetails_Api\\studentDetails_Api\\appsettings.json",
+              "RelativeToolTip": "studentDetails_Api\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAABeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2024-11-08T11:08:43.896Z",
               "EditorCaption": ""
             }
           ]

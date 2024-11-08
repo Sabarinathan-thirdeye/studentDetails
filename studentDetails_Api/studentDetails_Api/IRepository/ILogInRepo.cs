@@ -1,10 +1,13 @@
-﻿//using studentDetails_Api.Common.NonEntities;
-//using studentDetails_Api.NonEntity;
+﻿using studentDetails_Api.Models;
+using studentDetails_Api.NonEntity;
 
-//namespace studentDetails_Api.IRepository
-//{
-//    public interface ILogInRepo
-//    {
-//        Task<ApiResult<LogInModel>> Login(LogInModel request);
-//    }
-//}
+namespace studentDetails_Api.IRepository
+{
+    public interface ILogInRepo
+    {
+        /// <summary>
+        /// Retrieves student details by email and validates password.
+        /// </summary>
+        Task<ApiResult<LogInResponseModel>> GetStudentByEmailAsync(LoginRequestModel req);
+    }
+}

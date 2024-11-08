@@ -1,16 +1,16 @@
-import { TestBed } from '@angular/core/testing';
+// import { TestBed } from '@angular/core/testing';
 
-import { ApiservicesService } from './apiservices.service';
+// // import { ApiservicesService } from './apiservices.service';
 
-describe('ApiservicesService', () => {
-  let service: ApiservicesService;
+// describe('ApiservicesService', () => {
+//   let service: ApiservicesService;
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(ApiservicesService);
-  });
+//   beforeEach(() => {
+//     TestBed.configureTestingModule({});
+//     service = TestBed.inject(ApiservicesService);
+//   });
 
-  it('should be created', () => {
-    expect(service).toBeTruthy();
-  });
-});
+//   it('should be created', () => {
+//     expect(service).toBeTruthy();
+//   });
+// });

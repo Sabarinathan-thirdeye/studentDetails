@@ -6,27 +6,15 @@
 
 //namespace studentDetails_Api.Middleware
 //{
-//    /// <summary>
-//    /// JWT Middleware
-//    /// </summary>
 //    public class JwtMiddleware
 //    {
 //        private readonly RequestDelegate _next;
 
-//        /// <summary>
-//        /// Constructor
-//        /// </summary>
-//        /// <param name="next"></param>
 //        public JwtMiddleware(RequestDelegate next)
 //        {
 //            _next = next;
 //        }
 
-//        /// <summary>
-//        /// Invoke Action
-//        /// </summary>
-//        /// <param name="context">App Context</param>
-//        /// <returns></returns>
 //        public async Task InvokeAsync(HttpContext context)
 //        {
 //            var authorizationHeader = context.Request.Headers["Authorization"].FirstOrDefault();
@@ -37,7 +25,6 @@
 //                var jwtServices = context.RequestServices.GetService<JwtServices>();
 //                var claimData = jwtServices.GetClaimData();
 
-//                // If token is valid, set the claims in the context
 //                if (claimData != null)
 //                {
 //                    context.Items["ClaimData"] = claimData;

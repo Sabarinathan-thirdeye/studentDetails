@@ -1,6 +1,7 @@
+// login-page.component.ts
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { AppModule } from '../../app/app.module';
+import { AuthService } from '../../auth/auth.service';
 
 @Component({
   selector: 'app-login-page',
@@ -10,24 +11,35 @@ import { AppModule } from '../../app/app.module';
 export class LoginPageComponent {
   email: string = '';
   password: string = '';
+  errorMessage: string = ''; // Variable to hold the error message if login fails
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private authService: AuthService) {}
 
+  
   onSubmit() {
-    if (this.email === 'admin' && this.password === 'admin') {
-      alert('login successfully');
-      this.router.navigate(['/studentdetails']);
-    } else {
-      alert('Invalid login credentials');
+      // Call login service when the form is submitted
+      this.authService.login(this.email, this.password).subscribe(
+        (response) => {
+          console.log('Login Response:', response);  // Log response to inspect its structure
+          alert('Login successful');
+          this.router.navigate(['/studentdetails']);
+        },
+        (error) => {
+          this.errorMessage = 'Invalid login credentials';
+          console.error('Login error:', error);
+        }
+      );
     }
-  }
-
+    
+  
   navigateToForgotPassword() {
     this.router.navigate(['/forgettenpassword']);
   }
+
   navigateToRegisterform() {
     this.router.navigate(['/register']);
   }
+
   navigateToReset() {
     this.router.navigate(['/resetpassword']);
   }

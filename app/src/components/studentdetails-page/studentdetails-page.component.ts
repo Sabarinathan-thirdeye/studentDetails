@@ -24,7 +24,7 @@ export class StudentdetailsPageComponent implements OnInit {
     this.getAllStudentDetails();
   }
 
-  //API
+//API
   // Get all student details
   getAllStudentDetails() {
     this.studentDetailsService.getAllStudents().subscribe({

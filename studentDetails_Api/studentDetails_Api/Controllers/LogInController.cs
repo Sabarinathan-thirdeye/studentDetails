@@ -1,54 +1,48 @@
-﻿
-//        using Microsoft.AspNetCore.Mvc;
-//using studentDetails_Api.IRepository;
-//using studentDetails_Api.Models;
-//        using studentDetails_Api.NonEntity;
-//        using studentDetails_Api.Services;
+﻿using studentDetails_Api.IRepository;
+using studentDetails_Api.NonEntity;
+using Microsoft.AspNetCore.Mvc;
+using studentDetails_Api.Models;
 
-//namespace studentDetails_Api.Controllers
-//{
-//    [Route("api/[controller]")]
-//    [ApiController]
-//    public class AuthController : ControllerBase
-//    {
-//        private readonly IStudentRepo<studentDetail> _studentRepository; // Assuming IRepository is set up
-//        private readonly JwtServices _jwtServices;
-//        private readonly CryptoServices _cryptoServices;
 
-//        public AuthController(IStudentRepo<studentDetail> studentRepository, JwtServices jwtServices, CryptoServices cryptoServices)
-//        {
-//            _studentRepository = studentRepository;
-//            _jwtServices = jwtServices;
-//            _cryptoServices = cryptoServices;
-//        }
+namespace studentDetails_Api.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class LogInController : ControllerBase
+    {
+        private readonly ILogInRepo _logInRepo;
 
-//        [HttpPost("login")]
-//        public async Task<IActionResult> Login([FromBody] LogInRequest loginRequest)
-//        {
-//            // Validate input
-//            if (loginRequest == null || string.IsNullOrWhiteSpace(loginRequest.Email) || string.IsNullOrWhiteSpace(loginRequest.Password))
-//            {
-//                return BadRequest("Email and Password are required.");
-//            }
+        public LogInController(ILogInRepo logInRepo)
+        {
+            _logInRepo = logInRepo;
+        }
 
-//            // Fetch the user by email
-//            var student = await _studentRepository.GetByEmailAsync(loginRequest.Email); // Assuming you have a method to get user by email
+        /// <summary>
+        /// Login the student by validating email and password.
+        /// </summary>
+        /// <param name="loginRequest"></param>
+        /// <returns></returns>
+        [HttpPost("Login")]
+        public async Task<IActionResult> Login(LoginRequestModel loginRequest)
+        {
+            ApiResult<LogInResponseModel> result = await _logInRepo.GetStudentByEmailAsync(loginRequest);
 
-//            // If student not found or password does not match
-//            if (student == null || student.studentPassword != _cryptoServices.DecryptStringFromBytes_Aes(loginRequest.Password))
-//            {
-//                return Unauthorized("Invalid email or password.");
-//            }
+            if (string.IsNullOrEmpty(loginRequest.email))
+            {
+                return BadRequest(new { message = "Email and password are required." });
 
-//            // Generate JWT token
-//            var token = _jwtServices.GenerateToken(student);
+            }
+            if (string.IsNullOrEmpty(loginRequest.studentPassword))
+            {
+                return BadRequest(new { message = "Email and password are required." });
 
-//            // Optionally, save the token in the database (encrypted)
-//            student.StudentToken = _cryptoServices.EncryptStringToBytes_Aes(token);
-//            await _studentRepository.UpdateAsync(student); // Assuming you have an Update method
+            }
+            if (result.ResponseCode == 1)
+            {
+                return Ok(result); // Return success response
+            }
 
-//            // Return token
-//            return Ok(new { Token = token });
-//        }
-//    }
-//}
+            return Unauthorized(result); // Return Unauthorized if login fails
+        }
+    }
+}

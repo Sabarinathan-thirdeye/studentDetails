@@ -11,6 +11,7 @@ namespace studentDetails_Api.Controllers
     /// </summary>
     [Route("api/[controller]")]
     [ApiController]
+
     public class StudentController : ControllerBase
     {
         /// <summary>

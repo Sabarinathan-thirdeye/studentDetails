@@ -1,6 +1,6 @@
 import { Component, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';  // Import HttpClientModule
 import { StudentDetailsService } from '../services/apiservices.service';  // Ensure correct import path
@@ -30,7 +30,7 @@ import { StudentdetailsPageComponent } from '../components/studentdetails-page/s
     FormsModule,
     CommonModule,
     HttpClientModule,
-    
+    ReactiveFormsModule,
   ],
   providers: [
     DatePipe,  // Add the DatePipe in providers

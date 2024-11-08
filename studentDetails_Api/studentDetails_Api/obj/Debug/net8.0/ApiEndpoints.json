@@ -1,5 +1,21 @@
 [
   {
+    "ContainingType": "studentDetails_Api.Controllers.LogInController",
+    "Method": "Login",
+    "RelativePath": "api/LogIn/Login",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "loginRequest",
+        "Type": "studentDetails_Api.Models.LoginRequestModel",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "studentDetails_Api.Controllers.StudentController",
     "Method": "GetAllStudents",
     "RelativePath": "api/Student",
@@ -19,7 +35,7 @@
     "Parameters": [
       {
         "Name": "details",
-        "Type": "studentDetails_Api.NonEntity.studentDetailModel",
+        "Type": "studentDetailModel",
         "IsRequired": true
       }
     ],
