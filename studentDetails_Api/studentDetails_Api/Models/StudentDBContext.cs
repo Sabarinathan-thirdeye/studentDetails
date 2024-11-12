@@ -30,8 +30,8 @@ public partial class StudentDBContext : DbContext
                 .HasNoKey()
                 .ToTable("LoginRequest");
 
-            entity.Property(e => e.email).HasMaxLength(100);
             entity.Property(e => e.studentPassword).HasMaxLength(100);
+            entity.Property(e => e.userName).HasMaxLength(100);
         });
 
         modelBuilder.Entity<studentDetail>(entity =>
@@ -40,11 +40,11 @@ public partial class StudentDBContext : DbContext
 
             entity.Property(e => e.createdOn).HasColumnType("datetime");
             entity.Property(e => e.email).HasMaxLength(100);
-            entity.Property(e => e.firstName).HasMaxLength(100);
             entity.Property(e => e.gender).HasMaxLength(100);
-            entity.Property(e => e.lastName).HasMaxLength(100);
             entity.Property(e => e.modifiedOn).HasColumnType("datetime");
+            entity.Property(e => e.studentName).HasMaxLength(100);
             entity.Property(e => e.studentPassword).HasMaxLength(100);
+            entity.Property(e => e.userName).HasMaxLength(100);
         });
 
         OnModelCreatingPartial(modelBuilder);

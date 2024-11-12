@@ -30,35 +30,13 @@ namespace studentDetails_Api.Middleware
         /// <returns></returns>
         public async Task InvokeAsync(HttpContext context, JwtServices jwtServices)
         {
-            var token = context.Request.Headers["Authorization"].ToString().Replace("Bearer ", string.Empty);
+            var authorizationHeader = context.Request.Headers["Authorization"].FirstOrDefault();
+            var token = authorizationHeader?.Replace("Bearer ", string.Empty);
 
             if (!string.IsNullOrEmpty(token))
             {
-                try
-                {
-                    var jwtTokenHandler = new JwtSecurityTokenHandler();
-                    var key = Encoding.UTF8.GetBytes(_configuration["JWT:SigningKey"]);
-
-                    var tokenValidationParameters = new TokenValidationParameters
-                    {
-                        ValidateIssuer = true,
-                        ValidateAudience = true,
-                        ValidateLifetime = true,
-                        ValidateIssuerSigningKey = true,
-                        ValidIssuer = _configuration["JWT:Issuer"],
-                        ValidAudience = _configuration["JWT:Audience"],
-                        IssuerSigningKey = new SymmetricSecurityKey(key)
-                    };
-
-                    jwtTokenHandler.ValidateToken(token, tokenValidationParameters, out var validatedToken);
-                    context.Items["User"] = validatedToken;
-                }
-                catch
-                {
-                    context.Response.StatusCode = 401;  // Unauthorized
-                    await context.Response.WriteAsync("Unauthorized access");
-                    return;
-                }
+                ClaimData claimData = jwtServices.GetClaimData();
+                context.Items["ClaimData"] = claimData;
             }
 
             await _next(context);

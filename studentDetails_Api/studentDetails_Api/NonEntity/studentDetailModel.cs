@@ -7,11 +7,11 @@ public partial class studentDetailModel
 
     [Required]
     [StringLength(50)] // Maximum length for first name
-    public string firstName { get; set; } = null!;
+    public string studentName { get; set; } = null!;
 
     [Required]
     [StringLength(50)] // Maximum length for last name
-    public string lastName { get; set; } = null!;
+    public string userName { get; set; } = null!;
 
     [Required]
     public DateOnly dateOfBirth { get; set; }
@@ -41,4 +41,6 @@ public partial class studentDetailModel
 
     [Required]
     public int studentstatus { get; set; }
+
+
 }

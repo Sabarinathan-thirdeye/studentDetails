@@ -2,6 +2,7 @@
 using studentDetails_Api.IRepository;
 using studentDetails_Api.Models;
 using studentDetails_Api.NonEntity;
+using studentDetails_Api.Repository;
 using studentDetails_Api.Services;
 using System.Security.Claims;
 
@@ -24,12 +25,33 @@ namespace studentDetails_Api.Controllers
         }
 
         /// <summary>
+        /// POST method to add or update a student's details
+        /// </summary>
+        /// <param name="details"></param>
+        /// <returns></returns>
+        [HttpPost("AddorUpdateStudentDetails")]
+        public async Task<IActionResult> AddorUpdateStudentDetails([FromBody] studentDetailModel student)
+        {
+            ApiResult<studentDetailModel> result = new ApiResult<studentDetailModel>();
+            try
+            {
+                result = await _logInRepo.AddOrUpdateStudentDetails(student);
+                return result.ResponseCode == 1 ? Ok(result) : StatusCode(StatusCodes.Status412PreconditionFailed, result);
+            }
+            catch (Exception ex)
+            {
+                //_logger.LogErrorDetails(ex, ex.Message, _contextAccessor, "", result.ExceptionResponse("Error while add or update a student.", ex));
+                return StatusCode(StatusCodes.Status500InternalServerError, result.ExceptionResponse("Error while add or update a student.", ex)); ;
+            }
+        }
+
+        /// <summary>
         /// Login the student by validating email and password.
         /// </summary>
         /// <param name="loginRequest"></param>
         /// <returns></returns>
         [HttpPost("Authenticate")]
-        public async Task<IActionResult> GetStudentByEmailAsync(LoginRequestModel req)
+        public async Task<IActionResult> Auth(LoginRequestModel req)
         {
             ApiResult<LogInResponseModel> result = new ApiResult<LogInResponseModel>();
             try
@@ -38,15 +60,7 @@ namespace studentDetails_Api.Controllers
                 result = await _logInRepo.GetStudentByEmailAsync(req);
                 if (result.ResponseCode == 1)
                 {
-                    // Generate JWT token if credentials are valid
-                    var student = result.Data; // Assuming result.Data contains the student details
-                    var token = _jwtServices.GenerateToken(student); // Generate the token
-
-                    return Ok(new
-                    {
-                        Token = token,
-                        Student = student
-                    });
+                    return Ok(result);
                 }
                 return StatusCode(StatusCodes.Status412PreconditionFailed, result);
             }

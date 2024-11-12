@@ -93,7 +93,7 @@ namespace studentDetails_Api.Services
 
             var objClaims = new List<Claim>
         {
-            new Claim("UserName", user.firstName),
+            new Claim("UserName", user.userName),
             new Claim("UserID",user.studentID.ToString()),
             new Claim("RoleID", "1"),
             new Claim("Email", user.email),

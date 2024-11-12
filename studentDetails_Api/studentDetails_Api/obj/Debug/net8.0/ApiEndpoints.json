@@ -1,7 +1,23 @@
 [
   {
     "ContainingType": "studentDetails_Api.Controllers.LogInController",
-    "Method": "GetStudentByEmailAsync",
+    "Method": "AddorUpdateStudentDetails",
+    "RelativePath": "api/LogIn/AddorUpdateStudentDetails",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "student",
+        "Type": "studentDetailModel",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "studentDetails_Api.Controllers.LogInController",
+    "Method": "Auth",
     "RelativePath": "api/LogIn/Authenticate",
     "HttpMethod": "POST",
     "IsController": true,
@@ -9,7 +25,7 @@
     "Parameters": [
       {
         "Name": "req",
-        "Type": "studentDetails_Api.Models.LoginRequestModel",
+        "Type": "studentDetails_Api.NonEntity.LoginRequestModel",
         "IsRequired": true
       }
     ],
@@ -17,7 +33,7 @@
   },
   {
     "ContainingType": "studentDetails_Api.Controllers.StudentController",
-    "Method": "GetAllStudents",
+    "Method": "GetStudentDetails",
     "RelativePath": "api/Student",
     "HttpMethod": "GET",
     "IsController": true,
@@ -27,31 +43,20 @@
   },
   {
     "ContainingType": "studentDetails_Api.Controllers.StudentController",
-    "Method": "AddorUpdateStudentDetails",
-    "RelativePath": "api/Student/AddorUpdateStudentDetails",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "details",
-        "Type": "studentDetailModel",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "studentDetails_Api.Controllers.StudentController",
-    "Method": "DeleteStudentDetails",
+    "Method": "UpdateStudentStatusAsync",
     "RelativePath": "api/Student/Deactivate/{id}",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
+        "Name": "studentID",
+        "Type": "System.Int64",
+        "IsRequired": false
+      },
+      {
         "Name": "id",
-        "Type": "System.Int32",
+        "Type": "",
         "IsRequired": true
       }
     ],
