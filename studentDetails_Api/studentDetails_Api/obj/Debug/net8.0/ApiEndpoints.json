@@ -1,14 +1,14 @@
 [
   {
     "ContainingType": "studentDetails_Api.Controllers.LogInController",
-    "Method": "Login",
-    "RelativePath": "api/LogIn/Login",
+    "Method": "GetStudentByEmailAsync",
+    "RelativePath": "api/LogIn/Authenticate",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "loginRequest",
+        "Name": "req",
         "Type": "studentDetails_Api.Models.LoginRequestModel",
         "IsRequired": true
       }
@@ -28,7 +28,7 @@
   {
     "ContainingType": "studentDetails_Api.Controllers.StudentController",
     "Method": "AddorUpdateStudentDetails",
-    "RelativePath": "api/Student/AddorStudentStudentDetails",
+    "RelativePath": "api/Student/AddorUpdateStudentDetails",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,

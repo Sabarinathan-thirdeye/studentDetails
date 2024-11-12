@@ -1,7 +1,9 @@
-﻿using studentDetails_Api.IRepository;
-using studentDetails_Api.NonEntity;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using studentDetails_Api.IRepository;
 using studentDetails_Api.Models;
+using studentDetails_Api.NonEntity;
+using studentDetails_Api.Services;
+using System.Security.Claims;
 
 
 namespace studentDetails_Api.Controllers
@@ -11,10 +13,14 @@ namespace studentDetails_Api.Controllers
     public class LogInController : ControllerBase
     {
         private readonly ILogInRepo _logInRepo;
+        private readonly ILogger<LogInController> _logger;
+        private JwtServices _jwtServices;
 
-        public LogInController(ILogInRepo logInRepo)
+        public LogInController(ILogInRepo logInRepo, JwtServices jwtServices, ILogger<LogInController> logger)
         {
             _logInRepo = logInRepo;
+            _jwtServices = jwtServices;
+            _logger = logger;
         }
 
         /// <summary>
@@ -22,27 +28,37 @@ namespace studentDetails_Api.Controllers
         /// </summary>
         /// <param name="loginRequest"></param>
         /// <returns></returns>
-        [HttpPost("Login")]
-        public async Task<IActionResult> Login(LoginRequestModel loginRequest)
+        [HttpPost("Authenticate")]
+        public async Task<IActionResult> GetStudentByEmailAsync(LoginRequestModel req)
         {
-            ApiResult<LogInResponseModel> result = await _logInRepo.GetStudentByEmailAsync(loginRequest);
-
-            if (string.IsNullOrEmpty(loginRequest.email))
+            ApiResult<LogInResponseModel> result = new ApiResult<LogInResponseModel>();
+            try
             {
-                return BadRequest(new { message = "Email and password are required." });
+                // Get student details by email
+                result = await _logInRepo.GetStudentByEmailAsync(req);
+                if (result.ResponseCode == 1)
+                {
+                    // Generate JWT token if credentials are valid
+                    var student = result.Data; // Assuming result.Data contains the student details
+                    var token = _jwtServices.GenerateToken(student); // Generate the token
 
+                    return Ok(new
+                    {
+                        Token = token,
+                        Student = student
+                    });
+                }
+                return StatusCode(StatusCodes.Status412PreconditionFailed, result);
             }
-            if (string.IsNullOrEmpty(loginRequest.studentPassword))
+            catch (Exception ex)
             {
-                return BadRequest(new { message = "Email and password are required." });
-
+                _logger.LogError(ex, "Error authenticating user");
+                return StatusCode(StatusCodes.Status500InternalServerError, result.ExceptionResponse("Error authenticating user", ex));
             }
-            if (result.ResponseCode == 1)
-            {
-                return Ok(result); // Return success response
-            }
-
-            return Unauthorized(result); // Return Unauthorized if login fails
         }
+
+
+
+
     }
 }

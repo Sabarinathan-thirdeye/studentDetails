@@ -28,12 +28,17 @@ namespace studentDetails_Api.IRepository
         /// <returns></returns>
         Task<ApiResult<studentDetailModel>> AddorupdateStudentDetails(studentDetailModel role);
         /// <summary>
+        /// edit student details
+        /// </summary>
+        /// <param name="student"></param>
+        /// <returns></returns>
+        //Task<ApiResult<studentDetailModel>> EditCompanyDetails(studentDetailModel student);
+        /// <summary>
         /// Updates the student status to inactive using Student ID.
         /// </summary>
         /// <param name="studentID"></param>
         /// <returns></returns>
         Task<ApiResult<studentDetailModel>> UpdateStudentStatusAsync(long studentID);
-
-
+        
     }
 }

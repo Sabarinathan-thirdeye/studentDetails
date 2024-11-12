@@ -25,7 +25,6 @@ public partial class studentDetailModel
     public string email { get; set; } = null!;
 
     [Required]
-    [Phone] // Validates phone number format
     public long mobileNumber { get; set; }
 
     public DateTime? createdOn { get; set; }

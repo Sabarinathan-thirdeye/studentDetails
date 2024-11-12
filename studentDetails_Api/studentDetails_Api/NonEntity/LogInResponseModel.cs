@@ -27,7 +27,6 @@
         public string studentPassword { get; set; } = null!;
 
         public int studentstatus { get; set; }
-
-
+        public string JwtToken { get; internal set; }
     }
 }

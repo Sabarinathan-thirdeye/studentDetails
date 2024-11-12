@@ -2,16 +2,23 @@
 using studentDetails_Api.NonEntity;
 using studentDetails_Api.IRepository;
 using Microsoft.EntityFrameworkCore;
+using studentDetails_Api.Services;
 
 namespace studentDetails_Api.Repository
 {
     public class LogInRepo : ILogInRepo
     {
         private readonly StudentDBContext _context;
+        private readonly JwtServices _jwtServices;
+        private readonly IHttpContextAccessor httpContextAccessor;
+        private IConfiguration _config;
 
-        public LogInRepo(StudentDBContext context)
+        public LogInRepo(StudentDBContext context, JwtServices jwtServices, IHttpContextAccessor httpContextAccessor, IConfiguration config)
         {
             _context = context;
+            _jwtServices = jwtServices;
+            this.httpContextAccessor = httpContextAccessor;
+            _config = config;
         }
 
         public async Task<ApiResult<LogInResponseModel>> GetStudentByEmailAsync(LoginRequestModel req)
@@ -30,8 +37,12 @@ namespace studentDetails_Api.Repository
                     return result;
                 }
 
-                // Check password match (in real scenarios, hash the password)
-                if (student.studentPassword != req.studentPassword) // You should use hashed passwords here
+                // Decrypt stored password
+                var cryptoService = new CryptoServices(_config, this.httpContextAccessor);
+                string decryptedPassword = cryptoService.DecryptStringFromBytes_Aes(student.studentPassword);
+
+                // Compare decrypted password with the request password
+                if (decryptedPassword != req.studentPassword)
                 {
                     result.ResponseCode = 0;
                     result.Message = "Invalid password.";
@@ -47,6 +58,11 @@ namespace studentDetails_Api.Repository
                     email = student.email
                 };
 
+                // Generate JWT token using the LogInResponseModel
+                string jwtToken = _jwtServices.GenerateToken(loginResponse);
+                loginResponse.JwtToken = jwtToken;
+
+                // Set the response values
                 result.ResponseCode = 1;
                 result.Message = "Login successful.";
                 result.Data = loginResponse;

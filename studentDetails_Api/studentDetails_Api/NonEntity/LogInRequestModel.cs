@@ -6,9 +6,12 @@ namespace studentDetails_Api.Models;
 
 public partial class LoginRequestModel
 {
-    [Required]
+    /// <summary>
+    /// Email
+    /// </summary>
     public string email { get; set; } = null!;
-
-    [Required]
+    /// <summary>
+    /// Student Password
+    /// </summary>
     public string studentPassword { get; set; } = null!;
 }

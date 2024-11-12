@@ -149,7 +149,9 @@ E:\Sabari\Project\studentDetails\studentDetails_Api\studentDetails_Api\bin\Debug
 E:\Sabari\Project\studentDetails\studentDetails_Api\studentDetails_Api\bin\Debug\net8.0\studentDetails_Api.pdb
 E:\Sabari\Project\studentDetails\studentDetails_Api\studentDetails_Api\bin\Debug\net8.0\Azure.Core.dll
 E:\Sabari\Project\studentDetails\studentDetails_Api\studentDetails_Api\bin\Debug\net8.0\Azure.Identity.dll
+E:\Sabari\Project\studentDetails\studentDetails_Api\studentDetails_Api\bin\Debug\net8.0\BCrypt.Net-Next.dll
 E:\Sabari\Project\studentDetails\studentDetails_Api\studentDetails_Api\bin\Debug\net8.0\Humanizer.dll
+E:\Sabari\Project\studentDetails\studentDetails_Api\studentDetails_Api\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 E:\Sabari\Project\studentDetails\studentDetails_Api\studentDetails_Api\bin\Debug\net8.0\Microsoft.Bcl.AsyncInterfaces.dll
 E:\Sabari\Project\studentDetails\studentDetails_Api\studentDetails_Api\bin\Debug\net8.0\Microsoft.CodeAnalysis.dll
 E:\Sabari\Project\studentDetails\studentDetails_Api\studentDetails_Api\bin\Debug\net8.0\Microsoft.CodeAnalysis.CSharp.dll
@@ -283,3 +285,5 @@ E:\Sabari\Project\studentDetails\studentDetails_Api\studentDetails_Api\obj\Debug
 E:\Sabari\Project\studentDetails\studentDetails_Api\studentDetails_Api\obj\Debug\net8.0\studentDetails_Api.pdb
 E:\Sabari\Project\studentDetails\studentDetails_Api\studentDetails_Api\obj\Debug\net8.0\studentDetails_Api.genruntimeconfig.cache
 E:\Sabari\Project\studentDetails\studentDetails_Api\studentDetails_Api\obj\Debug\net8.0\ref\studentDetails_Api.dll
+E:\Sabari\Project\studentDetails\studentDetails_Api\studentDetails_Api\bin\Debug\net8.0\Microsoft.AspNetCore.Authorization.dll
+E:\Sabari\Project\studentDetails\studentDetails_Api\studentDetails_Api\bin\Debug\net8.0\Microsoft.AspNetCore.Metadata.dll
