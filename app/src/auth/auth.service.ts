@@ -9,13 +9,13 @@ import { Login } from '../model/login.model'; // Assuming you have a Login model
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'https://localhost:44356/api/LogIn/login'; // Your backend login endpoint
+  private apiUrl = 'https://localhost:7075/api/LogIn/Authenticate'; // Your backend login endpoint
 
   constructor(private http: HttpClient) {}
 
   // Method to check credentials
   login(email: string, studentPassword: string): Observable<Login> {
-    return this.http.post<Login>(this.apiUrl, { email, studentPassword }).pipe(
+    return this.http.post<Login>(this.apiUrl, { userName:email, studentPassword }).pipe(
       catchError(error => {
         console.error('Error during login:', error);
         if (error.error && error.error.errors) {

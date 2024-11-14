@@ -11,7 +11,7 @@ import { AuthService } from '../../auth/auth.service';
 export class LoginPageComponent {
   email: string = '';
   password: string = '';
-  errorMessage: string = ''; // Variable to hold the error message if login fails
+  errorMessage: string = '';
 
   constructor(private router: Router, private authService: AuthService) {}
 
@@ -19,7 +19,8 @@ export class LoginPageComponent {
   onSubmit() {
       // Call login service when the form is submitted
       this.authService.login(this.email, this.password).subscribe(
-        (response) => {
+        (response:any) => {
+          localStorage.setItem('jwtToken',response?.ResponseData[0].JwtToken);
           console.log('Login Response:', response);  // Log response to inspect its structure
           alert('Login successful');
           this.router.navigate(['/studentdetails']);

@@ -61,7 +61,6 @@ namespace studentDetails_Api.Repository
                         createdBy = s.createdBy,
                         modifiedBy = s.modifiedBy,
                         modifiedOn = s.modifiedOn,
-                        studentPassword = s.studentPassword,
                         studentstatus = s.studentstatus
                     }).ToList();
 
@@ -99,7 +98,6 @@ namespace studentDetails_Api.Repository
                         createdBy = s.createdBy,
                         modifiedBy = s.modifiedBy,
                         modifiedOn = s.modifiedOn,
-                        studentPassword = s.studentPassword,
                         studentstatus = s.studentstatus
                     }).ToList();
 
@@ -138,7 +136,6 @@ namespace studentDetails_Api.Repository
                         createdBy = s.createdBy,
                         modifiedBy = s.modifiedBy,
                         modifiedOn = s.modifiedOn,
-                        studentPassword = s.studentPassword,
                         studentstatus = s.studentstatus
                     }).FirstOrDefault(); 
 

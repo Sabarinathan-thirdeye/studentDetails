@@ -11,7 +11,7 @@ const routes: Routes = [
     { path: '', redirectTo: '/login', pathMatch: 'full' },
     { path: 'login', component: LoginPageComponent },
     { path: 'register', component: RegisterPageComponent },
-    { path: 'studentdetails', component: StudentdetailsPageComponent },
+    { path: 'studentdetails', component: StudentdetailsPageComponent},
     { path: 'forgettenpassword', component: ForgettenPageComponent },
     { path: 'resetpassword', component: ResetPageComponent },
     { path: 'page-not-found', component: PageNotFoundComponent },
