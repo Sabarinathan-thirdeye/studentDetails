@@ -3,13 +3,9 @@ using System.Collections.Generic;
 
 namespace studentDetails_Api.Models;
 
-public partial class LogInRequest
+public partial class LoginRequest
 {
-    public string Email { get; set; } = null!;
+    public string userName { get; set; } = null!;
 
-    public string Password { get; set; } = null!;
-
-    public int studentID { get; set; }
-
-    public virtual studentDetail student { get; set; } = null!;
+    public string studentPassword { get; set; } = null!;
 }

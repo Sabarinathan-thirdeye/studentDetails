@@ -1,72 +1,75 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using studentDetails_Api.IRepository;
-using studentDetails_Api.Models;
-using studentDetails_Api.NonEntity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;                       // Import MVC functionalities for controller
+using studentDetails_Api.Services;                           // Import custom services for the project
+using studentDetails_Api.IRepository;                 // Import repository interface for student details
+using studentDetails_Api.Models;                      // Import models related to student details
+using studentDetails_Api.NonEntity;                   // Import non-entity classes for handling non-database responses
 
-namespace studentDetails_Api.Controllers
+namespace studentDetails_Api.Controllers              // Define the namespace for the controller
 {
-    /// <summary>
-    /// Student Details 
-    /// </summary>
+    // Define the route as "api/Student" and mark as API controller for automatic model validation
     [Route("api/[controller]")]
     [ApiController]
-    public class StudentController : ControllerBase
+    [Authorize]
+    public class StudentController : ControllerBase   // Inherit ControllerBase to make this an API controller
     {
-        /// <summary>
-        /// Student Repo
-        /// </summary>
-        private readonly IStudentRepo _studentRepo;
+        // Private fields for dependency injection
+        private readonly IStudentRepo _studentRepo;   // Interface for student repository
+        private readonly IHttpContextAccessor _contextAccessor; // Interface for accessing HTTP context data
+        private readonly IConfiguration _config;      // Configuration interface for app settings
+        //private readonly CryptoServices _cryptoService; // Service for encrypting and decrypting data
 
-
-        //private readonly CryptoServices _cryptoServices;
-        //private readonly JwtServices _jwtServices;
-
-        //public StudentController(StudentDBContext context, CryptoServices cryptoServices, JwtServices jwtServices)
-        //{
-        //    _context = context;
-        //    _cryptoServices = cryptoServices;
-        //    _jwtServices = jwtServices;
-        //}
-
-        /// <summary>
-        /// Student Repo
-        /// </summary>
-        /// <param name="studentRepo"></param>
-        public StudentController(IStudentRepo studentRepo)
+        // Constructor to inject dependencies via dependency injection
+        public StudentController(IStudentRepo studentRepo, IHttpContextAccessor contextAccessor, IConfiguration config)
         {
-            _studentRepo = studentRepo;
+            _studentRepo = studentRepo;               // Initialize repository interface
+            _contextAccessor = contextAccessor;       // Initialize HTTP context accessor
+            _config = config;                         // Initialize configuration interface
+            //_cryptoService = new CryptoServices(_config, _contextAccessor); // Initialize CryptoServices with config
         }
-        //public StudentController(StudentDBContext context, CryptoServices cryptoServices)
-        //{
-        //    _context = context;
-        //    _cryptoServices = cryptoServices;
-        //}
+
         /// <summary>
-        /// Retrive the All Student Details 
+        /// GET method to retrieve all active student details
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public IActionResult GetAllStudents()
+        public IActionResult GetStudentDetails()
         {
             ApiResult<studentDetailModel> result = new ApiResult<studentDetailModel>();
             try
             {
                 result = _studentRepo.GetStudentDetails();
-                if (result.ResponseCode == 1)
-                {
-                    return Ok(result);
-                }
-                return StatusCode(StatusCodes.Status412PreconditionFailed, result);
+
+                return result.ResponseCode == 1 ? Ok(result) : StatusCode(StatusCodes.Status412PreconditionFailed, result);
             }
             catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, result.ExceptionResponse("We don't have a student details ", ex)); ;
+                //_logger.LogErrorDetails(ex, ex.Message, _contextAccessor, "", result.ExceptionResponse("Error while retriving an company details ", ex));
+                return StatusCode(StatusCodes.Status500InternalServerError, result.ExceptionResponse("Error while retriving an student details ", ex)); ;
             }
-
         }
 
         /// <summary>
-        /// Retrieves Company details by Id
+        /// GET method to retrieve all inactive student details
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("InActive")]
+        public IActionResult GetAllStudentsInActive()
+        {
+            ApiResult<studentDetailModel> result = new ApiResult<studentDetailModel>();
+            try
+            {
+                result = _studentRepo.GetStudentDetailsInActive();
+                return result.ResponseCode == 1 ? Ok(result) : StatusCode(StatusCodes.Status412PreconditionFailed, result);
+            }
+            catch (Exception ex)
+            {
+                //_logger.LogErrorDetails(ex, ex.Message, _contextAccessor, result.ExceptionResponse("Error while retrieving a inactive student details.", ex));
+                return StatusCode(StatusCodes.Status500InternalServerError, result.ExceptionResponse("Error while retrieving a student.", ex)); ;
+            }
+        }
+        /// <summary>
+        /// GET method to retrieve a specific student's details by student ID
         /// </summary>
         /// <param name="studentID"></param>
         /// <returns></returns>
@@ -77,96 +80,34 @@ namespace studentDetails_Api.Controllers
             try
             {
                 result = _studentRepo.GetStudentDetailsbyID(studentID);
-
-                if (result.ResponseCode == 1)
-                {
-                    return Ok(result);
-                }
-
-                return StatusCode(StatusCodes.Status412PreconditionFailed, result);
+                return result.ResponseCode == 1 ? Ok(result) : StatusCode(StatusCodes.Status412PreconditionFailed, result);
             }
             catch (Exception ex)
             {
+                //_logger.LogErrorDetails(ex, ex.Message, _contextAccessor, studentID, result.ExceptionResponse("Error while retrieving a student.", ex));
                 return StatusCode(StatusCodes.Status500InternalServerError, result.ExceptionResponse("Error while retrieving a student.", ex)); ;
             }
         }
 
-
         /// <summary>
-        /// Retrieves Company details by Id
-        /// </summary>
-        /// <param name="studentID"></param>
-        /// <returns></returns>
-        [HttpPost("AddorStudentStudentDetails")]
-        public async Task<IActionResult> AddorUpdateStudentDetails(studentDetailModel details)
-        {
-            ApiResult<studentDetailModel> result = new ApiResult<studentDetailModel>();
-            try
-            {
-                result = await _studentRepo.AddorupdateStudentDetails(details); ; // Await the asynchronous operation
-
-                if (result.ResponseCode == 1)
-                {
-                    return Ok(result);
-                }
-                return StatusCode(StatusCodes.Status412PreconditionFailed, result);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, result.ExceptionResponse("Error while add or update a company.", ex)); ;
-            }
-        }
-
-
-
-        /// <summary>
-        /// Deactivate student account by ID
+        /// POST method to deactivate a student by ID, setting studentStatus to 99
         /// </summary>
         /// <param name="studentID"></param>
         /// <returns></returns>
         [HttpPost("Deactivate/{id}")]
-        public async Task<IActionResult> DeleteStudentDetails(int id)
+        public async Task<IActionResult> UpdateStudentStatusAsync(long studentID)
         {
-            ApiResult<studentDetailModel> result;
-
+            ApiResult<bool> result = new ApiResult<bool>();
             try
             {
-                // Await the asynchronous delete operation
-                result = await _studentRepo.DeleteStudentDetails(id);
-
-                // Handle the response based on ResponseCode
-                if (result.ResponseCode == 1)
-                {
-                    return Ok(result); // Success
-                }
-                else if (result.ResponseCode == 0)
-                {
-                    return NotFound(result); // Student not found
-                }
-                else if (result.ResponseCode == -1)
-                {
-                    return StatusCode(StatusCodes.Status412PreconditionFailed, result); // Precondition failed
-                }
-
-                return StatusCode(StatusCodes.Status500InternalServerError, result); // Handle other errors
+                result = await _studentRepo.UpdateStudentStatusAsync(studentID);
+                return result.ResponseCode == 1 ? Ok(result) : StatusCode(StatusCodes.Status412PreconditionFailed, result);
             }
             catch (Exception ex)
             {
-                // Return an error response
-                return StatusCode(StatusCodes.Status500InternalServerError,
-                    new ApiResult<studentDetailModel>
-                    {
-                        ResponseCode = -1,
-                        Message = "An error occurred while processing your request.",
-                        ErrorDesc = ex.Message
-                    });
+                //_logger.LogErrorDetails(ex, ex.Message, _contextAccessor, id, result.ExceptionResponse("Error while deleting a student.", ex));
+                return StatusCode(StatusCodes.Status500InternalServerError, result.ExceptionResponse("Error while deleting a student.", ex)); ;
             }
         }
-
-
     }
-
-
 }
-
-

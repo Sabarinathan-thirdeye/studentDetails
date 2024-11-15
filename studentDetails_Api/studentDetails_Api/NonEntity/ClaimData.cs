@@ -1,13 +1,10 @@
-﻿//namespace UsersDetailsApi.NonEntity
-//{
-//    public class ClaimData
-//    {
-//        public int Id { get; set; }
-//        public string email { get; internal set; }
-//        public string Password { get; set; } = null!;
-//        public long studentID { get; internal set; }
-//        public string studentPassword { get; internal set; }
-//    }
-
-//}
-
+﻿namespace studentDetails_Api.NonEntity
+{
+    public class ClaimData
+    {
+        public long UserID { get; set; }
+        public string UserName { get; set; } = null!;
+        public long UserTypeID { get; set; }
+        public string UserEmail { get; set; } = null!;
+    }
+}

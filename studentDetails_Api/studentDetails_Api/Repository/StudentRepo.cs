@@ -1,101 +1,147 @@
-﻿using Microsoft.EntityFrameworkCore;
-using studentDetails_Api.Models;
-using studentDetails_Api.NonEntity;
-using studentDetails_Api.IRepository;
+﻿using Microsoft.EntityFrameworkCore; // Import Entity Framework Core for ORM functionality.
+using studentDetails_Api.Models; // Import project-specific models.
+using studentDetails_Api.NonEntity; // Import non-entity data models or helper classes.
+using studentDetails_Api.IRepository; // Import repository interface for dependency injection.
+using Microsoft.AspNetCore.Mvc; // Import ASP.NET Core MVC attributes for API creation.
+using System.Text.RegularExpressions; // Import regular expressions, though currently unused.
+using System.Data;
+using studentDetails_Api.Services; // Import data namespace, though currently unused.
 
 namespace studentDetails_Api.Repository
 {
     /// <summary>
-    /// Repository for STUDENT DETAILS operations.
+    /// Repository for performing operations related to student details.
     /// </summary>
     public class StudentRepo : IStudentRepo
-    /// <summary>
-    /// Represents the database context for interacting with the database.
-    /// </summary>
     {
+        /// <summary>
+        /// DBContext
+        /// </summary>
         private readonly StudentDBContext _context;
+        /// <summary>
+        /// Current Http ContextAccessor
+        /// </summary>
+        private readonly IHttpContextAccessor _contextAccessor;
+
+        private readonly CryptoServices _cryptoServices;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="StudentRepo"/> class.
+        /// Initializes a new instance of <see cref="StudentRepo"/>.
         /// </summary>
-        /// <param name="context">The database context used for database operations.</param>
-        public StudentRepo(StudentDBContext context)
+        /// <param name="context">The database context for database interactions.</param>
+        /// <param name="contextAccessor">Accessor for the current HTTP context.</param>
+        public StudentRepo(StudentDBContext context, IHttpContextAccessor contextAccessor,CryptoServices cryptoServices)
         {
-            _context = context;
+            _context = context; 
+            _contextAccessor = contextAccessor;
+            _cryptoServices = cryptoServices;
         }
 
         /// <summary>
-        /// Retrieves all user details 
+        /// Retrieves all active student details from the database.
         /// </summary>
         public ApiResult<studentDetailModel> GetStudentDetails()
         {
-            ApiResult<studentDetailModel> result = new ApiResult<studentDetailModel>();
+            ApiResult<studentDetailModel> result = new ApiResult<studentDetailModel>(); 
             try
             {
+                //var claimData = _contextAccessor.HttpContext!.Items["ClaimData"] as ClaimData;
                 var StudentList = _context.studentDetails
-                    .Where(u => u.studentstatus != 99)
-                    .Select(s => new studentDetailModel
+                    .Where(u => u.studentstatus != 99) 
+                    .Select(s => new studentDetailModel 
                     {
                         studentID = s.studentID,
-                        firstName = s.firstName,
-                        lastName = s.lastName,
+                        studentName = s.studentName,
+                        userName = s.userName,
                         dateOfBirth = (DateOnly)s.dateOfBirth,
                         gender = s.gender,
                         email = s.email,
                         mobileNumber = s.mobileNumber,
                         createdOn = s.createdOn,
-                        createBy = s.createBy,
+                        createdBy = s.createdBy,
                         modifiedBy = s.modifiedBy,
                         modifiedOn = s.modifiedOn,
-                        studentPassword = s.studentPassword,
                         studentstatus = s.studentstatus
                     }).ToList();
 
-                if (StudentList.Count > 0)
-                {
-                    return result.SuccessResponse("Success", StudentList);
-                }
-                return result.SuccessResponse("No data found", StudentList);
+                return StudentList.Count > 0 ?
+                    result.SuccessResponse("Success", StudentList) :
+                    result.SuccessResponse("No data found", StudentList);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                return result.ExceptionResponse("Error retrieving student details.", ex);
+                throw;
             }
         }
 
         /// <summary>
-        /// Retrieves user details for a specific user ID and checks that their status is not equal to 99.
+        /// Retrieves all inactive student details.
         /// </summary>
-        /// <param name="studentID">The ID of the user whose details are being retrieved.</param>
-        /// <returns></returns>
+        public ApiResult<studentDetailModel> GetStudentDetailsInActive()
+        {
+            ApiResult<studentDetailModel> result = new ApiResult<studentDetailModel>();
+            try
+            {
+                //var claimData = _contextAccessor.HttpContext?.Items["ClaimData"] as ClaimData;
+                var StudentList = _context.studentDetails
+                    .Where(u => u.studentstatus == 99)
+                    .Select(s => new studentDetailModel
+                    {
+                        studentID = s.studentID,
+                        studentName = s.studentName,
+                        userName = s.userName,
+                        dateOfBirth = (DateOnly)s.dateOfBirth,
+                        gender = s.gender,
+                        email = s.email,
+                        mobileNumber = s.mobileNumber,
+                        createdOn = s.createdOn,
+                        createdBy = s.createdBy,
+                        modifiedBy = s.modifiedBy,
+                        modifiedOn = s.modifiedOn,
+                        studentstatus = s.studentstatus
+                    }).ToList();
+
+                return StudentList.Count > 0 ?
+                    result.SuccessResponse("Success", StudentList) :
+                    result.SuccessResponse("No data found", StudentList);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Retrieves details of a student by their ID if the student is active.
+        /// </summary>
+        /// <param name="studentID">ID of the student to retrieve.</param>
         public ApiResult<studentDetailModel> GetStudentDetailsbyID(long studentID)
         {
             ApiResult<studentDetailModel> result = new ApiResult<studentDetailModel>();
             try
             {
-                var StudentList = _context.studentDetails.Where(u => u.studentID == studentID && u.studentstatus != 99)
+                //var claimData = _contextAccessor.HttpContext!.Items["ClaimData"] as ClaimData;
+                var student = _context.studentDetails
+                    .Where(u => u.studentID == studentID && u.studentstatus != 99)
                     .Select(s => new studentDetailModel
                     {
                         studentID = s.studentID,
-                        firstName = s.firstName,
-                        lastName = s.lastName,
+                        studentName = s.studentName,
+                        userName = s.userName,
                         dateOfBirth = s.dateOfBirth,
                         gender = s.gender,
                         email = s.email,
                         mobileNumber = s.mobileNumber,
                         createdOn = s.createdOn,
-                        createBy = s.createBy,
+                        createdBy = s.createdBy,
                         modifiedBy = s.modifiedBy,
                         modifiedOn = s.modifiedOn,
-                        studentPassword = s.studentPassword,
                         studentstatus = s.studentstatus
-                    }).ToList();
+                    }).FirstOrDefault(); 
 
-                if (StudentList.Count > 0)
-                {
-                    return result.SuccessResponse("Success", StudentList);
-                }
-                return result.SuccessResponse("No data found", StudentList);
+                return student != null ?
+                    result.SuccessResponse("Success", student) :
+                    result.SuccessResponse("No data found", student);
             }
             catch (Exception)
             {
@@ -104,55 +150,37 @@ namespace studentDetails_Api.Repository
         }
 
         /// <summary>
-        /// Add or update user type details
+        /// Sets the student status to inactive (99) by student ID.
         /// </summary>
-        /// <param name="role"></param>
-        /// <returns></returns>
-        public async Task<ApiResult<studentDetailModel>> AddorupdateStudentDetails(studentDetailModel role)
+        /// <param name="studentID">ID of the student to deactivate.</param>
+        public async Task<ApiResult<bool>> UpdateStudentStatusAsync(long studentID)
         {
-            ApiResult<studentDetailModel> result = new ApiResult<studentDetailModel>();
+            ApiResult<bool> result = new ApiResult<bool>();
             try
             {
-
-                var existingStudent = _context.studentDetails.FirstOrDefault(a => a.studentID == role.studentID);
-                if (existingStudent != null)
+                var claimData = _contextAccessor.HttpContext!.Items["ClaimData"] as ClaimData;
+                // Find the student by ID.
+                var student = await _context.studentDetails.FindAsync(studentID);
+                if (student == null)
                 {
-                    // Update existing student details
-                    existingStudent.firstName = role.firstName;
-                    existingStudent.lastName = role.lastName;
-                    existingStudent.email = role.email;
-                    existingStudent.mobileNumber = role.mobileNumber;
-                    existingStudent.gender = role.gender;
-                    existingStudent.dateOfBirth = role.dateOfBirth;
-                    existingStudent.modifiedBy = role.modifiedBy;
-                    existingStudent.modifiedOn = DateTime.Now; // Track modification time
-                    existingStudent.studentPassword = role.studentPassword;
+                    return result.ValidationErrorResponse("employee not found.");
 
-                    _context.SaveChanges();
-                    return result.SuccessResponse("Updated successfully.", role);
+                }
+                                // Checks if the student is already inactive.
+                if (student.studentstatus == 99)
+                {
+                    result.Message = "Student is already deactivated";
+                    return result;
                 }
                 else
                 {
-                    // Create new student entry
-                    var newStudent = new studentDetail
-                    {
-                        firstName = role.firstName,
-                        lastName = role.lastName,
-                        dateOfBirth = role.dateOfBirth,
-                        gender = role.gender,
-                        email = role.email,
-                        mobileNumber = role.mobileNumber,
-                        createdOn = DateTime.Now,
-                        createBy = role.createBy,
-                        modifiedOn = DateTime.Now,
-                        modifiedBy = role.modifiedBy,
-                        studentPassword = role.studentPassword,
-                        studentstatus = role.studentstatus
-                    };
-
-                    _context.studentDetails.Add(newStudent);
+                    student.modifiedBy = claimData!.UserID;
+                    student.modifiedOn = DateTime.UtcNow;
+                    student.studentstatus = 99;
                     _context.SaveChanges();
-                    return result.SuccessResponse("Created successfully.", role);
+
+                    return result.SuccessResponse("Deleted Successfully", true);
+
                 }
             }
             catch (Exception)
@@ -160,61 +188,5 @@ namespace studentDetails_Api.Repository
                 throw;
             }
         }
-
-        /// <summary>
-        /// Delete usertype by Id
-        /// </summary>
-        /// <param name="StudentID"></param>
-        /// <returns></returns>
-        public async Task<ApiResult<studentDetailModel>> DeleteStudentDetails(int id)
-        {
-            ApiResult<studentDetailModel> result = new ApiResult<studentDetailModel>();
-
-            try
-            {
-                // Find the student by ID
-                var student = await _context.studentDetails.FindAsync(id);
-
-                if (student != null)
-                {
-                    // Remove the student from the context
-                    _context.studentDetails.Remove(student);
-                    await _context.SaveChangesAsync();
-
-                    // Indicate success in the response
-                    result.ResponseCode = 1;
-                    result.Message = "Student deleted successfully.";
-                }
-                else
-                {
-                    // Handle case where the student is not found
-                    result.ResponseCode = 0; // Indicate student not found
-                    result.Message = "Student not found.";
-                }
-            }
-            catch (Exception ex)
-            {
-                // Log the error (you might want to use a logging framework)
-                result.ResponseCode = -1; // Indicate an error occurred
-                result.Message = "Error while deleting student.";
-                result.ErrorDesc = ex.Message; // Include error details
-            }
-
-            return result; // Ensure to return the result
-        }
-
-       
-
-        //public async Task<studentDetail> GetByEmailAsync(string email)
-        //{
-        //    return await _context.studentDetails.FirstOrDefaultAsync(s => s.email == email);
-        //}
-
-        //public async Task UpdateAsync(studentDetail entity)
-        //{
-        //    _context.studentDetails.Update(entity);
-        //    await _context.SaveChangesAsync();
-        //}
     }
-
 }

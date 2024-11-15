@@ -1,7 +1,39 @@
 [
   {
+    "ContainingType": "studentDetails_Api.Controllers.LogInController",
+    "Method": "AddorUpdateStudentDetails",
+    "RelativePath": "api/LogIn/AddorUpdateStudentDetails",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "student",
+        "Type": "studentDetailModel",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "studentDetails_Api.Controllers.LogInController",
+    "Method": "Auth",
+    "RelativePath": "api/LogIn/Authenticate",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "req",
+        "Type": "studentDetails_Api.NonEntity.LoginRequestModel",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "studentDetails_Api.Controllers.StudentController",
-    "Method": "GetAllStudents",
+    "Method": "GetStudentDetails",
     "RelativePath": "api/Student",
     "HttpMethod": "GET",
     "IsController": true,
@@ -11,31 +43,20 @@
   },
   {
     "ContainingType": "studentDetails_Api.Controllers.StudentController",
-    "Method": "AddorUpdateStudentDetails",
-    "RelativePath": "api/Student/AddorStudentStudentDetails",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "details",
-        "Type": "studentDetails_Api.NonEntity.studentDetailModel",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "studentDetails_Api.Controllers.StudentController",
-    "Method": "DeleteStudentDetails",
+    "Method": "UpdateStudentStatusAsync",
     "RelativePath": "api/Student/Deactivate/{id}",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
+        "Name": "studentID",
+        "Type": "System.Int64",
+        "IsRequired": false
+      },
+      {
         "Name": "id",
-        "Type": "System.Int32",
+        "Type": "",
         "IsRequired": true
       }
     ],
@@ -55,6 +76,16 @@
         "IsRequired": true
       }
     ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "studentDetails_Api.Controllers.StudentController",
+    "Method": "GetAllStudentsInActive",
+    "RelativePath": "api/Student/InActive",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
     "ReturnTypes": []
   }
 ]

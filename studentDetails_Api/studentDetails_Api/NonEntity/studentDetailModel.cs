@@ -1,38 +1,46 @@
-﻿
-
-using studentDetails_Api.Models;
-
-namespace studentDetails_Api.NonEntity;
+﻿using System.ComponentModel.DataAnnotations;
 
 public partial class studentDetailModel
 {
-    internal readonly object studentDetailsModel;
+    [Key]
+    public long studentID { get; set; }
 
-    public int studentID { get; set; }
+    [Required]
+    [StringLength(50)] // Maximum length for first name
+    public string studentName { get; set; } = null!;
 
-    public string firstName { get; set; } = null!;
+    [Required]
+    [StringLength(50)] // Maximum length for last name
+    public string userName { get; set; } = null!;
 
-    public string? lastName { get; set; }
+    [Required]
+    public DateOnly dateOfBirth { get; set; }
 
-    public DateOnly? dateOfBirth { get; set; }
+    [Required]
+    [StringLength(10)] // Gender can be a small value like 'Male', 'Female'
+    public string gender { get; set; } = null!;
 
-    public int? gender { get; set; }
-
+    [Required]
+    [EmailAddress] // Validates email format
     public string email { get; set; } = null!;
 
-    public string? mobileNumber { get; set; }
+    [Required]
+    public long mobileNumber { get; set; }
 
     public DateTime? createdOn { get; set; }
 
-    public long? createBy { get; set; }
+    public long? createdBy { get; set; }
 
     public DateTime? modifiedOn { get; set; }
 
     public long? modifiedBy { get; set; }
 
+    [Required]
+    [StringLength(255)] // Adjust based on expected password length
     public string studentPassword { get; set; } = null!;
 
-    public int? studentstatus { get; set; }
+    [Required]
+    public int studentstatus { get; set; }
 
 
 }

@@ -1,44 +1,78 @@
 <div class="register-container">
   <h2>Register</h2>
-  <form (ngSubmit)="onSubmit()">
-    <!-- Form Fields Here -->
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
     <div class="form-group">
       <label for="firstName">First Name:</label>
-      <input type="text" id="firstName" [(ngModel)]="studentvalue.firstName" name="firstName" required />
+      <input type="text" id="firstName" formControlName="firstName" />
+      <div *ngIf="registerForm.get('firstName')?.invalid && registerForm.get('firstName')?.touched">
+        <small>First name is required.</small>
+      </div>
     </div>
+
     <div class="form-group">
       <label for="lastName">Last Name:</label>
-      <input type="text" id="lastName" [(ngModel)]="studentvalue.lastName" name="lastName" required />
+      <input type="text" id="lastName" formControlName="lastName" />
+      <div *ngIf="registerForm.get('lastName')?.invalid && registerForm.get('lastName')?.touched">
+        <small>Last name is required.</small>
+      </div>
     </div>
+
     <div class="form-group">
       <label for="email">Email:</label>
-      <input type="email" id="email" [(ngModel)]="studentvalue.email" name="email" required />
+      <input type="email" id="email" formControlName="email" />
+      <div *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched">
+        <small *ngIf="registerForm.get('email')?.errors?.['required']">Email is required.</small>
+        <small *ngIf="registerForm.get('email')?.errors?.['email']">Invalid email format.</small>
+      </div>
     </div>
+
     <div class="form-group">
       <label for="gender">Gender:</label>
-      <select id="gender" [(ngModel)]="studentvalue.gender" name="gender" required>
-        <option value="" disabled selected>Select Gender</option>
+      <select id="gender" formControlName="gender">
+        <option value="" disabled>Select Gender</option>
         <option value="Male">Male</option>
         <option value="Female">Female</option>
         <option value="Other">Other</option>
       </select>
+      <div *ngIf="registerForm.get('gender')?.invalid && registerForm.get('gender')?.touched">
+        <small>Gender is required.</small>
+      </div>
     </div>
+
     <div class="form-group">
       <label for="mobileNumber">Mobile Number:</label>
-      <input type="number" id="mobileNumber" [(ngModel)]="studentvalue.mobileNumber" name="mobileNumber" required />
+      <input type="text" id="mobileNumber" formControlName="mobileNumber" />
+      <div *ngIf="registerForm.get('mobileNumber')?.invalid && registerForm.get('mobileNumber')?.touched">
+        <small *ngIf="registerForm.get('mobileNumber')?.errors?.['required']">Mobile number is required.</small>
+        <small *ngIf="registerForm.get('mobileNumber')?.errors?.['pattern']">Enter a valid 10-digit number.</small>
+      </div>
     </div>
+
     <div class="form-group">
       <label for="dateOfBirth">Date of Birth:</label>
-      <input type="date" id="dateOfBirth" [(ngModel)]="studentvalue.dateOfBirth" name="dateOfBirth" required />
+      <input type="date" id="dateOfBirth" formControlName="dateOfBirth" />
+      <div *ngIf="registerForm.get('dateOfBirth')?.invalid && registerForm.get('dateOfBirth')?.touched">
+        <small>Date of birth is required.</small>
+      </div>
     </div>
+
     <div class="form-group">
       <label for="password">Password:</label>
-      <input type="password" id="password" [(ngModel)]="studentvalue.studentPassword" name="password" required />
+      <input type="password" id="password" formControlName="studentPassword" />
+      <div *ngIf="registerForm.get('studentPassword')?.invalid && registerForm.get('studentPassword')?.touched">
+        <small *ngIf="registerForm.get('studentPassword')?.errors?.['required']">Password is required.</small>
+        <small *ngIf="registerForm.get('studentPassword')?.errors?.['minlength']">Password must be at least 6 characters.</small>
+      </div>
     </div>
+
     <div class="form-group">
       <label for="confirmPassword">Confirm Password:</label>
-      <input type="password" id="confirmPassword" [(ngModel)]="studentvalue.confirmPassword" name="confirmPassword" required />
+      <input type="password" id="confirmPassword" formControlName="confirmPassword" />
+      <div *ngIf="registerForm.hasError('mismatch') && registerForm.get('confirmPassword')?.touched">
+        <small>Passwords do not match.</small>
+      </div>
     </div>
-    <button type="submit" class="register-btn">register</button>
+
+    <button type="submit" [disabled]="registerForm.invalid" class="register-btn">Register</button>
   </form>
 </div>
