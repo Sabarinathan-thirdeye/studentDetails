@@ -1,8 +1,8 @@
 import { Router } from '@angular/router';
 import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { StudentDetail } from '../../model/student.model';
-import { StudentDetailsService } from '../../services/apiservices.service';
+import { AuthService } from '../../auth/auth.service';  // Ensure AuthService has registerUser method
+import { UserMasterModel } from '../../model/login.model';
 
 @Component({
   selector: 'app-register-page',
@@ -10,35 +10,36 @@ import { StudentDetailsService } from '../../services/apiservices.service';
   styleUrls: ['./register-page.component.css']
 })
 export class RegisterPageComponent implements OnInit {
-  @Input() student: StudentDetail | null = null;
-  @Output() formSubmit = new EventEmitter<StudentDetail>();
+  @Input() user: UserMasterModel | null = null;  // Changed to UserMasterModel
+  @Output() formSubmit = new EventEmitter<UserMasterModel>();
 
   registerForm!: FormGroup;
 
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private studentDetailsService: StudentDetailsService
+    private authService: AuthService  // Use AuthService for registration
   ) {}
 
   ngOnInit() {
     this.registerForm = this.fb.group({
-      studentID: [0],  // Default ID, adjust as necessary
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
+      userName: ['', Validators.required],  // Ensure this field is needed
       email: ['', [Validators.required, Validators.email]],
       gender: ['', Validators.required],
-      mobileNumber: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]],
       dateOfBirth: ['', Validators.required],
       studentPassword: ['', [Validators.required, Validators.minLength(6)]],
       confirmPassword: ['', Validators.required],
-      studentstatus: [0] // Adjust based on your requirements
+      userTypeID: [1, Validators.required],  // Example userTypeID
+      userMasterStatus: [1],  // Example userMasterStatus
+      mobileNumber: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]],  // Added mobileNumber field
     }, {
       validator: this.passwordMatchValidator
     });
 
-    if (this.student) {
-      this.registerForm.patchValue(this.student);
+    if (this.user) {
+      this.registerForm.patchValue(this.user);
     }
   }
 
@@ -49,16 +50,17 @@ export class RegisterPageComponent implements OnInit {
   }
 
   onSubmit() {
+    console.log('Submit button clicked');  // Add this to check if the method is triggered
     if (this.registerForm.valid) {
-      const studentData: StudentDetail = this.registerForm.value;
-      this.studentDetailsService.addOrUpdateStudentDetails(studentData).subscribe({
+      const userData: UserMasterModel = this.registerForm.value;
+      this.authService.registerUser(userData).subscribe({
         next: (response) => {
           console.log('Registration successful:', response);
-          alert('Register successful');
+          alert('Registration successful!');
           this.router.navigate(['/login']);
         },
         error: (error) => {
-          console.error('Error registering student:', error);
+          console.error('Error registering user:', error);
           alert('An error occurred during registration.');
         }
       });
@@ -66,4 +68,5 @@ export class RegisterPageComponent implements OnInit {
       alert('Please fill out the form correctly.');
     }
   }
+
 }

@@ -25,32 +25,35 @@ export class StudentdetailsPageComponent implements OnInit {
   }
 
 //API
-  // Get all student details
-  getAllStudentDetails() {
-    this.studentDetailsService.getAllStudents().subscribe({
-      next: (resp: any) => {
-        if (resp.responseCode === 1) {
-          this.studentDetail = resp.responseData;
-          this.filteredStudentDetails = [...this.studentDetail];
-        }
-        this.loading = false;
-      },
-      error: err => {
-        this.error = 'Error loading data';
-        console.error(err);
-        this.loading = false;
+getAllStudentDetails() {
+  console.log('Fetching all student details...');
+  this.studentDetailsService.getAllStudents().subscribe({
+    next: (Response: any) => {
+      if (Response.ResponseCode === 1) { // If response has responseCode
+        this.studentDetail = Response.ResponseData;
+        this.filteredStudentDetails = [...this.studentDetail];
       }
-    });
-  }
+      this.loading = false;
+    },
+    error: err => {
+      this.error = 'Error loading data';
+      console.error('Error fetching student details:', err);
+      this.loading = false;
+    }
+  });
+}
 
+  
   // Add or update student
   addOrUpdateStudent(): void {
     if (!this.studentToEdit) return;
+    debugger
+    console.log('Saving student:', this.studentToEdit);  // Debug log to verify student details
     this.studentDetailsService.addOrUpdateStudentDetails(this.studentToEdit).subscribe({
-      next: (response) => {
+      next: (Response) => {
         alert(`${this.studentToEdit?.studentID ? 'Student updated' : 'Student added'} successfully`);
         this.closeModal();
-        this.getAllStudentDetails();
+        this.getAllStudentDetails();  // Refresh student details
       },
       error: (error) => {
         console.error('Error updating/adding student:', error);
@@ -58,6 +61,7 @@ export class StudentdetailsPageComponent implements OnInit {
       }
     });
   }
+  
 
   // Delete (deactivate) student
   deleteStudent(studentID: number): void {
@@ -78,7 +82,7 @@ export class StudentdetailsPageComponent implements OnInit {
   // Filter student details
   filterStudents() {
     this.filteredStudentDetails = this.studentDetail.filter(student =>
-      student.firstName.toLowerCase().includes(this.searchText.toLowerCase()));
+      student.studentName.toLowerCase().includes(this.searchText.toLowerCase()));
   }
 
   //Add Student
@@ -89,8 +93,10 @@ export class StudentdetailsPageComponent implements OnInit {
   // Open modal to add/edit student
   openModal(student?: StudentDetail) {
     this.studentToEdit = student ? { ...student } : {} as StudentDetail;
+    console.log('Opening modal with student:', this.studentToEdit);  // Debug log
     this.showModal = true;
   }
+  
 
   // Close modal
   closeModal() {

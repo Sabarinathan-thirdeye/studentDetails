@@ -1,8 +1,8 @@
 // Define the structure for the StudentDetail model
 export interface StudentDetail {
   studentID: number;                // Unique identifier for the student
-  firstName: string;                // First name of the student
-  lastName?: string;                // Last name of the student (optional)
+  studentName: string;                // First name of the student
+  userName?: string;                // Last name of the student (optional)
   dateOfBirth?: string;             // Date of birth in string format (optional, will parse on display)
   gender?: string;                  // Gender of the student (optional, string representation of gender)
   email: string;                    // Email address of the student

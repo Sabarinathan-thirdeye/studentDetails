@@ -22,22 +22,26 @@ builder.Services.AddDbContext<StudentDBContext>(options =>
     throw new InvalidOperationException("Connection string 'StudentCS' not found.")));
 
 // Add CORS policy (allow all for now, restrict in production)
+// It is recommended to restrict CORS to specific origins in production for security purposes
 builder.Services.AddCors(options => options.AddPolicy(name: "ApiCorsPolicy",
     policy =>
     {
-        policy.WithOrigins("*").AllowAnyMethod().AllowAnyHeader();
+        policy.WithOrigins("*") // Use the correct frontend URL
+              .AllowAnyMethod()
+              .AllowAnyHeader();
     }));
 
 builder.Services.AddHttpContextAccessor();
 
+// Add controllers and specify JSON serializer options
 builder.Services.AddControllers()
     .AddJsonOptions(options =>
     {
-        options.JsonSerializerOptions.PropertyNamingPolicy = null;
-        options.JsonSerializerOptions.DictionaryKeyPolicy = null;
+        options.JsonSerializerOptions.PropertyNamingPolicy = null; // This is to keep camelCase naming
+        options.JsonSerializerOptions.DictionaryKeyPolicy = null; // This ensures dictionary keys are preserved as is
     });
 
-// Add services to the container.   
+// Add services to the container
 builder.Services.AddTransient<JwtServices>();
 builder.Services.AddTransient<CryptoServices>();
 builder.Services.APIServices();
@@ -75,12 +79,13 @@ builder.Services.AddSwaggerGen(option =>
     });
 });
 
+// Get keys for JWT signing and encryption
 var signingKey = Encoding.UTF8.GetBytes(builder.Configuration["JWT:SigningKey"]!);
 var encKey = Encoding.UTF8.GetBytes(builder.Configuration["JWT:EncryptionKey"]!);
 var symmetricSigningKey = new SymmetricSecurityKey(signingKey);
 var symmetricEncKey = new SymmetricSecurityKey(encKey);
 
-//Add autentication schema .
+// Add authentication schema
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         .AddJwtBearer(options =>
         {
@@ -99,19 +104,18 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 var app = builder.Build();
 
-//if (app.Environment.IsDevelopment())
-//{
+// Swagger UI and Docs setup
+// In a production environment, you can disable Swagger UI for security reasons
 app.UseSwagger();
 app.UseSwaggerUI();
-//}
 
+// JWT middleware for checking authentication
 app.UseMiddleware<JwtMiddleware>();
 
 app.UseAuthentication();
-
 app.UseRouting();
 
-app.UseCors(x => x.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+app.UseCors("ApiCorsPolicy"); // Use the named policy
 
 app.UseAuthorization();
 

@@ -11,34 +11,11 @@ namespace studentDetails_Api.Repository
     public class LogInRepo : ILogInRepo
     {
         private readonly StudentDBContext _context;
-        /// <summary>
-        /// Jwt Service class
-        /// </summary>
         private readonly JwtServices _jwtServices;
-        /// <summary>
-        /// Current Http context accessor
-        /// </summary>
         private readonly IHttpContextAccessor _httpContextAccessor;
-        /// <summary>
-        /// Configuration
-        /// </summary>
-        private IConfiguration _configuration;
-        /// <summary>
-        /// Crypto Service class
-        /// </summary>
+        private readonly IConfiguration _configuration;
         private readonly CryptoServices _cryptoServices;
-        /// <summary>
-        /// IUrlHelper
-        /// </summary>
-        private readonly IUrlHelper _urlHelper;
 
-        /// <summary>
-        /// Configuration
-        /// </summary>
-        /// <param name="context"></param>
-        /// <param name="jwtservices"></param>
-        /// <param name="httpContextAccessor"></param>
-        /// <param name="configuration"></param>
         public LogInRepo(StudentDBContext context, JwtServices jwtservices, CryptoServices cryptoServices, IHttpContextAccessor httpContextAccessor, IConfiguration configuration)
         {
             _context = context;
@@ -49,189 +26,183 @@ namespace studentDetails_Api.Repository
         }
 
         /// <summary>
-        /// Adds or updates student details with encryption for sensitive fields.
+        /// Registers a new student with encrypted sensitive fields.
         /// </summary>
-        /// <param name="student">Student details to add or update.</param>
-        /// <returns>ApiResult with the student details and operation status.</returns>
-        public async Task<ApiResult<studentDetailModel>> AddOrUpdateStudentDetails(studentDetailModel student)
+        public async Task<ApiResult<studentDetailModel>> RegisterStudentDetail(studentDetailModel student)
         {
             var result = new ApiResult<studentDetailModel>();
             try
             {
-                var claimData = _httpContextAccessor.HttpContext?.Items["ClaimData"] as ClaimData;
-
                 if (student == null)
-                {
                     return result.ValidationErrorResponse("Please provide student details.");
-                }
 
                 // Validate required fields
-                if (string.IsNullOrWhiteSpace(student.studentName))
-                {
-                    return result.ValidationErrorResponse("Please provide first name.");
-                }
-
-                if (string.IsNullOrWhiteSpace(student.userName))
-                {
-                    return result.ValidationErrorResponse("Please provide last name.");
-                }
-
+                if (string.IsNullOrWhiteSpace(student.firstName))
+                    return result.ValidationErrorResponse("Please provide the first name.");
+                if (string.IsNullOrWhiteSpace(student.lastName))
+                    return result.ValidationErrorResponse("Please provide the last name.");
                 if (string.IsNullOrWhiteSpace(student.email))
-                {
-                    return result.ValidationErrorResponse("Please provide email.");
-                }
+                    return result.ValidationErrorResponse("Please provide an email.");
 
-                // Validate email format
                 string emailRegexPattern = @"^[\w-]+(\.[\w-]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*(\.[a-zA-Z]{2,})$";
                 if (!Regex.IsMatch(student.email, emailRegexPattern))
-                {
-                    return result.ValidationErrorResponse("Invalid email address.");
-                }
+                    return result.ValidationErrorResponse("Invalid email address format.");
 
-                if (string.IsNullOrWhiteSpace(student.gender))
-                {
-                    return result.ValidationErrorResponse("Please provide gender.");
-                }
-
-                // Encrypt the password
-                string encryptedPassword = _cryptoServices.EncryptStringToBytes_Aes(student.studentPassword);
-
-                // Check for existing records
+                // Check if student already exists
                 var existingStudent = await _context.studentDetails
-                    .FirstOrDefaultAsync(s => s.email == student.email && s.studentID != student.studentID);
+                    .AsNoTracking()
+                    .FirstOrDefaultAsync(s => s.email == student.email);
 
                 if (existingStudent != null)
-                {
                     return result.ValidationErrorResponse("Email already exists.");
-                }
 
-                // Check if updating or creating a new record
-                var studentRecord = await _context.studentDetails
-                    .FirstOrDefaultAsync(s => s.studentID == student.studentID);
-
-                if (studentRecord == null)
+                // Add new student record
+                var newStudent = new studentDetail
                 {
-                    // Add new student
-                    studentRecord = new studentDetail
-                    {
-                        studentName = student.studentName,
-                        userName = student.userName,
-                        email = student.email,  // No encryption on email
-                        mobileNumber = student.mobileNumber,
-                        gender = student.gender,
-                        dateOfBirth = student.dateOfBirth,
-                        createdOn = DateTime.UtcNow,
-                        createdBy = claimData?.UserID ?? 0,
-                        studentPassword = encryptedPassword,  // Encrypt the password
-                        studentstatus = student.studentstatus,
-                    };
-
-                    _context.studentDetails.Add(studentRecord);
-                    await _context.SaveChangesAsync();
-
-                    return result.SuccessResponse("Student created successfully.", student);
-                }
-                else
-                {
-                    // Update existing student
-                    studentRecord.studentName = student.studentName;
-                    studentRecord.userName = student.userName;
-                    studentRecord.email = student.email;  // No encryption on email
-                    studentRecord.mobileNumber = student.mobileNumber;
-                    studentRecord.gender = student.gender;
-                    studentRecord.dateOfBirth = student.dateOfBirth;
-                    studentRecord.modifiedBy = claimData?.UserID ?? 0;
-                    studentRecord.modifiedOn = DateTime.UtcNow;
-                    studentRecord.studentPassword = encryptedPassword;  // Encrypt the password
-
-                    await _context.SaveChangesAsync();
-
-                    return result.SuccessResponse("Student updated successfully.", student);
-                }
-            }
-            catch (Exception ex)
-            {
-                result.ResponseCode = -1;
-                result.Message = "An error occurred while processing the request.";
-                result.ErrorDesc = ex.Message;
-                return result;
-            }
-        }
-
-
-        /// <summary>
-        /// Authenticate User
-        /// </summary>
-        /// <param name="login"></param>
-        /// <returns></returns>
-        /// <exception cref="NotImplementedException"></exception>
-        public async Task<ApiResult<LogInResponseModel>> GetStudentByEmailAsync(LoginRequestModel login)
-        {
-            ApiResult<LogInResponseModel> result = new ApiResult<LogInResponseModel>();
-            try
-            {
-                bool isTempPwdLogin = false;
-
-                // Check if login data is null
-                if (login == null)
-                {
-                    return result.ValidationErrorResponse("Please specify credentials");
-                }
-
-                // Check if email is provided
-                if (string.IsNullOrEmpty(login.userName.Trim()))
-                {
-                    return result.ValidationErrorResponse("Please specify email");
-                }
-
-                // Check if password is provided
-                if (string.IsNullOrEmpty(login.studentPassword.Trim()))
-                {
-                    return result.ValidationErrorResponse("Please specify password.");
-                }
-
-                // Retrieve the student record based on email
-                var studentRecord = await _context.studentDetails.FirstOrDefaultAsync(u => u.userName == login.userName)
-                ?? await _context.studentDetails.FirstOrDefaultAsync(u => u.email == login.userName);
-
-                // Check if student exists
-                if (studentRecord == null)
-                {
-                    return result.ValidationErrorResponse("No student record here");
-                }
-
-                // Decrypt the stored password
-                string decryptedPassword = _cryptoServices.EncryptStringToBytes_Aes(login.studentPassword);
-
-                // Compare decrypted password with entered password
-                if (studentRecord.studentPassword != decryptedPassword)
-                {
-                    return result.ValidationErrorResponse("Invalid credentials.");
-                }
-
-                // Prepare the response model
-                LogInResponseModel userInfo = new LogInResponseModel
-                {
-                    email = studentRecord.email,
-                    userName =  studentRecord.userName,
-                    dateOfBirth =  studentRecord.dateOfBirth,
-                    mobileNumber =  studentRecord.mobileNumber,
+                    firstName = student.firstName,
+                    lastName = student.lastName,
+                    email = student.email,
+                    gender = student.gender,
+                    dateOfBirth = student.dateOfBirth,
+                    mobileNumber = student.mobileNumber,
+                    studentstatus = student.studentstatus,
+                    createdOn = DateTime.UtcNow,
+                    createdBy = 1 // Replace with actual user ID from claims
                 };
 
-                // Generate JWT token
-                userInfo.JwtToken = _jwtServices.GenerateToken(userInfo);
+                _context.studentDetails.Add(newStudent);
+                await _context.SaveChangesAsync();
 
-                // Return success response
-                result.SuccessResponse("Login successful", userInfo);
-                return result;
+                return result.SuccessResponse("Student registered successfully.", student);
             }
             catch (Exception ex)
             {
                 result.ResponseCode = -1;
-                result.Message = "An error occurred while processing the request.";
+                result.Message = "An error occurred while registering the student.";
                 result.ErrorDesc = ex.Message;
                 return result;
             }
         }
+
+        /// <summary>
+        /// Registers a new user with encrypted sensitive fields.
+        /// </summary>
+        public async Task<ApiResult<userMasterModel>> RegisterUserDetail(userMasterModel user)
+        {
+            var result = new ApiResult<userMasterModel>();
+            try
+            {
+                if (user == null)
+                    return result.ValidationErrorResponse("Please provide user details.");
+
+                // Validate required fields
+                if (string.IsNullOrWhiteSpace(user.firstName))
+                    return result.ValidationErrorResponse("Please provide the first name.");
+                if (string.IsNullOrWhiteSpace(user.lastName))
+                    return result.ValidationErrorResponse("Please provide the last name.");
+                if (string.IsNullOrWhiteSpace(user.email))
+                    return result.ValidationErrorResponse("Please provide an email.");
+
+                string emailRegexPattern = @"^[\w-]+(\.[\w-]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*(\.[a-zA-Z]{2,})$";
+                if (!Regex.IsMatch(user.email, emailRegexPattern))
+                    return result.ValidationErrorResponse("Invalid email address format.");
+
+                if (string.IsNullOrWhiteSpace(user.userPassword))
+                    return result.ValidationErrorResponse("Please provide a password.");
+
+                // Encrypt the password
+                string encryptedPassword = _cryptoServices.EncryptStringToBytes_Aes(user.userPassword);
+
+                // Check if user already exists
+                var existingUser = await _context.userMasters.AsNoTracking() .FirstOrDefaultAsync(u => u.email == user.email);
+
+                if (existingUser != null)
+                    return result.ValidationErrorResponse("Email already exists.");
+
+                // Add new user record
+                var newUser = new userMaster
+                {
+                    firstName = user.firstName,
+                    lastName = user.lastName,
+                    userName = user.userName,
+                    email = user.email,
+                    userPassword = encryptedPassword,
+                    dateOfBirth = user.dateOfBirth,
+                    gender = user.gender,
+                    createdOn = DateTime.UtcNow,
+                    createdBy = 1, // Replace with actual user ID from claims
+                    userTypeID = user.userTypeID,
+                    userMasterStatus = user.userMasterStatus
+                };
+
+                _context.userMasters.Add(newUser);
+                await _context.SaveChangesAsync();
+
+                return result.SuccessResponse("User registered successfully.", user);
+            }
+            catch (Exception ex)
+            {
+                result.ResponseCode = -1;
+                result.Message = "An error occurred while registering the user.";
+                result.ErrorDesc = ex.InnerException?.Message ?? ex.Message; // Log the inner exception message
+                return result;
+            }
+
+        }
+
+        /// <summary>
+        /// Authenticates a user by validating credentials and generating a JWT token.
+        /// </summary>
+        public async Task<ApiResult<LogInResponseModel>> Login(LoginRequestModel login)
+        {
+            var result = new ApiResult<LogInResponseModel>();
+            try
+            {
+                if (login == null)
+                    return result.ValidationErrorResponse("Please provide login credentials.");
+
+                if (string.IsNullOrWhiteSpace(login.userName))
+                    return result.ValidationErrorResponse("Please provide the username or email.");
+
+                if (string.IsNullOrWhiteSpace(login.userPassword))
+                    return result.ValidationErrorResponse("Please provide the password.");
+
+                // Find user by username or email
+                var user = await _context.userMasters
+                    .AsNoTracking()
+                    .FirstOrDefaultAsync(u => u.userName == login.userName || u.email == login.userName);
+
+                if (user == null)
+                    return result.ValidationErrorResponse("Invalid username or password.");
+
+                // encrypt stored password for validation
+                string encryptedPassword = _cryptoServices.EncryptStringToBytes_Aes(login.userPassword);
+
+                if (login.userPassword == encryptedPassword)
+                    return result.ValidationErrorResponse("Invalid password.");
+
+                // Prepare the response model
+                var response = new LogInResponseModel
+                {
+                    userName = user.userName,  // Mapping properties from userMaster
+                    email = user.email,
+                    mobileNumber = user.mobileNumber,
+                    dateOfBirth = user.dateOfBirth,
+                     // Generate JWT token
+                };
+                response.JwtToken = _jwtServices.GenerateToken(response);
+
+
+                return result.SuccessResponse("Login successful.", response);  // Return the response
+            }
+            catch (Exception ex)
+            {
+                result.ResponseCode = -1;
+                result.Message = "An error occurred while logging in.";
+                result.ErrorDesc = ex.Message;
+                return result;
+            }
+        }
+
     }
 }

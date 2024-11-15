@@ -14,7 +14,7 @@ namespace studentDetails_Api.IRepository
         /// Retrive the Inactive StudentDetails
         /// </summary>
         /// <returns></returns>
-         ApiResult<studentDetailModel> GetStudentDetailsInActive();
+        ApiResult<studentDetailModel> GetStudentDetailsInActive();
         /// <summary>
         /// Retrive the All StudentDetails by UserID
         /// </summary>
@@ -24,16 +24,15 @@ namespace studentDetails_Api.IRepository
         /// <summary>
         /// edit student details
         /// </summary>
-        /// <param name="student"></param>
+        /// <param name="studentID"></param>
         /// <returns></returns>
-        
-        ///Task<ApiResult<studentDetailModel>> EditCompanyDetails(studentDetailModel student);
+        Task<ApiResult<studentDetailModel>> AddOrUpdateStudentDetails(studentDetailModel student);
         /// <summary>
         /// Updates the student status to inactive using Student ID.
         /// </summary>
         /// <param name="studentID"></param>
         /// <returns></returns>
         Task<ApiResult<bool>> UpdateStudentStatusAsync(long studentID);
-        
+
     }
 }

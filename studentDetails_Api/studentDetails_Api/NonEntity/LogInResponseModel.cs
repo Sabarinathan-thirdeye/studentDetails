@@ -12,7 +12,7 @@
         /// <summary>
         /// Student Password
         /// </summary>
-        public string studentPassword { get; set; } = null!;
+        public string userPassword { get; set; } = null!;
         /// <summary>
         /// userName
         /// </summary>
@@ -42,6 +42,6 @@
         /// </summary>
         public string JwtToken { get; set; } = null!;
 
-        public string studentPassword { get; set; } = null!;
+        public string userPassword { get; set; } = null!;
     }
 }

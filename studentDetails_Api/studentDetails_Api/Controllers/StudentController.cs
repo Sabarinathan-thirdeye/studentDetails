@@ -90,6 +90,27 @@ namespace studentDetails_Api.Controllers              // Define the namespace fo
         }
 
         /// <summary>
+        /// POST method to add or update a student's details
+        /// </summary>
+        /// <param name="student"></param>
+        /// <returns></returns>
+        [HttpPost("AddOrUpdateStudentDetails")]
+        public async Task<IActionResult> AddOrUpdateStudentDetails(studentDetailModel student)
+        {
+            ApiResult<studentDetailModel> result = new ApiResult<studentDetailModel>();
+            try
+            {
+                result = await _studentRepo.AddOrUpdateStudentDetails(student);
+                return result.ResponseCode == 1 ? Ok(result) : StatusCode(StatusCodes.Status412PreconditionFailed, result);
+            }
+            catch (Exception ex)
+            {
+                //_logger.LogErrorDetails(ex, ex.Message, _contextAccessor, "", result.ExceptionResponse("Error while add or update a student.", ex));
+                return StatusCode(StatusCodes.Status500InternalServerError, result.ExceptionResponse("Error while add or update a student.", ex)); ;
+            }
+        }
+
+        /// <summary>
         /// POST method to deactivate a student by ID, setting studentStatus to 99
         /// </summary>
         /// <param name="studentID"></param>

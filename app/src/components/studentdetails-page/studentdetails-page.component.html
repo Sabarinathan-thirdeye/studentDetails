@@ -3,7 +3,7 @@
 
     <div *ngIf="loading">Loading...</div>
     <div *ngIf="error" class="error">{{ error }}</div>
-    
+
     <!-- Search and Add Buttons -->
     <div class="actions">
         <button (click)="navigateToaddStudent()">Add Student</button>
@@ -29,12 +29,12 @@
             <tbody>
                 <tr *ngFor="let student of filteredStudentDetails">
                     <td>{{ student.studentID }}</td>
-                    <td>{{ student.firstName }}</td>
-                    <td>{{ student.lastName }}</td>
+                    <td>{{ student.studentName }}</td>
+                    <td>{{ student.userName }}</td>
                     <td>{{ student.dateOfBirth | date:'MM/dd/yyyy' }}</td>
                     <td>{{ student.email }}</td>
                     <td>{{ student.mobileNumber }}</td>
-                    <td>{{ student.studentPassword }}</td>
+                    <td>{{ student.gender }}</td>
                     <td (click)="openModal(student)"><i class="fa-regular fa-pen-to-square"></i></td>
                     <td (click)="deleteStudent(student.studentID)"><i class="fa-solid fa-trash-can"></i></td>
                 </tr>
@@ -51,10 +51,10 @@
             <h3>{{ studentToEdit.studentID ? 'Edit Student' : 'Add Student' }}</h3>
             <form (ngSubmit)="addOrUpdateStudent()">
                 <label>First Name:
-                    <input [(ngModel)]="studentToEdit.firstName" name="firstName" required />
+                    <input [(ngModel)]="studentToEdit.studentName" name="firstName" required />
                 </label>
                 <label>Last Name:
-                    <input [(ngModel)]="studentToEdit.lastName" name="lastName" required />
+                    <input [(ngModel)]="studentToEdit.userName" name="lastName" required />
                 </label>
                 <label>Email:
                     <input [(ngModel)]="studentToEdit.email" name="email" required />

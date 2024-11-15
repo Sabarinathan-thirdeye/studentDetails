@@ -2,10 +2,8 @@
 using studentDetails_Api.IRepository;
 using studentDetails_Api.Models;
 using studentDetails_Api.NonEntity;
-using studentDetails_Api.Repository;
 using studentDetails_Api.Services;
-using System.Security.Claims;
-
+using System;
 
 namespace studentDetails_Api.Controllers
 {
@@ -14,8 +12,8 @@ namespace studentDetails_Api.Controllers
     public class LogInController : ControllerBase
     {
         private readonly ILogInRepo _logInRepo;
+        private readonly JwtServices _jwtServices;
         private readonly ILogger<LogInController> _logger;
-        private JwtServices _jwtServices;
 
         public LogInController(ILogInRepo logInRepo, JwtServices jwtServices, ILogger<LogInController> logger)
         {
@@ -25,23 +23,50 @@ namespace studentDetails_Api.Controllers
         }
 
         /// <summary>
-        /// POST method to add or update a student's details
+        /// Registers a new user.
         /// </summary>
-        /// <param name="details"></param>
-        /// <returns></returns>
-        [HttpPost("AddorUpdateStudentDetails")]
-        public async Task<IActionResult> AddorUpdateStudentDetails([FromBody] studentDetailModel student)
+        /// <param name="student">Student details for registration.</param>
+        /// <returns>API result with registration status.</returns>
+        [HttpPost("RegisterStudentDetail")]
+        public async Task<IActionResult> RegisterStudentDetail([FromBody] studentDetailModel student)
         {
             ApiResult<studentDetailModel> result = new ApiResult<studentDetailModel>();
             try
             {
-                result = await _logInRepo.AddOrUpdateStudentDetails(student);
-                return result.ResponseCode == 1 ? Ok(result) : StatusCode(StatusCodes.Status412PreconditionFailed, result);
+                result = await _logInRepo.RegisterStudentDetail(student);
+
+                return result.ResponseCode == 1
+                    ? Ok(result)
+                    : StatusCode(StatusCodes.Status412PreconditionFailed, result);
             }
             catch (Exception ex)
             {
-                //_logger.LogErrorDetails(ex, ex.Message, _contextAccessor, "", result.ExceptionResponse("Error while add or update a student.", ex));
-                return StatusCode(StatusCodes.Status500InternalServerError, result.ExceptionResponse("Error while add or update a student.", ex)); ;
+                _logger.LogError(ex, "Error while registering student details.");
+                return StatusCode(StatusCodes.Status500InternalServerError, result.ExceptionResponse("Error while registering student details.", ex));
+            }
+        }
+
+        /// <summary>
+        /// Registers a new user in the user master.
+        /// </summary>
+        /// <param name="user">User details for registration.</param>
+        /// <returns>API result with registration status.</returns>
+        [HttpPost("RegisterUserDetail")]
+        public async Task<IActionResult> RegisterUserDetail([FromBody] userMasterModel user)
+        {
+            ApiResult<userMasterModel> result = new ApiResult<userMasterModel>();
+            try
+            {
+                result = await _logInRepo.RegisterUserDetail(user);
+
+                return result.ResponseCode == 1
+                    ? Ok(result)
+                    : StatusCode(StatusCodes.Status412PreconditionFailed, result);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error while registering user details.");
+                return StatusCode(StatusCodes.Status500InternalServerError, result.ExceptionResponse("Error while registering user details.", ex));
             }
         }
 
@@ -51,13 +76,13 @@ namespace studentDetails_Api.Controllers
         /// <param name="loginRequest"></param>
         /// <returns></returns>
         [HttpPost("Authenticate")]
-        public async Task<IActionResult> Auth(LoginRequestModel req)
+        public async Task<IActionResult> Login(LoginRequestModel req)
         {
             ApiResult<LogInResponseModel> result = new ApiResult<LogInResponseModel>();
             try
             {
                 // Get student details by email
-                result = await _logInRepo.GetStudentByEmailAsync(req);
+                result = await _logInRepo.Login(req);
                 if (result.ResponseCode == 1)
                 {
                     return Ok(result);
@@ -70,9 +95,5 @@ namespace studentDetails_Api.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, result.ExceptionResponse("Error authenticating user", ex));
             }
         }
-
-
-
-
     }
 }
