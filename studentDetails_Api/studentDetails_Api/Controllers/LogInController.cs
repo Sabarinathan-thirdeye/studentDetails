@@ -23,36 +23,12 @@ namespace studentDetails_Api.Controllers
         }
 
         /// <summary>
-        /// Registers a new user.
-        /// </summary>
-        /// <param name="student">Student details for registration.</param>
-        /// <returns>API result with registration status.</returns>
-        [HttpPost("RegisterStudentDetail")]
-        public async Task<IActionResult> RegisterStudentDetail([FromBody] studentDetailModel student)
-        {
-            ApiResult<studentDetailModel> result = new ApiResult<studentDetailModel>();
-            try
-            {
-                result = await _logInRepo.RegisterStudentDetail(student);
-
-                return result.ResponseCode == 1
-                    ? Ok(result)
-                    : StatusCode(StatusCodes.Status412PreconditionFailed, result);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error while registering student details.");
-                return StatusCode(StatusCodes.Status500InternalServerError, result.ExceptionResponse("Error while registering student details.", ex));
-            }
-        }
-
-        /// <summary>
         /// Registers a new user in the user master.
         /// </summary>
         /// <param name="user">User details for registration.</param>
         /// <returns>API result with registration status.</returns>
         [HttpPost("RegisterUserDetail")]
-        public async Task<IActionResult> RegisterUserDetail([FromBody] userMasterModel user)
+        public async Task<IActionResult> RegisterUserDetail(userMasterModel user)
         {
             ApiResult<userMasterModel> result = new ApiResult<userMasterModel>();
             try

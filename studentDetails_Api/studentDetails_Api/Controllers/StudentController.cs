@@ -115,7 +115,7 @@ namespace studentDetails_Api.Controllers              // Define the namespace fo
         /// </summary>
         /// <param name="studentID"></param>
         /// <returns></returns>
-        [HttpPost("Deactivate/{id}")]
+        [HttpPost("Deactivate/{studentID}")]
         public async Task<IActionResult> UpdateStudentStatusAsync(long studentID)
         {
             ApiResult<bool> result = new ApiResult<bool>();
@@ -126,9 +126,9 @@ namespace studentDetails_Api.Controllers              // Define the namespace fo
             }
             catch (Exception ex)
             {
-                //_logger.LogErrorDetails(ex, ex.Message, _contextAccessor, id, result.ExceptionResponse("Error while deleting a student.", ex));
-                return StatusCode(StatusCodes.Status500InternalServerError, result.ExceptionResponse("Error while deleting a student.", ex)); ;
+                return StatusCode(StatusCodes.Status500InternalServerError, result.ExceptionResponse("Error while deleting a student.", ex));
             }
         }
+
     }
 }

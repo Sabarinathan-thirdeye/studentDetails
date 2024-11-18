@@ -24,36 +24,38 @@ export class StudentdetailsPageComponent implements OnInit {
     this.getAllStudentDetails();
   }
 
-//API
-getAllStudentDetails() {
-  console.log('Fetching all student details...');
-  this.studentDetailsService.getAllStudents().subscribe({
-    next: (Response: any) => {
-      if (Response.ResponseCode === 1) { // If response has responseCode
-        this.studentDetail = Response.ResponseData;
-        this.filteredStudentDetails = [...this.studentDetail];
+  //API
+  getAllStudentDetails() {
+    console.log('Fetching all student details...');
+    this.studentDetailsService.getAllStudents().subscribe({
+      next: (Response: any) => {
+        if (Response.ResponseCode === 1) { // If response has responseCode
+          this.studentDetail = Response.ResponseData;
+          this.filteredStudentDetails = [...this.studentDetail];
+        }
+        this.loading = false;
+      },
+      error: err => {
+        this.error = 'Error loading data';
+        console.error('Error fetching student details:', err);
+        this.loading = false;
       }
-      this.loading = false;
-    },
-    error: err => {
-      this.error = 'Error loading data';
-      console.error('Error fetching student details:', err);
-      this.loading = false;
-    }
-  });
-}
+    });
+  }
 
-  
+
   // Add or update student
   addOrUpdateStudent(): void {
     if (!this.studentToEdit) return;
-    debugger
+
     console.log('Saving student:', this.studentToEdit);  // Debug log to verify student details
+
     this.studentDetailsService.addOrUpdateStudentDetails(this.studentToEdit).subscribe({
-      next: (Response) => {
+      next: (response) => {
+        // Check if studentID exists to determine if it's an update or add
         alert(`${this.studentToEdit?.studentID ? 'Student updated' : 'Student added'} successfully`);
-        this.closeModal();
-        this.getAllStudentDetails();  // Refresh student details
+        this.closeModal();  // Close the modal after saving the student
+        this.getAllStudentDetails();  // Refresh the student details list
       },
       error: (error) => {
         console.error('Error updating/adding student:', error);
@@ -61,33 +63,36 @@ getAllStudentDetails() {
       }
     });
   }
-  
+
+
 
   // Delete (deactivate) student
-  deleteStudent(studentID: number): void {
-    if (confirm('Are you sure you want to delete this student?')) {
-      this.studentDetailsService.deactivateStudent(studentID).subscribe({
-        next: (response) => {
-          alert('Student deactivated successfully');
-          this.getAllStudentDetails(); // Refresh the student list after deactivation
-        },
-        error: (err) => {
-          console.error('Error deactivating student:', err);
-          alert('Failed to deactivate student');
-        }
-      });
-    }
+deleteStudent(studentID: number): void {
+  if (confirm('Are you sure you want to deactivate this student?')) {
+    this.studentDetailsService.deactivateStudent(studentID).subscribe({
+      next: (response) => {
+        alert('Student deactivated successfully');
+        this.getAllStudentDetails(); // Refresh the student list after deactivation
+      },
+      error: (err) => {
+        console.error('Error deactivating student:', err);
+        alert('Failed to deactivate student');
+      }
+    });
   }
+}
+
 
   // Filter student details
   filterStudents() {
     this.filteredStudentDetails = this.studentDetail.filter(student =>
-      student.studentName.toLowerCase().includes(this.searchText.toLowerCase()));
+      student.firstName.toLowerCase().includes(this.searchText.toLowerCase()) ||
+      student.lastName.toLowerCase().includes(this.searchText.toLowerCase()));
   }
 
   //Add Student
   navigateToaddStudent() {
-    this.router.navigate(['/register']);
+    this.router.navigate(['/addstudent']);
   }
 
   // Open modal to add/edit student
@@ -96,7 +101,7 @@ getAllStudentDetails() {
     console.log('Opening modal with student:', this.studentToEdit);  // Debug log
     this.showModal = true;
   }
-  
+
 
   // Close modal
   closeModal() {

@@ -7,19 +7,16 @@ import { StudentDetail } from '../model/student.model';
   providedIn: 'root'
 })
 export class StudentDetailsService {
-  private apiUrl = 'https://localhost:7075/api/Student';
+  private apiUrl = 'https://localhost:7075/api/Student'; // Your base API URL
   private login = 'https://localhost:7075/api/LogIn/';
 
   constructor(private http: HttpClient) { }
 
-  
   // Fetch all student details
   getAllStudents(): Observable<StudentDetail[]> {
-    
     const token = localStorage.getItem('jwtToken');
-    // Initialize headers with content-type
+    
     let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    // Add Authorization header if token exists
     if (token) {
       headers = headers.append('Authorization', `Bearer ${token}`);
     }
@@ -32,43 +29,40 @@ export class StudentDetailsService {
     );
   }
 
-
-  // Add or Update Student details
+  // Add or Update Student details (same API for both)
   addOrUpdateStudentDetails(student: StudentDetail): Observable<StudentDetail> {
-    if (student.studentID) {
-      // If studentID exists, it's an update
-      return this.http.post<StudentDetail>(``, student).pipe(
-        catchError(error => {
-          console.error('Error creating/updating student:', error);
-          return throwError(() => error);
-        })
-      );
-    } else {
-      // If no studentID, it's a new student
-      return this.http.post<StudentDetail>(`${this.login}/AddorStudentStudentDetails`, student).pipe(
-        catchError(error => {
-          console.error('Error creating student:', error);
-          return throwError(() => error);
-        })
-      );
-    }
-  }
-
-  // Deactivate student by setting status to 99
-  deactivateStudent(studentID: number): Observable<any> {
-    const token = localStorage.getItem('jwtToken'); // Retrieve the token
+    const token = localStorage.getItem('jwtToken');
     let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-  
+    
+    // Add Authorization header if token exists
     if (token) {
       headers = headers.append('Authorization', `Bearer ${token}`);
     }
-  
-    return this.http.post<any>(`${this.apiUrl}/Deactivate/${studentID}`, {}, { headers }).pipe(
+
+    // Use POST for both adding and updating
+    return this.http.post<StudentDetail>(`${this.apiUrl}/AddOrUpdateStudentDetails`, student, { headers }).pipe(
       catchError(error => {
-        console.error('Error deactivating student:', error);
+        console.error('Error adding/updating student:', error);
         return throwError(() => error);
       })
     );
   }
-  
+
+  // Deactivate student by setting status to 99
+deactivateStudent(studentID: number): Observable<any> {
+  const token = localStorage.getItem('jwtToken');
+  let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+  if (token) {
+    headers = headers.append('Authorization', `Bearer ${token}`);
+  }
+
+  return this.http.post<any>(`${this.apiUrl}/Deactivate/${studentID}`, {}, { headers }).pipe(
+    catchError(error => {
+      console.error('Error deactivating student:', error);
+      return throwError(() => error);
+    })
+  );
+}
+
 }

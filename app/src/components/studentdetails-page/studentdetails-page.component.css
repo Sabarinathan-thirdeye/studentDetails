@@ -1,42 +1,52 @@
+/* Container for Student Details */
 .student-detail-container {
-    padding: 20px;
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-  
-  h2 {
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 20px;
-  }
-  
-  th, td {
-    text-align: left;
-    padding: 8px;
-    border: 1px solid #ccc;
-  }
-  
-  th {
-    background-color: #f4f4f4;
-  }
-  
-  .error {
-    color: red;
-    text-align: center;
-    font-size: 1.2em;
-  }
-  
-  .student-details-table {
-    width: 100%;
-    margin: 20px 0;
-  }
-  
-  /* Modal Overlay (Background) */
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  height: 80vh; /* Ensure the container does not exceed the viewport height */
+  overflow-y: hidden; /* Hide vertical overflow */
+  position: relative; /* Ensure that the container behaves as expected */
+}
+
+/* Ensure the table or content inside does not overflow */
+.student-details-table,
+.table-container {
+  max-height: calc(100vh - 40px); /* Adjust the height to fit within the viewport */
+  overflow-y: auto; /* Add scroll to the table if content overflows */
+  padding: 10px;
+}
+
+/* Heading Style */
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Table Styles */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+th, td {
+  text-align: left;
+  padding: 8px;
+  border: 1px solid #ccc;
+}
+
+th {
+  background-color: #f4f4f4;
+}
+
+/* Error Message */
+.error {
+  color: red;
+  text-align: center;
+  font-size: 1.2em;
+}
+
+/* Modal Overlay (Background) */
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -49,9 +59,7 @@
   align-items: center;
   z-index: 9999; /* Ensure it's above all other content */
 }
-h3{
-  text-align: center;
-}
+
 /* Modal Content Box */
 .modal-content {
   background-color: white;
@@ -61,34 +69,20 @@ h3{
   width: 100%;
   box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1); /* Shadow for better visual effect */
   animation: fadeIn 0.3s ease-in-out; /* Smooth transition for opening */
+  max-height: 90vh; /* Limit the height to 90% of the viewport */
+  overflow-y: auto; /* Add scrollbar if content exceeds the height */
 }
 
 /* Fade-In Animation */
 @keyframes fadeIn {
   from {
-      opacity: 0;
-      transform: translateY(-20px);
+    opacity: 0;
+    transform: translateY(-20px);
   }
   to {
-      opacity: 1;
-      transform: translateY(0);
+    opacity: 1;
+    transform: translateY(0);
   }
-}
-
-/* Label and Input Styling */
-label {
-  display: block;
-  margin-bottom: 8px;
-  font-weight: 500;
-}
-
-input,select {
-  width: 100%;
-  padding: 8px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  font-size: 16px;
-  box-sizing: border-box;
 }
 
 /* Button Styling */
@@ -110,7 +104,6 @@ button:hover {
 /* Close Button Styling */
 button[type="button"] {
   background-color: #f44336; /* Red background for Close button */
-  margin-left: 10px;
 }
 
 button[type="button"]:hover {
@@ -124,13 +117,6 @@ form {
   gap: 15px;
 }
 
-/* Ensure Modal Responsiveness on Small Screens */
-@media (max-width: 600px) {
-  .modal-content {
-      width: 90%;
-      max-width: 400px;
-  }
-}
 /* Actions (Search and Add Buttons) */
 .actions {
   display: flex;
@@ -140,7 +126,7 @@ form {
 }
 
 .actions input {
-  padding: 9px ;
+  padding: 9px;
   font-size: 16px;
   border: 1px solid #0889f3;
   border-radius: 4px;
@@ -165,4 +151,16 @@ form {
 
 .actions button:hover {
   background-color: #0056b3;
+}
+
+/* For better overall responsiveness on smaller devices */
+@media (max-width: 768px) {
+  .actions {
+    flex-direction: column;
+  }
+
+  .actions input, .actions button {
+    width: 100%;
+    margin-bottom: 10px;
+  }
 }

@@ -6,13 +6,6 @@ namespace studentDetails_Api.IRepository
     public interface ILogInRepo
     {
         /// <summary>
-        /// Registers a new student's details.
-        /// </summary>
-        /// <param name="student">The student details model.</param>
-        /// <returns>API result containing the registered student details.</returns>
-        Task<ApiResult<studentDetailModel>> RegisterStudentDetail(studentDetailModel student);
-
-        /// <summary>
         /// Registers a new user's details in the user master.
         /// </summary>
         /// <param name="user">The user details model.</param>

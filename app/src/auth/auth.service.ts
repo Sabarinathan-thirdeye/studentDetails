@@ -2,7 +2,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
 import { Login, UserMasterModel } from '../model/login.model'; // Assuming you have a Login model
 
 @Injectable({
@@ -10,7 +10,7 @@ import { Login, UserMasterModel } from '../model/login.model'; // Assuming you h
 })
 export class AuthService {
   private loginUrl = 'https://localhost:7075/api/LogIn/Authenticate'; // Login endpoint
-  private registerUrl = 'https://localhost:7075/api/LogIn/Register'; // Register endpoint (adjust if needed)
+  private registerUrl = 'https://localhost:7075/api/LogIn/RegisterUserDetail'; // Register endpoint (adjust if needed)
 
   constructor(private http: HttpClient) {}
 
@@ -27,19 +27,19 @@ export class AuthService {
     );
   }
 
-  // Method to register user
+  // auth.service.ts
   registerUser(user: UserMasterModel): Observable<any> {
-    return this.http.post(this.registerUrl, user).pipe(
+    return this.http.post<UserMasterModel>(this.registerUrl, user).pipe(
       catchError(error => {
         console.error('Error during registration:', error);
         return throwError(() => new Error('Registration failed'));
+      }),
+      map(response => {
+        // Handle the response if necessary (e.g., show success message, navigate, etc.)
+        return response;
       })
     );
   }
+  
 
-  // Method to retrieve JWT from localStorage and set as Authorization header
-  getAuthHeaders(): HttpHeaders {
-    const token = localStorage.getItem('jwtToken');
-    return token ? new HttpHeaders({ Authorization: `Bearer ${token}` }) : new HttpHeaders();
-  }
 }

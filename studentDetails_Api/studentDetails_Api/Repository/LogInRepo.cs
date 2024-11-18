@@ -26,65 +26,6 @@ namespace studentDetails_Api.Repository
         }
 
         /// <summary>
-        /// Registers a new student with encrypted sensitive fields.
-        /// </summary>
-        public async Task<ApiResult<studentDetailModel>> RegisterStudentDetail(studentDetailModel student)
-        {
-            var result = new ApiResult<studentDetailModel>();
-            try
-            {
-                if (student == null)
-                    return result.ValidationErrorResponse("Please provide student details.");
-
-                // Validate required fields
-                if (string.IsNullOrWhiteSpace(student.firstName))
-                    return result.ValidationErrorResponse("Please provide the first name.");
-                if (string.IsNullOrWhiteSpace(student.lastName))
-                    return result.ValidationErrorResponse("Please provide the last name.");
-                if (string.IsNullOrWhiteSpace(student.email))
-                    return result.ValidationErrorResponse("Please provide an email.");
-
-                string emailRegexPattern = @"^[\w-]+(\.[\w-]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*(\.[a-zA-Z]{2,})$";
-                if (!Regex.IsMatch(student.email, emailRegexPattern))
-                    return result.ValidationErrorResponse("Invalid email address format.");
-
-                // Check if student already exists
-                var existingStudent = await _context.studentDetails
-                    .AsNoTracking()
-                    .FirstOrDefaultAsync(s => s.email == student.email);
-
-                if (existingStudent != null)
-                    return result.ValidationErrorResponse("Email already exists.");
-
-                // Add new student record
-                var newStudent = new studentDetail
-                {
-                    firstName = student.firstName,
-                    lastName = student.lastName,
-                    email = student.email,
-                    gender = student.gender,
-                    dateOfBirth = student.dateOfBirth,
-                    mobileNumber = student.mobileNumber,
-                    studentstatus = student.studentstatus,
-                    createdOn = DateTime.UtcNow,
-                    createdBy = 1 // Replace with actual user ID from claims
-                };
-
-                _context.studentDetails.Add(newStudent);
-                await _context.SaveChangesAsync();
-
-                return result.SuccessResponse("Student registered successfully.", student);
-            }
-            catch (Exception ex)
-            {
-                result.ResponseCode = -1;
-                result.Message = "An error occurred while registering the student.";
-                result.ErrorDesc = ex.Message;
-                return result;
-            }
-        }
-
-        /// <summary>
         /// Registers a new user with encrypted sensitive fields.
         /// </summary>
         public async Task<ApiResult<userMasterModel>> RegisterUserDetail(userMasterModel user)
@@ -131,7 +72,7 @@ namespace studentDetails_Api.Repository
                     gender = user.gender,
                     createdOn = DateTime.UtcNow,
                     createdBy = 1, // Replace with actual user ID from claims
-                    userTypeID = user.userTypeID,
+                    userTypeID = 1,
                     userMasterStatus = user.userMasterStatus
                 };
 

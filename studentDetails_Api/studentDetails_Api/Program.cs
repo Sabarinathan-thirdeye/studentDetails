@@ -77,6 +77,7 @@ builder.Services.AddSwaggerGen(option =>
                 new string[]{}
             }
     });
+    option.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, $"{Assembly.GetExecutingAssembly().GetName().Name}.xml"));
 });
 
 // Get keys for JWT signing and encryption

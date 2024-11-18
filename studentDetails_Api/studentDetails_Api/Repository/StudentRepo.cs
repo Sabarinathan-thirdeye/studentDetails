@@ -50,7 +50,10 @@ namespace studentDetails_Api.Repository
                     .Select(s => new studentDetailModel
                     {
                         studentID = s.studentID,
-                        dateOfBirth = (DateOnly)s.dateOfBirth,
+                        firstName = s.firstName,
+                        lastName= s.lastName,
+                        userName =s.userName,
+                        dateOfBirth = (DateOnly)s.dateOfBirth,  // Ensure this is a valid DateOnly conversion
                         gender = s.gender,
                         email = s.email,
                         mobileNumber = s.mobileNumber,
@@ -61,15 +64,21 @@ namespace studentDetails_Api.Repository
                         studentstatus = s.studentstatus
                     }).ToList();
 
-                return studentList.Count > 0 ?
-                    result.SuccessResponse("Success", studentList) :
-                    result.SuccessResponse("No data found", studentList);
+                if (studentList.Count > 0)
+                {
+                    return result.SuccessResponse("Success", studentList);
+                }
+                else
+                {
+                    return result.SuccessResponse("No data found", studentList);
+                }
             }
             catch (Exception ex)
             {
-                return result.SuccessResponse("An error occurred while retrieving data.", new List<studentDetailModel>());
+                throw ex;
             }
         }
+
 
         /// <summary>
         /// Retrieves all inactive student details.
@@ -101,7 +110,7 @@ namespace studentDetails_Api.Repository
             }
             catch (Exception ex)
             {
-                return result.SuccessResponse("An error occurred while retrieving inactive data.", new List<studentDetailModel>());
+                throw ex;
             }
         }
 
@@ -136,7 +145,7 @@ namespace studentDetails_Api.Repository
             }
             catch (Exception ex)
             {
-                return result.SuccessResponse("An error occurred while retrieving student details.", new List<studentDetailModel>());
+                throw ex;
             }
         }
 
@@ -151,79 +160,76 @@ namespace studentDetails_Api.Repository
             try
             {
                 if (student == null)
-                {
                     return result.ValidationErrorResponse("Please provide student details.");
-                }
 
-                // Validate required fields
-                if (string.IsNullOrWhiteSpace(student.firstName)) return result.ValidationErrorResponse("Please provide first name.");
-                if (string.IsNullOrWhiteSpace(student.lastName)) return result.ValidationErrorResponse("Please provide last name.");
-                if (string.IsNullOrWhiteSpace(student.userName)) return result.ValidationErrorResponse("Please provide user name.");
-                if (string.IsNullOrWhiteSpace(student.email)) return result.ValidationErrorResponse("Please provide email.");
+                // Validate fields
+                if (string.IsNullOrWhiteSpace(student.firstName))
+                    return result.ValidationErrorResponse("Please provide the first name.");
+                if (string.IsNullOrWhiteSpace(student.lastName))
+                    return result.ValidationErrorResponse("Please provide the last name.");
 
-                // Validate email format
+                // Generate a random two-digit number for new users
+                Random random = new Random();
+                int randomNumber = random.Next(10, 99); // Generate a number between 10 and 99
+
+                if (string.IsNullOrWhiteSpace(student.email))
+                    return result.ValidationErrorResponse("Please provide an email.");
+
                 string emailRegexPattern = @"^[\w-]+(\.[\w-]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*(\.[a-zA-Z]{2,})$";
-                if (!Regex.IsMatch(student.email, emailRegexPattern)) return result.ValidationErrorResponse("Invalid email address.");
+                if (!Regex.IsMatch(student.email, emailRegexPattern))
+                    return result.ValidationErrorResponse("Invalid email address format.");
 
-                if (string.IsNullOrWhiteSpace(student.gender)) return result.ValidationErrorResponse("Please provide gender.");
-
-
-                // Check for existing records
+                // Check if the student already exists
                 var existingStudent = await _context.studentDetails
                     .FirstOrDefaultAsync(s => s.email == student.email);
 
                 if (existingStudent != null)
                 {
-                    return result.ValidationErrorResponse("Email already exists.");
-                }
+                    // Update existing record
+                    existingStudent.firstName = student.firstName;
+                    existingStudent.lastName = student.lastName;
+                    existingStudent.userName = $"{student.firstName}{student.lastName}_{randomNumber}"; // Update username logic if needed
+                    existingStudent.email = student.email;
+                    existingStudent.mobileNumber = student.mobileNumber;
+                    existingStudent.gender = student.gender;
+                    existingStudent.dateOfBirth = student.dateOfBirth;
+                    existingStudent.studentstatus = student.studentstatus;
+                    existingStudent.modifiedBy = 1; // Replace with user ID from claims
+                    existingStudent.modifiedOn = DateTime.UtcNow;
 
-                // Check if updating or creating a new record
-                var studentRecord = await _context.studentDetails
-                    .FirstOrDefaultAsync(s => s.email == student.email && s.userName == student.userName);
-
-                if (studentRecord == null)
-                {
-                    // Add new student
-                    studentRecord = new studentDetail
-                    {
-                        userName = student.userName,
-                        email = student.email,  // No encryption on email
-                        mobileNumber = student.mobileNumber,
-                        gender = student.gender,
-                        dateOfBirth = student.dateOfBirth,
-                        createdOn = DateTime.UtcNow,
-                        createdBy = 0,  // For demo purposes, set to 0 or use your claim data here
-                        studentstatus = student.studentstatus
-                    };
-
-                    _context.studentDetails.Add(studentRecord);
                     await _context.SaveChangesAsync();
-
-                    return result.SuccessResponse("Student created successfully.", student);
+                    return result.SuccessResponse("Student updated successfully.", student);
                 }
                 else
                 {
-                    studentRecord.userName = student.userName;
-                    studentRecord.email = student.email;
-                    studentRecord.mobileNumber = student.mobileNumber;
-                    studentRecord.gender = student.gender;
-                    studentRecord.dateOfBirth = student.dateOfBirth;
-                    studentRecord.modifiedBy = 0;  // Set modified by from claim data if needed
-                    studentRecord.modifiedOn = DateTime.UtcNow;
+                    // Add new student record
+                    var newStudent = new studentDetail
+                    {
+                        firstName = student.firstName,
+                        lastName = student.lastName,
+                        userName = $"{student.firstName}{student.lastName}_{randomNumber}",
+                        email = student.email,
+                        gender = student.gender,
+                        dateOfBirth = student.dateOfBirth,
+                        mobileNumber = student.mobileNumber,
+                        studentstatus = student.studentstatus,
+                        createdOn = DateTime.UtcNow,
+                        createdBy = 1 // Replace with actual user ID from claims
+                    };
 
+                    _context.studentDetails.Add(newStudent);
                     await _context.SaveChangesAsync();
 
-                    return result.SuccessResponse("Student created successfully.", student);
+                    return result.SuccessResponse("Student registered successfully.", student);
                 }
             }
             catch (Exception ex)
             {
-                result.ResponseCode = -1;
-                result.Message = "An error occurred while processing the request.";
-                result.ErrorDesc = ex.Message;
-                return result;
+                throw ex;
             }
         }
+
+
 
         /// <summary>
         /// Sets the student status to inactive (99) by student ID.
@@ -234,32 +240,37 @@ namespace studentDetails_Api.Repository
             ApiResult<bool> result = new ApiResult<bool>();
             try
             {
+                // Find the student by ID
                 var student = await _context.studentDetails.FindAsync(studentID);
                 if (student == null)
                 {
                     return result.ValidationErrorResponse("Student not found.");
                 }
 
-                // Checks if the student is already inactive.
+                // Check if the student is already inactive
                 if (student.studentstatus == 99)
                 {
                     result.Message = "Student is already deactivated";
                     return result;
                 }
-                else
-                {
-                    student.studentstatus = 99;
-                    student.modifiedBy = 0;  // Set modified by from claim data if needed
-                    student.modifiedOn = DateTime.UtcNow;
 
-                    await _context.SaveChangesAsync();
-                    return result.SuccessResponse("Student status updated successfully.", true);
-                }
+                // Update the student status to 99 (deactivated)
+                student.studentstatus = 99;
+                student.modifiedBy = 1;  // You can set this to the user who is making the update if needed
+                student.modifiedOn = DateTime.UtcNow;  // Set modified date/time
+
+                // Save changes to the database
+                await _context.SaveChangesAsync();
+
+                // Return success result
+                return result.SuccessResponse("Student status updated successfully.", true);
             }
             catch (Exception ex)
             {
-                return result.SuccessResponse("An error occurred while updating student status.",true);
+                // Handle exception and log if necessary
+                return result.ExceptionResponse("Error while updating student status.", ex);
             }
         }
+
     }
 }
