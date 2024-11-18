@@ -1,0 +1,118 @@
+/* Container for the registration form */
+.register-container {
+  max-width: 500px;
+  margin: 50px auto;
+  padding: 20px;
+  background-color: #dad7d7;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Heading */
+.register-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #333;
+}
+
+/* Form group (each input field container) */
+.form-group {
+  margin-bottom: 15px;
+}
+
+/* Label for each input field */
+.form-group label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 5px;
+  color: #555;
+}
+
+/* Form control (input fields) */
+.form-control,
+.select-control,
+.input-date,
+.input-phone {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  font-size: 16px;
+  color: #333;
+}
+
+/* Focus state for input fields */
+.form-control:focus,
+.select-control:focus,
+.input-date:focus,
+.input-phone:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+/* Invalid feedback message */
+.invalid-feedback {
+  color: red;
+  font-size: 0.875rem;
+  margin-top: 5px;
+}
+
+/* Submit button */
+.btn {
+  width: 100%;
+  padding: 12px;
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* Disabled button (when form is invalid) */
+.btn:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* Submit button hover effect */
+.btn:hover {
+  background-color: #0056b3;
+}
+
+/* Error messages container */
+.alert {
+  padding: 15px;
+  background-color: #f8d7da;
+  color: #721c24;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  border: 1px solid #f5c6cb;
+}
+
+.alert ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.alert li {
+  margin: 5px 0;
+}
+
+/* Styling the form fields when they are filled with values */
+.form-control:valid,
+.select-control:valid,
+.input-date:valid,
+.input-phone:valid {
+  border-color: #28a745;
+}
+
+.form-control:invalid,
+.select-control:invalid,
+.input-date:invalid,
+.input-phone:invalid {
+  border-color: #dc3545;
+}

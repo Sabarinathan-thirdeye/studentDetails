@@ -16,6 +16,7 @@ import { CommonModule } from '@angular/common';  // Import CommonModule
 import { StudentdetailsPageComponent } from '../components/studentdetails-page/studentdetails-page.component';
 import { NavbarComponent } from '../components/navbar/navbar.component';
 import { AddStudentComponent } from '../components/add-student/add-student.component';
+import { RegisterPageComponent } from '../components/register-page/register-page.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { AddStudentComponent } from '../components/add-student/add-student.compo
     ResetPageComponent,
     StudentdetailsPageComponent,
     NavbarComponent,
-    AddStudentComponent
+    AddStudentComponent,
+    RegisterPageComponent
   ],
   imports: [
     BrowserModule,

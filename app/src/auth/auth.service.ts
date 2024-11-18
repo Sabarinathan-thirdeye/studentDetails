@@ -29,13 +29,12 @@ export class AuthService {
 
   // auth.service.ts
   registerUser(user: UserMasterModel): Observable<any> {
-    return this.http.post<UserMasterModel>(this.registerUrl, user).pipe(
+    return this.http.post<any>(this.registerUrl, user).pipe(
       catchError(error => {
         console.error('Error during registration:', error);
         return throwError(() => new Error('Registration failed'));
       }),
       map(response => {
-        // Handle the response if necessary (e.g., show success message, navigate, etc.)
         return response;
       })
     );
