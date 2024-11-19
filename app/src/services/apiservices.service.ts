@@ -2,13 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, Observable, throwError } from 'rxjs';
 import { StudentDetail } from '../model/student.model';
+import { environment } from '../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StudentDetailsService {
-  private apiUrl = 'https://localhost:7075/api/Student'; // Your base API URL
-  private login = 'https://localhost:7075/api/LogIn/';
+  private apiUrl = environment.apiUrl;
 
   constructor(private http: HttpClient) { }
 
@@ -49,7 +49,7 @@ export class StudentDetailsService {
   }
 
   // Deactivate student by setting status to 99
-deactivateStudent(studentID: number): Observable<any> {
+deactivateStudent(studentID: number): Observable<StudentDetail> {
   const token = localStorage.getItem('jwtToken');
   let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 

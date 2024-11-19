@@ -3,20 +3,20 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { Login, UserMasterModel } from '../model/login.model'; // Assuming you have a Login model
+import { Login, UserMasterModel } from '../model/login.model'; 
+import { environment } from '../environments/environment'; 
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private loginUrl = 'https://localhost:7075/api/LogIn/Authenticate'; // Login endpoint
-  private registerUrl = 'https://localhost:7075/api/LogIn/RegisterUserDetail'; // Register endpoint (adjust if needed)
+  private loginUrlPage = environment.loginUrlPage;
 
   constructor(private http: HttpClient) {}
 
   // Method to check credentials and get JWT token
   login(email: string, userPassword: string): Observable<Login> {
-    return this.http.post<Login>(this.loginUrl, { userName: email, userPassword }).pipe(
+    return this.http.post<Login>(`${this.loginUrlPage}/Authenticate`, { userName: email, userPassword }).pipe(
       catchError(error => {
         console.error('Error during login:', error);
         if (error.error && error.error.errors) {
@@ -29,7 +29,7 @@ export class AuthService {
 
   // auth.service.ts
   registerUser(user: UserMasterModel): Observable<any> {
-    return this.http.post<any>(this.registerUrl, user).pipe(
+    return this.http.post<any>(`${this.loginUrlPage}/RegisterUserDetail`, user).pipe(
       catchError(error => {
         console.error('Error during registration:', error);
         return throwError(() => new Error('Registration failed'));
