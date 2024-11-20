@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc; // Import ASP.NET Core MVC attributes for API cr
 using System.Text.RegularExpressions; // Import regular expressions for email validation.
 using studentDetails_Api.Services; // Import data namespace, though currently unused.
 using System.Data;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace studentDetails_Api.Repository
 {
@@ -52,15 +53,10 @@ namespace studentDetails_Api.Repository
                         studentID = s.studentID,
                         firstName = s.firstName,
                         lastName= s.lastName,
-                        userName =s.userName,
                         dateOfBirth = (DateOnly)s.dateOfBirth,  // Ensure this is a valid DateOnly conversion
                         gender = s.gender,
                         email = s.email,
                         mobileNumber = s.mobileNumber,
-                        createdOn = s.createdOn,
-                        createdBy = s.createdBy,
-                        modifiedBy = s.modifiedBy,
-                        modifiedOn = s.modifiedOn,
                         studentstatus = s.studentstatus
                     }).ToList();
 
@@ -81,7 +77,7 @@ namespace studentDetails_Api.Repository
 
 
         /// <summary>
-        /// Retrieves all inactive student details.
+        /// Retrieves all dacativate student details.
         /// </summary>
         public ApiResult<studentDetailModel> GetStudentDetailsInActive()
         {
@@ -97,10 +93,6 @@ namespace studentDetails_Api.Repository
                         gender = s.gender,
                         email = s.email,
                         mobileNumber = s.mobileNumber,
-                        createdOn = s.createdOn,
-                        createdBy = s.createdBy,
-                        modifiedBy = s.modifiedBy,
-                        modifiedOn = s.modifiedOn,
                         studentstatus = s.studentstatus
                     }).ToList();
 
@@ -132,10 +124,6 @@ namespace studentDetails_Api.Repository
                         gender = s.gender,
                         email = s.email,
                         mobileNumber = s.mobileNumber,
-                        createdOn = s.createdOn,
-                        createdBy = s.createdBy,
-                        modifiedBy = s.modifiedBy,
-                        modifiedOn = s.modifiedOn,
                         studentstatus = s.studentstatus
                     }).FirstOrDefault();
 
@@ -165,30 +153,31 @@ namespace studentDetails_Api.Repository
                 // Validate fields
                 if (string.IsNullOrWhiteSpace(student.firstName))
                     return result.ValidationErrorResponse("Please provide the first name.");
-                if (string.IsNullOrWhiteSpace(student.lastName))
-                    return result.ValidationErrorResponse("Please provide the last name.");
-
-                // Generate a random two-digit number for new users
-                Random random = new Random();
-                int randomNumber = random.Next(10, 99); // Generate a number between 10 and 99
-
                 if (string.IsNullOrWhiteSpace(student.email))
                     return result.ValidationErrorResponse("Please provide an email.");
 
-                string emailRegexPattern = @"^[\w-]+(\.[\w-]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*(\.[a-zA-Z]{2,})$";
-                if (!Regex.IsMatch(student.email, emailRegexPattern))
+                 string emailRegexPattern = @"^[\w-]+(\.[\w-]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*(\.[a-zA-Z]{2,})$";
+                 if (!Regex.IsMatch(student.email, emailRegexPattern))
                     return result.ValidationErrorResponse("Invalid email address format.");
 
-                // Check if the student already exists
+                // Check if the email already exists in the database (excluding the current student if it's an update)
+                var existingStudentByEmail = await _context.studentDetails
+                    .FirstOrDefaultAsync(s => s.email == student.email && s.studentID != student.studentID);
+
+                if (existingStudentByEmail != null)
+                {
+                    return result.ValidationErrorResponse("A student with this email already exists.");
+                }
+
+                // Check if the student already exists by studentID (for update)
                 var existingStudent = await _context.studentDetails
-                    .FirstOrDefaultAsync(s => s.email == student.email);
+                    .FirstOrDefaultAsync(s => s.studentID == student.studentID);
 
                 if (existingStudent != null)
                 {
                     // Update existing record
                     existingStudent.firstName = student.firstName;
                     existingStudent.lastName = student.lastName;
-                    existingStudent.userName = $"{student.firstName}{student.lastName}_{randomNumber}"; // Update username logic if needed
                     existingStudent.email = student.email;
                     existingStudent.mobileNumber = student.mobileNumber;
                     existingStudent.gender = student.gender;
@@ -207,7 +196,6 @@ namespace studentDetails_Api.Repository
                     {
                         firstName = student.firstName,
                         lastName = student.lastName,
-                        userName = $"{student.firstName}{student.lastName}_{randomNumber}",
                         email = student.email,
                         gender = student.gender,
                         dateOfBirth = student.dateOfBirth,
@@ -225,9 +213,11 @@ namespace studentDetails_Api.Repository
             }
             catch (Exception ex)
             {
+                // Log exception or handle it appropriately
                 throw ex;
             }
         }
+
 
 
 

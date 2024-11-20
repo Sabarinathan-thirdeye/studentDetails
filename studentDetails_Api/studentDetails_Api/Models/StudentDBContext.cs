@@ -36,7 +36,9 @@ public partial class StudentDBContext : DbContext
             entity.Property(e => e.email).HasMaxLength(100);
             entity.Property(e => e.firstName).HasMaxLength(100);
             entity.Property(e => e.gender).HasMaxLength(100);
-            entity.Property(e => e.lastName).HasMaxLength(100);
+            entity.Property(e => e.lastName)
+                .HasMaxLength(255)
+                .IsUnicode(false);
             entity.Property(e => e.modifiedOn).HasColumnType("datetime");
         });
 
@@ -51,7 +53,6 @@ public partial class StudentDBContext : DbContext
                 .HasColumnType("datetime");
             entity.Property(e => e.email).HasMaxLength(100);
             entity.Property(e => e.firstName).HasMaxLength(100);
-            entity.Property(e => e.gender).HasMaxLength(100);
             entity.Property(e => e.lastName).HasMaxLength(100);
             entity.Property(e => e.modifiedOn).HasColumnType("datetime");
             entity.Property(e => e.userName).HasMaxLength(100);

@@ -4,7 +4,6 @@ import { StudentdetailsPageComponent } from '../components/studentdetails-page/s
 import { ForgettenPageComponent } from '../components/forgotten-page/forgetten-page.component';
 import { ResetPageComponent } from '../components/reset-page/reset-page.component';
 import { PageNotFoundComponent } from '../components/page-not-found/page-not-found.component';
-import { AddStudentComponent } from '../components/add-student/add-student.component';
 import { RegisterPageComponent } from '../components/register-page/register-page.component';
 import { Routes, RouterModule } from '@angular/router';
 
@@ -15,7 +14,6 @@ const routes: Routes = [
     { path: 'studentdetails', component: StudentdetailsPageComponent},
     { path: 'forgettenpassword', component: ForgettenPageComponent },
     { path: 'resetpassword', component: ResetPageComponent },
-    { path: 'addstudent', component: AddStudentComponent },
     { path: 'page-not-found', component: PageNotFoundComponent },
     { path: '**', component: PageNotFoundComponent },
 ];

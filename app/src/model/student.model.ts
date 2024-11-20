@@ -2,7 +2,7 @@
 export interface StudentDetail {
   studentID: number;                // Unique identifier for the student
   firstName: string;                // First name of the student
-  lastName: string;                 // Last name of the student
+  lastName: string ;                 // Last name of the student
   userName: string;                 // Username generated for the student
   dateOfBirth: string;              // Date of birth in ISO string format
   gender: string;                   // Gender of the student (e.g., "Male", "Female", "Other")

@@ -11,10 +11,6 @@ public partial class userMasterModel
 
     public string lastName { get; set; } = null!;
 
-    public DateOnly dateOfBirth { get; set; }
-
-    public string gender { get; set; } = null!;
-
     public string email { get; set; } = null!;
 
     public long mobileNumber { get; set; }

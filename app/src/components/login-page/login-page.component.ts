@@ -17,20 +17,35 @@ export class LoginPageComponent {
 
   
   onSubmit() {
-      // Call login service when the form is submitted
-      this.authService.login(this.email, this.password).subscribe(
-        (response:any) => {
-          localStorage.setItem('jwtToken',response?.ResponseData[0].JwtToken);
-          console.log('Login Response:', response);  // Log response to inspect its structure
-          alert('Login successful');
-          this.router.navigate(['/studentdetails']);
-        },
-        (error) => {
-          this.errorMessage = 'Invalid login credentials';
+  
+    // Call login service when the form is submitted
+    this.authService.login(this.email, this.password).subscribe(
+      (response: any) => {
+        // Store JWT token in localStorage
+        localStorage.setItem('jwtToken', response?.ResponseData[0]?.JwtToken);
+        alert('Login successful');
+        // Navigate to student details page
+        this.router.navigate(['/studentdetails']);
+      },
+      (error) => {
+        // Handle specific errors based on backend status codes
+        if (error?.status === 404) {
+          // Email not found
+          alert('Email not found. Please check or register a new account.');
+        } else if (error?.status === 412) {
+          // Incorrect password
+          alert('Incorrect password. Please try again.');
+        } else {
+          // Generic error handling
+          const errorMessage = error?.error?.message || 'Invalid email or password';
+          alert(errorMessage);
           console.error('Login error:', error);
         }
-      );
-    }
+      }
+    );
+  }
+  
+  
     
   
   navigateToForgotPassword() {

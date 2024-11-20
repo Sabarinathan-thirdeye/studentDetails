@@ -50,10 +50,10 @@ namespace studentDetails_Api.Controllers              // Define the namespace fo
         }
 
         /// <summary>
-        /// GET method to retrieve all inactive student details
+        /// GET method to retrieve all Deactivate LIst student details
         /// </summary>
         /// <returns></returns>
-        [HttpGet("InActive")]
+        [HttpGet("DeactivateList")]
         public IActionResult GetAllStudentsInActive()
         {
             ApiResult<studentDetailModel> result = new ApiResult<studentDetailModel>();

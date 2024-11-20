@@ -9,15 +9,9 @@ public partial class userMaster
 
     public string firstName { get; set; } = null!;
 
-    public string lastName { get; set; } = null!;
-
-    public DateOnly dateOfBirth { get; set; }
-
-    public string gender { get; set; } = null!;
+    public string? lastName { get; set; }
 
     public string email { get; set; } = null!;
-
-    public long mobileNumber { get; set; }
 
     public long userTypeID { get; set; }
 

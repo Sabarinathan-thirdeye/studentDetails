@@ -39,8 +39,6 @@ namespace studentDetails_Api.Repository
                 // Validate required fields
                 if (string.IsNullOrWhiteSpace(user.firstName))
                     return result.ValidationErrorResponse("Please provide the first name.");
-                if (string.IsNullOrWhiteSpace(user.lastName))
-                    return result.ValidationErrorResponse("Please provide the last name.");
                 if (string.IsNullOrWhiteSpace(user.email))
                     return result.ValidationErrorResponse("Please provide an email.");
 
@@ -68,8 +66,6 @@ namespace studentDetails_Api.Repository
                     userName = user.userName,
                     email = user.email,
                     userPassword = encryptedPassword,
-                    dateOfBirth = user.dateOfBirth,
-                    gender = user.gender,
                     createdOn = DateTime.UtcNow,
                     createdBy = 1, // Replace with actual user ID from claims
                     userTypeID = 1,
@@ -111,7 +107,7 @@ namespace studentDetails_Api.Repository
                 // Find user by username or email
                 var user = await _context.userMasters
                     .AsNoTracking()
-                    .FirstOrDefaultAsync(u => u.userName == login.userName || u.email == login.userName);
+                    .FirstOrDefaultAsync(u => u.email == login.userName);
 
                 if (user == null)
                     return result.ValidationErrorResponse("Invalid username or password.");
@@ -119,7 +115,7 @@ namespace studentDetails_Api.Repository
                 // encrypt stored password for validation
                 string encryptedPassword = _cryptoServices.EncryptStringToBytes_Aes(login.userPassword);
 
-                if (login.userPassword == encryptedPassword)
+                if (user.userPassword != encryptedPassword)
                     return result.ValidationErrorResponse("Invalid password.");
 
                 // Prepare the response model
@@ -127,8 +123,6 @@ namespace studentDetails_Api.Repository
                 {
                     userName = user.userName,  // Mapping properties from userMaster
                     email = user.email,
-                    mobileNumber = user.mobileNumber,
-                    dateOfBirth = user.dateOfBirth,
                      // Generate JWT token
                 };
                 response.JwtToken = _jwtServices.GenerateToken(response);

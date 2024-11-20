@@ -1,7 +1,7 @@
 /* Container for Student Details */
 .student-detail-container {
   padding: 20px;
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
   height: 80vh; /* Ensure the container does not exceed the viewport height */
   overflow-y: hidden; /* Hide vertical overflow */
@@ -11,7 +11,6 @@
 /* Ensure the table or content inside does not overflow */
 .student-details-table,
 .table-container {
-  max-height: calc(100vh - 40px); /* Adjust the height to fit within the viewport */
   overflow-y: auto; /* Add scroll to the table if content overflows */
   padding: 10px;
 }
@@ -20,6 +19,13 @@
 h2 {
   text-align: center;
   margin-bottom: 20px;
+  background-color: #007BFF;
+  max-width: 1400px;
+  margin: auto;
+  padding: 10px;
+}
+h3{
+  text-align: center;
 }
 
 /* Table Styles */
@@ -30,13 +36,20 @@ table {
 }
 
 th, td {
-  text-align: left;
+  text-align: center;
   padding: 8px;
   border: 1px solid #ccc;
 }
-
+.update-button{
+  display: flex;
+  justify-content: space-evenly;
+}
 th {
   background-color: #f4f4f4;
+}
+.invalid-feedback{
+  color: red;
+  font-weight: normal;
 }
 
 /* Error Message */
@@ -67,10 +80,11 @@ th {
   border-radius: 8px;
   max-width: 500px;
   width: 100%;
-  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1); /* Shadow for better visual effect */
-  animation: fadeIn 0.3s ease-in-out; /* Smooth transition for opening */
-  max-height: 90vh; /* Limit the height to 90% of the viewport */
-  overflow-y: auto; /* Add scrollbar if content exceeds the height */
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 0.3s ease-in-out; 
+  max-height: 100vh; 
+  overflow: hidden;  position: relative;
+
 }
 
 /* Fade-In Animation */
@@ -87,27 +101,36 @@ th {
 
 /* Button Styling */
 button {
-  padding: 10px 15px;
-  background-color: #007bff;
+  min-width: 130px;
+  padding: 11px 15px;
+  background-color: #007BFF;
   color: white;
   border: none;
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s ease;
   font-size: 16px;
+  margin-top: 6px;
+}
+.thead{
+  width: 100vw;
+}
+.addstudent{
+  margin: 16px 0;
+  background-color: #000;
 }
 
 button:hover {
-  background-color: #0056b3; /* Darker shade when hovering */
+  background-color: #0056b3;
 }
 
 /* Close Button Styling */
 button[type="button"] {
-  background-color: #f44336; /* Red background for Close button */
+  background-color: #f44336; 
 }
 
 button[type="button"]:hover {
-  background-color: #d32f2f; /* Darker red when hovering */
+  background-color: #d32f2f; 
 }
 
 /* Center the Form Elements */
@@ -115,52 +138,156 @@ form {
   display: flex;
   flex-direction: column;
   gap: 15px;
+  margin: 0 70px;
+}
+.required {
+  color: red;
+  font-weight: bold;
 }
 
-/* Actions (Search and Add Buttons) */
-.actions {
+.icon{
+  position: absolute;
+    top: 45px;
+    right: 50px;
+}
+
+
+
+
+
+/* Input Field Styling */
+input, select, textarea {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ced4da; 
+  border-radius: 4px;
+  width: 100%;
+  box-sizing: border-box; 
+  outline: none;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease; 
+  margin-top: 6px;
+}
+
+/* Input Field on Focus */
+input:focus, select:focus, textarea:focus {
+  border-color: #007bff; 
+  box-shadow: 0 0 4px rgba(0, 123, 255, 0.5); /* Glow effect */
+}
+
+/* Disabled Input Fields */
+input:disabled, select:disabled, textarea:disabled {
+  background-color: #e9ecef; 
+  cursor: not-allowed; 
+  color: #6c757d; 
+}
+
+/* Placeholder Styling */
+input::placeholder, textarea::placeholder {
+  color: #6c757d; 
+  font-style: italic; 
+}
+
+label{
+  font-weight: bold;
+}
+/* Navbar styling */
+.navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
-}
-
-.actions input {
-  padding: 9px;
-  font-size: 16px;
-  border: 1px solid #0889f3;
-  border-radius: 4px;
-  width: 80vw;
-  border-top-left-radius: 0;
-  border-bottom-left-radius: 0;
-}
-
-.actions button {
+  background-color: #007bff; /* Primary blue color */
+  color: #fff; /* White text */
   padding: 10px 20px;
-  background-color: #007bff;
-  color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Navbar heading */
+.navbar h2 {
+  font-size: 1.5rem;
+  margin: 0;
+  font-weight: 600;
+}
+
+/* Actions section (search and buttons) */
+.actions {
+  display: flex;
+}
+
+/* Search input */
+.actions input[type="text"] {
+  padding: 5px 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 7px;
+  width: 200px;
+  outline: none;
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+}
+
+.actions input[type="text"]:focus {
+  border-color: #0056b3;
+  box-shadow: 0 0 4px rgba(0, 123, 255, 0.5);
+}
+
+/* Logout button */
+.logout-btn {
+  background-color: #000; /* Red for logout */
+  color: #fff;
   border: none;
-  border-radius: 4px;
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
+  border-radius: 7px;
+  padding: 8px 1px;
+  font-size: 1rem;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  width: 20vw;
-  margin-bottom: 0;
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
 }
 
-.actions button:hover {
-  background-color: #0056b3;
+.logout-btn:hover {
+  background-color: #c82333; /* Darker red on hover */
 }
 
-/* For better overall responsiveness on smaller devices */
-@media (max-width: 768px) {
-  .actions {
-    flex-direction: column;
-  }
+.logout-btn:focus {
+  outline: none;
+  box-shadow: 0 0 4px rgba(220, 53, 69, 0.5);
+}
 
-  .actions input, .actions button {
-    width: 100%;
-    margin-bottom: 10px;
+thead{
+  position: relative;
+  tr{
+    position: sticky;
   }
+}
+tbody{
+  position: relative;
+  overflow: scroll;
+  td{
+    position: sticky;
+  }
+}
+.table-container {
+  max-height: 400px; /* Adjust the height as needed */
+  overflow-y: auto;
+  border: 1px solid #ccc;
+}
+
+.student-details-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.student-details-table thead th {
+  position: sticky;
+  top: 0;
+  background-color: #f9f9f9; /* Set a background color for the fixed header */
+  z-index: 1;
+  text-align: left;
+  padding: 8px;
+  border-bottom: 1px solid #ddd;
+}
+
+.student-details-table tbody td {
+  padding: 8px;
+  border-bottom: 1px solid #ddd;
 }

@@ -16,6 +16,8 @@ export class StudentdetailsPageComponent implements OnInit {
   error: string | null = null;
   showModal = false;
   studentToEdit: StudentDetail | null = null;
+  emailError: string | null = null;  // Variable to store email error message
+
 
   constructor(private studentDetailsService: StudentDetailsService, private router: Router) { }
 
@@ -47,6 +49,10 @@ export class StudentdetailsPageComponent implements OnInit {
   // Add or update student
   addOrUpdateStudent(): void {
     if (!this.studentToEdit) return;
+    // Set lastName to null if empty
+    if (!this.studentToEdit.lastName) {
+      this.studentToEdit.lastName = '';
+    }
 
     console.log('Saving student:', this.studentToEdit);  // Debug log to verify student details
 
@@ -59,7 +65,17 @@ export class StudentdetailsPageComponent implements OnInit {
       },
       error: (error) => {
         console.error('Error updating/adding student:', error);
-        alert('Failed to update/add student');
+
+        // Check if the error is due to email already being used
+        if (error.error?.Message && error.error.Message.includes('A student with this email already exists.')) {
+          this.emailError = 'A student with this email already exists.';  // Set the email error message
+        }
+        else {
+          this.emailError = 'Failed to update/add student';  // Generic error message
+        }
+
+        alert(this.emailError);  // Show the error message
+
       }
     });
   }
@@ -67,27 +83,31 @@ export class StudentdetailsPageComponent implements OnInit {
 
 
   // Delete (deactivate) student
-deleteStudent(studentID: number): void {
-  if (confirm('Are you sure you want to deactivate this student?')) {
-    this.studentDetailsService.deactivateStudent(studentID).subscribe({
-      next: (response) => {
-        alert('Student deactivated successfully');
-        this.getAllStudentDetails(); // Refresh the student list after deactivation
-      },
-      error: (err) => {
-        console.error('Error deactivating student:', err);
-        alert('Failed to deactivate student');
-      }
-    });
+  deleteStudent(studentID: number): void {
+    if (confirm('Are you sure you want to deactivate this student?')) {
+      this.studentDetailsService.deactivateStudent(studentID).subscribe({
+        next: (response) => {
+          alert('Student deactivated successfully');
+          this.getAllStudentDetails(); // Refresh the student list after deactivation
+        },
+        error: (err) => {
+          console.error('Error deactivating student:', err);
+          alert('Failed to deactivate student');
+        }
+      });
+    }
   }
-}
+
+  logOut() {
+    localStorage.removeItem('jwtToken');
+    this.router.navigate(['/']);
+  }
 
 
   // Filter student details
   filterStudents() {
     this.filteredStudentDetails = this.studentDetail.filter(student =>
-      student.firstName.toLowerCase().includes(this.searchText.toLowerCase()) ||
-      student.lastName.toLowerCase().includes(this.searchText.toLowerCase()));
+      student.firstName.toLowerCase().includes(this.searchText.toLowerCase()))
   }
 
   //Add Student
@@ -98,8 +118,9 @@ deleteStudent(studentID: number): void {
   // Open modal to add/edit student
   openModal(student?: StudentDetail) {
     this.studentToEdit = student ? { ...student } : {} as StudentDetail;
-    console.log('Opening modal with student:', this.studentToEdit);  // Debug log
     this.showModal = true;
+    this.emailError = null;  // Clear email error when opening the modal
+
   }
 
 
@@ -107,5 +128,8 @@ deleteStudent(studentID: number): void {
   closeModal() {
     this.showModal = false;
     this.studentToEdit = null;
+    this.emailError = null;  // Clear email error when opening the modal
+
   }
+
 }

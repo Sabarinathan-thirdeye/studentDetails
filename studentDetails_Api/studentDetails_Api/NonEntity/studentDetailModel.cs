@@ -19,14 +19,5 @@ public partial class studentDetailModel
 
     public long mobileNumber { get; set; }
 
-    public DateTime? createdOn { get; set; }
-
-    public long? createdBy { get; set; }
-
-    public DateTime? modifiedOn { get; set; }
-
-    public long? modifiedBy { get; set; }
-
     public int studentstatus { get; set; }
-    public string? userName { get; internal set; }
 }

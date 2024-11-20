@@ -13,20 +13,19 @@ export class RegisterPageComponent {
     firstName: '',
     lastName: '',
     email: '',
-    mobileNumber: '',
-    dateOfBirth: '',
     userPassword: '',
     confirmPassword: '',
-    userMasterStatus: 1, // Default value set to 1 (Active)
-    gender: '',
+    userMasterStatus: 0, // Default value set to 1 (Active)
     userTypeID: 1,
-    userName: ''
+    userName: '',
+    countryCode: '' // Default empty, will prepend '+' when submitting
   };
+
   formTitle: string = 'Register User';
   formSubmitted = false;
   errors: string[] = []; // Store error messages
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router) { }
 
   // Handle form submission
   onSubmit(): void {
@@ -38,9 +37,14 @@ export class RegisterPageComponent {
       return; // Stop submission if validation fails
     }
 
-    // If passwords match, proceed to register the user
+    // Check if passwords match
     if (this.user.userPassword === this.user.confirmPassword) {
-      
+      // Ensure country code starts with '+' if not present
+      if (this.user.countryCode && !this.user.countryCode.startsWith('+')) {
+        this.user.countryCode = '+' + this.user.countryCode;
+      }
+
+      // Call the register API
       this.authService.registerUser(this.user).subscribe(
         (response) => {
           console.log('User registered successfully', response);
@@ -48,6 +52,8 @@ export class RegisterPageComponent {
         },
         (error) => {
           console.error('Registration failed', error);
+          // Capture and display error messages from backend
+          this.errors.push(error.error.message || 'Registration failed.');
         }
       );
     } else {
@@ -59,37 +65,11 @@ export class RegisterPageComponent {
   validateForm(): boolean {
     let isValid = true;
 
-    // Required fields validation
-    if (!this.user.firstName) {
-      this.errors.push('First name is required.');
-      isValid = false;
-    }
-
-    if (!this.user.lastName) {
-      this.errors.push('Last name is required.');
-      isValid = false;
-    }
-
     if (!this.user.email) {
       this.errors.push('Email is required.');
       isValid = false;
     } else if (!this.isValidEmail(this.user.email)) {
       this.errors.push('Invalid email format.');
-      isValid = false;
-    }
-
-    if (!this.user.userPassword) {
-      this.errors.push('Password is required.');
-      isValid = false;
-    }
-
-    if (!this.user.confirmPassword) {
-      this.errors.push('Confirm password is required.');
-      isValid = false;
-    }
-
-    if (this.user.userPassword && this.user.confirmPassword && this.user.userPassword !== this.user.confirmPassword) {
-      this.errors.push('Passwords do not match.');
       isValid = false;
     }
 
@@ -100,5 +80,10 @@ export class RegisterPageComponent {
   isValidEmail(email: string): boolean {
     const emailPattern = /^[\w-]+(\.[\w-]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*(\.[a-zA-Z]{2,})$/;
     return emailPattern.test(email);
+  }
+
+  // Navigate to login page
+  navigateToLoginform() {
+    this.router.navigate(['/login']);
   }
 }
