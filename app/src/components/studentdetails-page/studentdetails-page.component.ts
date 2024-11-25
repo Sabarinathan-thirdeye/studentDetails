@@ -17,14 +17,31 @@ export class StudentdetailsPageComponent implements OnInit {
   showModal = false;
   studentToEdit: StudentDetail | null = null;
   emailError: string | null = null;  // Variable to store email error message
+  filterApplied: boolean = false;
+  // Pagination variables
+  totalPages: number = 0;  // Total number of pages
+  currentPage: number = 1;
+  pageSize: number = 10;
+  selectedDate: Date | null | undefined;
 
 
   constructor(private studentDetailsService: StudentDetailsService, private router: Router) { }
 
   ngOnInit(): void {
     this.loading = true;
-    this.getAllStudentDetails();
+    const navigationState = this.router.getCurrentNavigation()?.extras.state;
+    this.selectedDate = navigationState?.['selectedDate'] || null;
+  
+    this.getAllStudentDetails(); // Fetch all student details
   }
+  
+  // Filter students based on createdOn date
+  filterByDate(date: string) {
+    this.filteredStudentDetails = this.studentDetail.filter(student =>
+      student.createdOn?.startsWith(date) // Match the date part of createdOn
+    );
+  }
+  
 
   //API
   getAllStudentDetails() {
@@ -34,8 +51,10 @@ export class StudentdetailsPageComponent implements OnInit {
         if (Response.ResponseCode === 1) { // If response has responseCode
           this.studentDetail = Response.ResponseData;
           this.filteredStudentDetails = [...this.studentDetail];
+          this.calculateTotalPages(); // Update total pages after data fetch
         }
         this.loading = false;
+        this.currentPage = 1;
       },
       error: err => {
         this.error = 'Error loading data';
@@ -45,6 +64,48 @@ export class StudentdetailsPageComponent implements OnInit {
     });
   }
 
+  // Filter student details
+  filterStudents() {
+    this.filterApplied = !!this.searchText.trim(); // Set true if search text exists
+    this.filteredStudentDetails = this.studentDetail.filter(student =>
+      student.firstName.toLowerCase().includes(this.searchText.toLowerCase()))
+  }
+  // Method to check if no student details are available
+  isStudentDetailsEmpty(): boolean {
+    return !this.loading && this.studentDetail.length === 0;
+  }
+  // Method to check if no filtered students are found
+  isNoFilteredStudents(): boolean {
+    return !this.loading && this.filteredStudentDetails.length === 0 && this.filterApplied;
+  }
+  calculateTotalPages() {
+    this.totalPages = Math.ceil(this.filteredStudentDetails.length / this.pageSize);
+  }
+  //logout
+  logOut() {
+    localStorage.removeItem('jwtToken');
+    this.router.navigate(['/']);
+  }
+
+  // Paginate student details
+  getPaginatedData(): StudentDetail[] {
+    const startIndex = (this.currentPage - 1) * this.pageSize;
+    const endIndex = startIndex + this.pageSize;
+    return this.filteredStudentDetails.slice(startIndex, endIndex);
+  }
+  // Navigate to the next page
+  nextPage() {
+    this.calculateTotalPages(); // Ensure the total pages are up to date
+    if (this.currentPage * this.pageSize < this.filteredStudentDetails.length) {
+      this.currentPage++;
+    }
+  }
+  // Navigate to the previous page
+  prevPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+    }
+  }
 
   // Add or update student
   addOrUpdateStudent(): void {
@@ -53,9 +114,7 @@ export class StudentdetailsPageComponent implements OnInit {
     if (!this.studentToEdit.lastName) {
       this.studentToEdit.lastName = '';
     }
-
     console.log('Saving student:', this.studentToEdit);  // Debug log to verify student details
-
     this.studentDetailsService.addOrUpdateStudentDetails(this.studentToEdit).subscribe({
       next: (response) => {
         // Check if studentID exists to determine if it's an update or add
@@ -65,22 +124,13 @@ export class StudentdetailsPageComponent implements OnInit {
       },
       error: (error) => {
         console.error('Error updating/adding student:', error);
-
         // Check if the error is due to email already being used
         if (error.error?.Message && error.error.Message.includes('A student with this email already exists.')) {
           this.emailError = 'A student with this email already exists.';  // Set the email error message
         }
-        else {
-          this.emailError = 'Failed to update/add student';  // Generic error message
-        }
-
-        alert(this.emailError);  // Show the error message
-
       }
     });
   }
-
-
 
   // Delete (deactivate) student
   deleteStudent(studentID: number): void {
@@ -97,39 +147,28 @@ export class StudentdetailsPageComponent implements OnInit {
       });
     }
   }
-
-  logOut() {
-    localStorage.removeItem('jwtToken');
-    this.router.navigate(['/']);
-  }
-
-
-  // Filter student details
-  filterStudents() {
-    this.filteredStudentDetails = this.studentDetail.filter(student =>
-      student.firstName.toLowerCase().includes(this.searchText.toLowerCase()))
-  }
-
-  //Add Student
-  navigateToaddStudent() {
-    this.router.navigate(['/addstudent']);
-  }
-
   // Open modal to add/edit student
   openModal(student?: StudentDetail) {
     this.studentToEdit = student ? { ...student } : {} as StudentDetail;
     this.showModal = true;
     this.emailError = null;  // Clear email error when opening the modal
-
   }
-
-
   // Close modal
   closeModal() {
     this.showModal = false;
     this.studentToEdit = null;
     this.emailError = null;  // Clear email error when opening the modal
-
   }
-
+  //Add Student
+  navigateToopenCalendar() {
+    const dateToPass = this.selectedDate ?? undefined;
+    this.router.navigate(['opencalendar'], {
+      state: { selectedDate: dateToPass }
+    });
+  }
+  navigateTofullCalendar() {
+    const dateToPass = this.selectedDate ?? undefined;
+    this.router.navigate(['fullcalendar'], {
+    });
+  }
 }

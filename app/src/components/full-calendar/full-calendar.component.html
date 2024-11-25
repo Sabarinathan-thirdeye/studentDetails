@@ -1,0 +1,31 @@
+<!-- <button (click)="toggleWeekends()" class="toggleWeekends">toggle weekends</button> -->
+<full-calendar class="fullcalendar" [options]="calendarOptions"></full-calendar>
+
+<!-- Full Calendar -->
+<div id="calendar"></div>
+
+<!-- Modal for Student Details -->
+<div class="modal" tabindex="-1" role="dialog" [ngClass]="{ 'show': isModalOpen }" (click)="closeModal()">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <h5 class="modal-title">{{selectedStudent?.firstName}}{{selectedStudent?.lastName}}'s Details</h5>
+            <div class="modal-body">
+                <table>
+                    <tr>
+                        <th>Email:</th>
+                        <td>{{ selectedStudent?.email }}</td>
+                    </tr>
+                    <tr>
+                        <th>Mobile:</th>
+                        <td>{{ selectedStudent?.mobileNumber }}</td>
+                    </tr>
+                    <tr>
+                        <th>Date of Birth:</th>
+                        <td>{{ selectedStudent?.dateOfBirth | date: 'shortDate' }}</td>
+                    </tr>
+                </table>
+            </div>
+            <button type="button" class="btn btn-secondary" (click)="closeModal()">Close</button>
+        </div>
+    </div>
+</div>

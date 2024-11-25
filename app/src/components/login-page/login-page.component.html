@@ -2,7 +2,6 @@
   <form (ngSubmit)="onSubmit()" #loginform="ngForm">
     <div class="signinup">
       <h2 class="signin signup">Login</h2>
-      <h2 (click)="navigateToRegisterform()">Register</h2>
     </div>
 
     <!-- Email -->
@@ -43,5 +42,10 @@
 
     <!-- Submit Button -->
     <button type="submit" class="btn btn-primary btn-sm login-btn">Login</button>
+    
   </form>
+  <div class="text">
+    <i class="fa-regular fa-hand-point-right"></i> Don't have an account,
+    <a (click)="navigateToRegisterform()">Register here!!!</a>
+  </div>
 </div>

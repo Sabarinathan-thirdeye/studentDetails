@@ -1,26 +1,28 @@
 <div class="student-detail-container">
     <nav class="navbar">
         <h2>Student Details</h2>
+        <!-- calendor  -->
+        <div class="list" (click)="navigateToopenCalendar()">
+            <i class="fa-solid fa-list"></i>
+        </div>
+        <div class="fullcalendar" (click)="navigateTofullCalendar()">
+            <i class="fa-regular fa-calendar fa-xl"></i>
+        </div>
         <!-- Search and Add Buttons -->
         <div class="actions">
             <input type="text" placeholder="Search by name" [(ngModel)]="searchText" (input)="filterStudents()" />
-            <button (click)="logOut()" class="logout-btn">Logout  <i class="fa-solid fa-right-from-bracket"></i></button>
+            <!-- Logout Button -->
+            <button (click)="logOut()" class="logout-btn">Logout <i class="fa-solid fa-right-from-bracket"></i></button>
         </div>
-        <!-- Logout Button -->
     </nav>
     <!-- addbutton -->
     <button (click)="openModal()" class="addstudent">Add Student</button>
-      
-
-    <div *ngIf="loading">Loading...</div>
-    <div *ngIf="error" class="error">{{ error }}</div>
-
 
     <!-- Student Details Table -->
-    <div *ngIf="filteredStudentDetails.length > 0">
-        <table class="student-details-table">
+    <div *ngIf="!loading || filteredStudentDetails.length > 0" class="table-data-fetch">
+        <table>
             <thead>
-                <tr>
+                <tr class="thead">
                     <th>Student ID</th>
                     <th>First Name</th>
                     <th>Last Name</th>
@@ -33,7 +35,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let student of filteredStudentDetails">
+                <tr *ngFor="let student of getPaginatedData()">
                     <td>{{ student.studentID }}</td>
                     <td>{{ student.firstName }}</td>
                     <td>{{ student.lastName }}</td>
@@ -46,25 +48,53 @@
                 </tr>
             </tbody>
         </table>
-    </div>
-    <div *ngIf="!loading && filteredStudentDetails.length === 0" >
-        <thead >
-            <tr class="thead">
-                <th>Student ID</th>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Date of Birth</th>
-                <th>Email</th>
-                <th>Mobile Number</th>
-                <th>Gender</th>
-                <th>Update</th>
-                <th>Delete</th>
-            </tr>
-        </thead>
-        <div style="text-align: center; margin-top: 50px; font-size: 18px; color: red;">No student details available.</div>
+        <!-- Pagination -->
+        <div *ngIf="filteredStudentDetails.length > 0 || !loading" style="text-align: center; margin-top: 20px;"
+            class="button-move">
+            <button (click)="prevPage()" [disabled]="currentPage === 1">
+                <i class="fa-solid fa-circle-left fa-2xl"></i>
+            </button>
+            <span>Page {{ currentPage }} of {{ totalPages }}</span>
+            <button (click)="nextPage()" [disabled]="currentPage === totalPages">
+                <i class="fa-solid fa-circle-right fa-2xl"></i>
+            </button>
+        </div>
+
+        <!-- No filtered students found -->
+        <div *ngIf="isNoFilteredStudents()">
+            <table style=" text-align: center;">
+                <tr>
+                    <td colspan="3" style="font-size: 18px; color: red;">
+                        No student details match the search criteria.
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- No student details available -->
+        <div *ngIf="isStudentDetailsEmpty()">
+            <table style=" text-align: center;">
+                <tr>
+                    <td colspan="3" style="font-size: 18px; color: red;">
+                        Student details aren't available.
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- Loading message -->
+        <div *ngIf="loading">
+            <table style=" text-align: center;">
+                <tr>
+                    <td colspan="3" style="font-size: 18px; color: red;">
+                        Student details are loading...
+                    </td>
+                </tr>
+            </table>
+        </div>
+
     </div>
 
-    <!-- Add/Edit Student Form Modal -->
     <!-- Add/Edit Student Form Modal -->
     <div *ngIf="studentToEdit" class="modal-overlay">
         <div class="modal-content">
@@ -76,17 +106,15 @@
                 <!-- First Name -->
                 <label>First Name <span class="required">*</span>
                     <input [(ngModel)]="studentToEdit.firstName" name="firstName" required #firstName="ngModel"
-                        placeholder="Enter first name"     maxlength="15" 
-                        />
-                    <div *ngIf="firstName.invalid && (studentForm.submitted)"
-                        class="invalid-feedback">First name is required.</div>
+                        placeholder="Enter first name" maxlength="15" />
+                    <div *ngIf="firstName.invalid && (studentForm.submitted)" class="invalid-feedback">First name is
+                        required.</div>
                 </label>
 
                 <!-- Last Name (no longer required) -->
                 <label>Last Name
                     <input [(ngModel)]="studentToEdit.lastName" name="lastName" #lastName="ngModel"
-                        placeholder="Enter last name"     maxlength="15" 
-                        />
+                        placeholder="Enter last name" maxlength="15" />
                 </label>
 
                 <!-- Email -->
@@ -100,12 +128,11 @@
 
                 <!-- Mobile Number -->
                 <label>Mobile Number <span class="required">*</span>
-                    <input type="number" [(ngModel)]="studentToEdit.mobileNumber" name="mobileNumber" required #mobile="ngModel"
-                        placeholder="Enter mobile number" pattern="^[0-9()+-]*$" 
-                        minlength="10" 
-                        maxlength="15"  />
+                    <input type="number" [(ngModel)]="studentToEdit.mobileNumber" name="mobileNumber" required
+                        #mobile="ngModel" placeholder="Enter mobile number" pattern="^[0-9()+-]*$" minlength="10"
+                        maxlength="15" />
                     <div *ngIf="mobile.invalid && (mobile.touched || studentForm.submitted)" class="invalid-feedback">
-                        Mobile number is required and must contain only numbers, +, -, or ().</div>
+                        Mobile number is required </div>
                 </label>
 
                 <!-- Date of Birth -->
@@ -124,17 +151,15 @@
                         <option value="Female">Female</option>
                         <option value="Other">Other</option>
                     </select>
-                    <div *ngIf="studentForm.submitted && (gender.touched ||gender.invalid)" class="invalid-feedback">
+                    <div *ngIf="gender.invalid && (gender.touched || studentForm.submitted)" class="invalid-feedback">
                         Gender is required.</div>
                 </label>
 
                 <div class="update-button">
-                    <button type="submit" >{{ studentToEdit.studentID ? 'Update' : 'Add'}} Student</button>
+                    <button type="submit">{{ studentToEdit.studentID ? 'Update' : 'Add'}} Student</button>
                     <button type="button" (click)="closeModal()">Close</button>
                 </div>
             </form>
         </div>
     </div>
-
-
 </div>

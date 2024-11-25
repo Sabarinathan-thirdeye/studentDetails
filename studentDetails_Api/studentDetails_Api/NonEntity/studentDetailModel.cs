@@ -20,4 +20,7 @@ public partial class studentDetailModel
     public long mobileNumber { get; set; }
 
     public int studentstatus { get; set; }
+
+    public DateTime? createdOn { get; set; }
+
 }

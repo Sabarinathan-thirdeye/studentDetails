@@ -6,6 +6,9 @@ import { HttpClientModule } from '@angular/common/http';  // Import HttpClientMo
 import { StudentDetailsService } from '../services/apiservices.service';  // Ensure correct import path
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from '../services/HttpInterceptor.service';
+import { CalendarModule } from 'primeng/calendar';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; // Required for PrimeNG animations
+
 // Components 
 import { AppComponent } from './app.component';
 import { LoginPageComponent } from '../components/login-page/login-page.component';
@@ -16,6 +19,9 @@ import { CommonModule } from '@angular/common';  // Import CommonModule
 import { StudentdetailsPageComponent } from '../components/studentdetails-page/studentdetails-page.component';
 import { NavbarComponent } from '../components/navbar/navbar.component';
 import { RegisterPageComponent } from '../components/register-page/register-page.component';
+import { CalendarComponent } from '../components/calendar/calendar.component';
+import { FullCalendarModule } from '@fullcalendar/angular';
+import { FullCalendarComponent } from '../components/full-calendar/full-calendar.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +31,9 @@ import { RegisterPageComponent } from '../components/register-page/register-page
     ResetPageComponent,
     StudentdetailsPageComponent,
     NavbarComponent,
-    RegisterPageComponent
+    RegisterPageComponent,
+    CalendarComponent,
+    FullCalendarComponent
   ],
   imports: [
     BrowserModule,
@@ -34,6 +42,10 @@ import { RegisterPageComponent } from '../components/register-page/register-page
     CommonModule,
     HttpClientModule,
     ReactiveFormsModule,
+    CalendarModule,
+    BrowserAnimationsModule,
+    FullCalendarModule // register FullCalendar with your app
+
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },

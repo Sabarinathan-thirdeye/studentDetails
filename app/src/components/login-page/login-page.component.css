@@ -8,10 +8,19 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   overflow: hidden;
 }
-h2{
+a{
   cursor: pointer;
+  color: #007bff;
+  i{
+    color: black;
+  }
 }
-
+form{
+  margin-bottom: 20px;
+}
+.text{
+  text-align: center;
+}
 /* Header styling */
 .signinup {
   display: flex;
@@ -28,9 +37,6 @@ h2{
   cursor: pointer;
 }
 
-.signup {
-  color: #007bff;
-}
 
 .signup:hover {
   text-decoration: none;

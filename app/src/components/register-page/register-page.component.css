@@ -21,6 +21,16 @@ h2 {
 
   cursor: pointer;
 }
+.text{
+  text-align: center;
+  a{
+    color: #0056b3;
+    cursor: pointer;
+  }
+}
+form{
+  margin-bottom: 20px;
+}
 
 .wrap-sec {
   display: flex;

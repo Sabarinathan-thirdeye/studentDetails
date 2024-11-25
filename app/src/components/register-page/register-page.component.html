@@ -6,50 +6,62 @@
     </div>
 
     <div class="wrap-sec">
-        <!-- First Name -->
-        <label>First Name <span class="required">*</span>
-          <input [(ngModel)]="user.firstName" name="firstName" required #firstName="ngModel" placeholder="Enter your first name"     maxlength="15" 
-          />
-          <div *ngIf="firstName.invalid && (registerForm.submitted)" class="invalid-feedback">First Name is required.</div>
-        </label>
+      <!-- First Name -->
+      <label>First Name <span class="required">*</span>
+        <input [(ngModel)]="user.firstName" name="firstName" required #firstName="ngModel"
+          placeholder="Enter your first name" maxlength="15" />
+        <div *ngIf="firstName.invalid && (registerForm.submitted)" class="invalid-feedback">First Name is required.
+        </div>
+      </label>
 
-        <!-- Last Name -->
-        <label>Last Name
-          <input [(ngModel)]="user.lastName" name="lastName" required #lastName="ngModel" placeholder="Enter your last name"     maxlength="15" 
-          />
-        </label>
+      <!-- Last Name -->
+      <label>Last Name
+        <input [(ngModel)]="user.lastName" name="lastName" required #lastName="ngModel"
+          placeholder="Enter your last name" maxlength="15" />
+      </label>
 
-        <!-- Email -->
-        <label>Email <span class="required">*</span>
-          <input [(ngModel)]="user.email" name="email" type="email" required #email="ngModel" placeholder="Enter your email address" />
-          <div *ngIf="email.invalid && (email.touched || registerForm.submitted)" class="invalid-feedback">Email is required.</div>
-        </label>
+      <!-- Email -->
+      <label>Email <span class="required">*</span>
+        <input [(ngModel)]="user.email" name="email" type="email" required #email="ngModel"
+          placeholder="Enter your email address" />
+        <div *ngIf="email.invalid && (email.touched || registerForm.submitted)" class="invalid-feedback">Email is
+          required.</div>
+      </label>
 
-        <!-- User Name -->
-        <label>User Name
-          <input [(ngModel)]="user.userName" name="userName" required #userName="ngModel" placeholder="Enter your User name"     maxlength="15" 
-          />
-        </label>
+      <!-- User Name -->
+      <label>User Name
+        <input [(ngModel)]="user.userName" name="userName" required #userName="ngModel"
+          placeholder="Enter your User name" maxlength="15" />
+      </label>
 
-        <!-- Password -->
-        <label>Password <span class="required">*</span>
-          <input [(ngModel)]="user.userPassword" name="userPassword" type="password" required #userPassword="ngModel" placeholder="Enter your password"     maxlength="15" 
-          />
-          <div *ngIf="userPassword.invalid && (registerForm.submitted)" class="invalid-feedback">Password is required.</div>
-        </label>
+      <!-- Password -->
+      <label>Password <span class="required">*</span>
+        <input [(ngModel)]="user.userPassword" name="userPassword" type="password" required #userPassword="ngModel"
+          placeholder="Enter your password" maxlength="15" />
+        <div *ngIf="userPassword.invalid && (registerForm.submitted)" class="invalid-feedback">Password is required.
+        </div>
+      </label>
 
-        <!-- Confirm Password -->
-        <label>Confirm Password <span class="required">*</span>
-          <input [(ngModel)]="user.confirmPassword" name="confirmPassword" type="password" required #confirmPassword="ngModel" placeholder="Confirm your password"     maxlength="15"           />
-          <div *ngIf="user.userPassword && user.confirmPassword && user.userPassword !== user.confirmPassword" class="invalid-feedback">Passwords do not match.</div>
-          <div *ngIf="confirmPassword.invalid && (registerForm.submitted)" class="invalid-feedback">Confirm Password is required.</div>
-        </label>
+      <!-- Confirm Password -->
+      <label>Confirm Password <span class="required">*</span>
+        <input [(ngModel)]="user.confirmPassword" name="confirmPassword" type="password" required
+          #confirmPassword="ngModel" placeholder="Confirm your password" maxlength="15" />
+        <div *ngIf="user.userPassword && user.confirmPassword && user.userPassword !== user.confirmPassword"
+          class="invalid-feedback">Passwords do not match.</div>
+        <div *ngIf="confirmPassword.invalid && (registerForm.submitted)" class="invalid-feedback">Confirm Password is
+          required.</div>
+      </label>
 
-        
 
-        
-      </div>
+
+
+    </div>
 
     <button type="submit" class="btn btn-primary">Register</button>
   </form>
+  <div class="text">
+    you have an account,
+    <a><i class="fa-regular fa-hand-point-right"></i> Login here!!!</a>
+  </div>
+
 </div>

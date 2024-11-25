@@ -57,7 +57,8 @@ namespace studentDetails_Api.Repository
                         gender = s.gender,
                         email = s.email,
                         mobileNumber = s.mobileNumber,
-                        studentstatus = s.studentstatus
+                        studentstatus = s.studentstatus,
+                        createdOn = s.createdOn
                     }).ToList();
 
                 if (studentList.Count > 0)
