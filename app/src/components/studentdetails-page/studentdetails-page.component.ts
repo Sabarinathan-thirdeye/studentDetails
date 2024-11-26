@@ -167,7 +167,6 @@ export class StudentdetailsPageComponent implements OnInit {
     });
   }
   navigateTofullCalendar() {
-    const dateToPass = this.selectedDate ?? undefined;
     this.router.navigate(['fullcalendar'], {
     });
   }

@@ -4,6 +4,7 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin, { DateClickArg } from '@fullcalendar/interaction';
 import { StudentDetailsService } from '../../services/apiservices.service';
 import { StudentDetail } from '../../model/student.model';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -24,11 +25,11 @@ export class FullCalendarComponent implements OnInit {
     plugins: [dayGridPlugin, interactionPlugin],
     dateClick: (arg) => this.handleDateClick(arg),
     eventClick: (arg) => this.handleEventClick(arg), // Add eventClick handler
-    // weekends: false,
+    weekends: false,
     events: [],// Add event click handler
   };
 
-  constructor(private studentDetailsService: StudentDetailsService) { }
+  constructor(private studentDetailsService: StudentDetailsService, private router: Router) { }
 
   ngOnInit(): void {
     this.getAllStudentDetails(); // Fetch all student details
@@ -84,9 +85,9 @@ export class FullCalendarComponent implements OnInit {
   //   return date.toISOString().split('T')[0]; // returns only the date part in YYYY-MM-DD format
   // }
 
-  // toggleWeekends() {
-  //   this.calendarOptions.weekends = !this.calendarOptions.weekends; // toggle the boolean!
-  // }
+  toggleWeekends() {
+    this.calendarOptions.weekends = !this.calendarOptions.weekends; // toggle the boolean!
+  }
 
   handleDateClick(arg: DateClickArg) {
     alert('Date clicked! ' + arg.dateStr);
@@ -98,8 +99,14 @@ export class FullCalendarComponent implements OnInit {
     this.selectedStudent = arg.event.extendedProps['student'];
     this.isModalOpen = true;
   }
-  
+
   closeModal() {
     this.isModalOpen = false; // Close the modal
   }
+
+  navigateTohome() {
+    this.router.navigate(['studentdetails'], {
+    });
+  }
 }
+

@@ -1,3 +1,12 @@
+<nav class="navbar">
+    <!-- calendor  -->
+    <div class="dashboard" (click)="navigateTohome()">
+        <i class="fa-solid fa-house fa-xl"></i>
+    </div>
+    <div class="toggleWeekends">
+        <button (click)="toggleWeekends()">toggle weekends</button>
+    </div> 
+</nav>
 <!-- <button (click)="toggleWeekends()" class="toggleWeekends">toggle weekends</button> -->
 <full-calendar class="fullcalendar" [options]="calendarOptions"></full-calendar>
 
