@@ -34,7 +34,7 @@ namespace studentDetails_Api.NonEntity
         /// Response Data
         /// </summary>
         public List<T> ResponseData { get; set; }
-
+        public LogInResponseModel Data { get; internal set; }
     }
 
     public static class ApiResultExtenstions

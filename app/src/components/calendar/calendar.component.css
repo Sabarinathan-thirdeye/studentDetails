@@ -1,0 +1,216 @@
+/* Navbar Styles */
+.navbar {
+    background-color: #007bff;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+}
+
+.navbar h2 {
+    margin: 0;
+}
+
+.calendar {
+    cursor: pointer;
+}
+
+/* Search input */
+.actions input[type="text"] {
+    padding: 5px 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 7px;
+    width: 200px;
+    outline: none;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+
+.actions input[type="text"]:focus {
+    border-color: #0056b3;
+    box-shadow: 0 0 4px rgba(0, 123, 255, 0.5);
+}
+
+
+.logout-btn {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.logout-btn:hover {
+    background-color: #c82333;
+}
+
+/* Table Styles */
+table {
+    width: 90%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    margin: auto;
+}
+
+th,
+td {
+    text-align: center;
+    padding: 8px;
+    border: 1px solid #ccc;
+}
+
+th {
+    background-color: #f4f4f4;
+}
+
+.thead {
+    width: 100vw;
+}
+
+.button-move {
+    position: fixed;
+    top: 70vh;
+    left: 64vw;
+}
+
+button {
+    outline: 0;
+    border: 0;
+    background-color: transparent;
+}
+
+span {
+    color: #007bff;
+}
+
+.left {
+    padding: 50px 50px 0px 50px;
+}
+
+.row {
+    width: 99vw;
+    height: 90vh;
+    overflow: hidden;
+}
+
+.student-details {
+    padding-top: 55px;
+}
+
+.home {
+    position: absolute;
+    right: 27vw;
+    color: #007bff;
+    background-color: white;
+    border-radius: 50%;
+    padding: 8px 10px;
+    cursor: pointer;
+}
+
+
+h3 {
+    text-align: center;
+    color: white;
+    background-color: #007bff;
+    padding: 10px;
+}
+/* Modal overlay */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  /* Modal content */
+  .modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 400px;
+    max-width: 100%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Table styling */
+  .student-details-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .student-details-table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+  }
+  
+  .student-details-table td:first-child {
+    font-weight: bold;
+    width: 35%;
+  }
+  
+  .student-details-table td:last-child {
+    width: 65%;
+  }
+  
+  /* Close button styling */
+  .close-btn {
+    background-color: #dc3545;
+    color: white;
+    padding: 5px;
+    width: 30%;
+    margin: auto;
+    font-size: 16px;
+    border-radius: 6px;
+    margin-top: 20px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .close-btn:hover {
+    background-color: #c82333;
+  }
+  
+
+/* Navbar Styles */
+.navbar {
+    background-color: #007bff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+}
+
+.navbar h2 {
+    margin: 0;
+}
+
+.calendar {
+    cursor: pointer;
+}
+
+
+/* Logout button */
+.logout-btn {
+    background-color: rgb(203, 93, 93);
+    min-width: 130px;
+    color: #fff;
+    border: none;
+    border-radius: 7px;
+    padding: 6px 1px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+}

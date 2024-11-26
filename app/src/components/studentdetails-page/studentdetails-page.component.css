@@ -1,57 +1,94 @@
+/* Container for Student Details */
 .student-detail-container {
-    padding: 20px;
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-  
-  h2 {
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 20px;
-  }
-  
-  th, td {
-    text-align: left;
-    padding: 8px;
-    border: 1px solid #ccc;
-  }
-  
-  th {
-    background-color: #f4f4f4;
-  }
-  
-  .error {
-    color: red;
-    text-align: center;
-    font-size: 1.2em;
-  }
-  
-  .student-details-table {
-    width: 100%;
-    margin: 20px 0;
-  }
-  
-  /* Modal Overlay (Background) */
+  max-width: 1400px;
+  margin: 0 auto;
+  height: 95vh;
+  /* Ensure the container does not exceed the viewport height */
+  overflow-y: hidden;
+  /* Hide vertical overflow */
+  position: relative;
+  /* Ensure that the container behaves as expected */
+}
+
+/* Ensure the table or content inside does not overflow */
+.student-details-table,
+.table-container {
+  overflow-y: auto;
+  /* Add scroll to the table if content overflows */
+  padding: 10px;
+}
+
+/* Heading Style */
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  background-color: #007BFF;
+  max-width: 1400px;
+  margin: auto;
+}
+
+h3 {
+  text-align: center;
+}
+
+/* Table Styles */
+table {
+  width: 90%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+  margin: 0 20px 0 30px;
+  margin: auto;
+}
+
+.table-data-fetch {
+  height: 100vh;
+  /* overflow-y: scroll; */
+}
+
+th,
+td {
+  text-align: center;
+  padding: 8px;
+  border: 1px solid #ccc;
+}
+
+.update-button {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+th {
+  background-color: #f4f4f4;
+}
+
+.invalid-feedback {
+  color: red;
+  font-weight: normal;
+}
+
+/* Error Message */
+.error {
+  color: red;
+  text-align: center;
+  font-size: 1.2em;
+}
+
+/* Modal Overlay (Background) */
 .modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  background: rgba(0, 0, 0, 0.5);
+  /* Semi-transparent background */
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 9999; /* Ensure it's above all other content */
+  z-index: 9999;
+  /* Ensure it's above all other content */
 }
-h3{
-  text-align: center;
-}
+
 /* Modal Content Box */
 .modal-content {
   background-color: white;
@@ -59,42 +96,32 @@ h3{
   border-radius: 8px;
   max-width: 500px;
   width: 100%;
-  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1); /* Shadow for better visual effect */
-  animation: fadeIn 0.3s ease-in-out; /* Smooth transition for opening */
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 0.3s ease-in-out;
+  max-height: 100vh;
+  overflow: hidden;
+  position: relative;
+
 }
 
 /* Fade-In Animation */
 @keyframes fadeIn {
   from {
-      opacity: 0;
-      transform: translateY(-20px);
+    opacity: 0;
+    transform: translateY(-20px);
   }
+
   to {
-      opacity: 1;
-      transform: translateY(0);
+    opacity: 1;
+    transform: translateY(0);
   }
-}
-
-/* Label and Input Styling */
-label {
-  display: block;
-  margin-bottom: 8px;
-  font-weight: 500;
-}
-
-input {
-  width: 100%;
-  padding: 8px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  font-size: 16px;
-  box-sizing: border-box;
 }
 
 /* Button Styling */
 button {
-  padding: 10px 15px;
-  background-color: #007bff;
+  min-width: 130px;
+  padding: 11px 15px;
+  background-color: #007BFF;
   color: white;
   border: none;
   border-radius: 4px;
@@ -103,18 +130,27 @@ button {
   font-size: 16px;
 }
 
+.thead {
+  width: 100vw;
+}
+
+.addstudent {
+  margin: 16px 0;
+  background-color: #000;
+  margin-left: 30px;
+}
+
 button:hover {
-  background-color: #0056b3; /* Darker shade when hovering */
+  background-color: #0056b3;
 }
 
 /* Close Button Styling */
 button[type="button"] {
-  background-color: #f44336; /* Red background for Close button */
-  margin-left: 10px;
+  background-color: #f44336;
 }
 
 button[type="button"]:hover {
-  background-color: #d32f2f; /* Darker red when hovering */
+  background-color: #d32f2f;
 }
 
 /* Center the Form Elements */
@@ -122,47 +158,194 @@ form {
   display: flex;
   flex-direction: column;
   gap: 15px;
+  margin: 0 70px;
 }
 
-/* Ensure Modal Responsiveness on Small Screens */
-@media (max-width: 600px) {
-  .modal-content {
-      width: 90%;
-      max-width: 400px;
-  }
+.required {
+  color: red;
+  font-weight: bold;
 }
-/* Actions (Search and Add Buttons) */
-.actions {
+
+.icon {
+  position: absolute;
+  top: 45px;
+  right: 50px;
+}
+
+/* Input Field Styling */
+input,
+select,
+textarea {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  width: 100%;
+  box-sizing: border-box;
+  outline: none;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Input Field on Focus */
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 4px rgba(0, 123, 255, 0.5);
+  /* Glow effect */
+}
+
+/* Placeholder Styling */
+input::placeholder,
+textarea::placeholder {
+  color: #6c757d;
+}
+
+label {
+  font-weight: bold;
+}
+
+/* Navbar styling */
+.navbar {
+  background-color: #007bff;
+  padding: 10px 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
-}
-
-.actions input {
-  padding: 9px ;
-  font-size: 16px;
-  border: 1px solid #0889f3;
-  border-radius: 4px;
-  width: 80vw;
-  border-top-left-radius: 0;
-  border-bottom-left-radius: 0;
-}
-
-.actions button {
-  padding: 10px 20px;
-  background-color: #007bff;
   color: white;
+}
+
+/* Navbar heading */
+.navbar h2 {
+  margin: 0;
+  /* font-size: 18px; */
+}
+
+.list {
+  position: absolute;
+  right: 27vw;
+  color: #007bff;
+  background-color: white;
+  border-radius: 50%;
+  padding: 8px 12px;
+  cursor: pointer;
+}
+.fullcalendar {
+  position: absolute;
+  right: 31vw;
+  color: #007bff;
+  background-color: white;
+  border-radius: 50%;
+  padding: 8px 10px;
+  cursor: pointer;
+}
+
+/* Actions section (search and buttons) */
+.actions {
+  display: flex;
+}
+
+/* Search input */
+.actions input[type="text"] {
+  padding: 5px 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 7px;
+  width: 200px;
+  outline: none;
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+}
+
+.actions input[type="text"]:focus {
+  border-color: #0056b3;
+  box-shadow: 0 0 4px rgba(0, 123, 255, 0.5);
+}
+
+/* Logout button */
+.logout-btn {
+  background-color: rgb(203, 93, 93);
+  /* Red for logout */
+  color: #fff;
   border: none;
-  border-radius: 4px;
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
+  border-radius: 7px;
+  padding: 6px 1px;
+  font-size: 1rem;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  width: 20vw;
-  margin-bottom: 0;
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
 }
 
-.actions button:hover {
-  background-color: #0056b3;
+.logout-btn:hover {
+  background-color: #f1071e;
+  /* Darker red on hover */
+}
+
+.logout-btn:focus {
+  outline: none;
+  box-shadow: 0 0 4px rgba(220, 53, 69, 0.5);
+}
+
+thead {
+  position: relative;
+
+  tr {
+    position: sticky;
+  }
+}
+
+tbody {
+  position: relative;
+  overflow: scroll;
+}
+
+.table-container {
+  max-height: 400px;
+  /* Adjust the height as needed */
+  overflow-y: auto;
+  border: 1px solid #ccc;
+}
+
+.student-details-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.student-details-table thead th {
+  position: sticky;
+  top: 0;
+  background-color: #f9f9f9;
+  /* Set a background color for the fixed header */
+  z-index: 1;
+  text-align: left;
+  padding: 8px;
+  border-bottom: 1px solid #ddd;
+}
+
+.student-details-table tbody td {
+  padding: 8px;
+  border-bottom: 1px solid #ddd;
+}
+
+.prev-button {
+  position: absolute;
+  top: 50vh;
+  left: 1vw;
+}
+.button-move {
+  position: fixed;
+  top: 90vh;
+  left: 40vw;
+  button {
+    background-color: transparent;
+    color: black;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+}
+.next-button {
+  position: absolute;
+  top: 50vh;
+  right: 1vw;
 }

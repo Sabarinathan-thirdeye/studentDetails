@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "E:\\Sabari\\Works\\studentDetails_Api\\studentDetails_Api\\studentDetails_Api.csproj": {}
+    "E:\\Sabari\\Project\\studentDetails\\studentDetails_Api\\studentDetails_Api\\studentDetails_Api.csproj": {}
   },
   "projects": {
-    "E:\\Sabari\\Works\\studentDetails_Api\\studentDetails_Api\\studentDetails_Api.csproj": {
+    "E:\\Sabari\\Project\\studentDetails\\studentDetails_Api\\studentDetails_Api\\studentDetails_Api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\Sabari\\Works\\studentDetails_Api\\studentDetails_Api\\studentDetails_Api.csproj",
+        "projectUniqueName": "E:\\Sabari\\Project\\studentDetails\\studentDetails_Api\\studentDetails_Api\\studentDetails_Api.csproj",
         "projectName": "studentDetails_Api",
-        "projectPath": "E:\\Sabari\\Works\\studentDetails_Api\\studentDetails_Api\\studentDetails_Api.csproj",
+        "projectPath": "E:\\Sabari\\Project\\studentDetails\\studentDetails_Api\\studentDetails_Api\\studentDetails_Api.csproj",
         "packagesPath": "C:\\Users\\Developer20\\.nuget\\packages\\",
-        "outputPath": "E:\\Sabari\\Works\\studentDetails_Api\\studentDetails_Api\\obj\\",
+        "outputPath": "E:\\Sabari\\Project\\studentDetails\\studentDetails_Api\\studentDetails_Api\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -50,6 +50,18 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "BCrypt.Net-Next": {
+              "target": "Package",
+              "version": "[4.0.3, )"
+            },
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[8.0.10, )"
+            },
+            "Microsoft.AspNetCore.Authorization": {
+              "target": "Package",
+              "version": "[8.0.10, )"
+            },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
               "version": "[8.0.10, )"

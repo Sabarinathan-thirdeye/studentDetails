@@ -1,74 +1,165 @@
 <div class="student-detail-container">
-  <h2>Student Details</h2>
+    <nav class="navbar">
+        <h2>Student Details</h2>
+        <!-- calendor  -->
+        <div class="list" (click)="navigateToopenCalendar()">
+            <i class="fa-solid fa-list"></i>
+        </div>
+        <div class="fullcalendar" (click)="navigateTofullCalendar()">
+            <i class="fa-regular fa-calendar fa-xl"></i>
+        </div>
+        <!-- Search and Add Buttons -->
+        <div class="actions">
+            <input type="text" placeholder="Search by name" [(ngModel)]="searchText" (input)="filterStudents()" />
+            <!-- Logout Button -->
+            <button (click)="logOut()" class="logout-btn">Logout <i class="fa-solid fa-right-from-bracket"></i></button>
+        </div>
+    </nav>
+    <!-- addbutton -->
+    <button (click)="openModal()" class="addstudent">Add Student</button>
 
-  <div *ngIf="loading">Loading...</div>
-  <div *ngIf="error" class="error">{{ error }}</div>
+    <!-- Student Details Table -->
+    <div *ngIf="!loading || filteredStudentDetails.length > 0" class="table-data-fetch">
+        <table>
+            <thead>
+                <tr class="thead">
+                    <th>Student ID</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Date of Birth</th>
+                    <th>Email</th>
+                    <th>Mobile Number</th>
+                    <th>Gender</th>
+                    <th>Update</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let student of getPaginatedData()">
+                    <td>{{ student.studentID }}</td>
+                    <td>{{ student.firstName }}</td>
+                    <td>{{ student.lastName }}</td>
+                    <td>{{ student.dateOfBirth | date:'MM/dd/yyyy' }}</td>
+                    <td>{{ student.email }}</td>
+                    <td>{{ student.mobileNumber }}</td>
+                    <td>{{ student.gender }}</td>
+                    <td (click)="openModal(student)"><i class="fa-regular fa-pen-to-square"></i></td>
+                    <td (click)="deleteStudent(student.studentID)"><i class="fa-solid fa-trash-can"></i></td>
+                </tr>
+            </tbody>
+        </table>
+        <!-- Pagination -->
+        <div *ngIf="filteredStudentDetails.length > 0 || !loading" style="text-align: center; margin-top: 20px;"
+            class="button-move">
+            <button (click)="prevPage()" [disabled]="currentPage === 1">
+                <i class="fa-solid fa-circle-left fa-2xl"></i>
+            </button>
+            <span>Page {{ currentPage }} of {{ totalPages }}</span>
+            <button (click)="nextPage()" [disabled]="currentPage === totalPages">
+                <i class="fa-solid fa-circle-right fa-2xl"></i>
+            </button>
+        </div>
 
-  <!-- Search and Add Buttons -->
-  <div class="actions">
-      <button (click)="openModal()">Add Student</button>
-      <input type="text" placeholder="Search by name" [(ngModel)]="searchText" (input)="filterStudents()" />
-  </div>
+        <!-- No filtered students found -->
+        <div *ngIf="isNoFilteredStudents()">
+            <table style=" text-align: center;">
+                <tr>
+                    <td colspan="3" style="font-size: 18px; color: red;">
+                        No student details match the search criteria.
+                    </td>
+                </tr>
+            </table>
+        </div>
 
-  <!-- Student Details Table -->
-  <div *ngIf="filteredStudentDetails.length > 0">
-      <table class="student-details-table">
-          <thead>
-              <tr>
-                  <th>Student ID</th>
-                  <th>First Name</th>
-                  <th>Last Name</th>
-                  <th>Date of Birth</th>
-                  <th>Email</th>
-                  <th>Mobile Number</th>
-                  <th>Status</th>
-                  <th>Update</th>
-                  <th>Delete</th>
-              </tr>
-          </thead>
-          <tbody>
-              <tr *ngFor="let student of filteredStudentDetails">
-                  <td>{{ student.studentID }}</td>
-                  <td>{{ student.firstName }}</td>
-                  <td>{{ student.lastName }}</td>
-                  <td>{{ student.dateOfBirth | date:'MM/dd/yyyy' }}</td>
-                  <td>{{ student.email }}</td>
-                  <td>{{ student.mobileNumber }}</td>
-                  <td>{{ student.studentstatus === 0 ? 'Active' : 'Inactive' }}</td>
-                  <td (click)="openModal(student)"><i class="fa-regular fa-pen-to-square"></i></td>
-                  <td><i class="fa-solid fa-trash-can" (click)="deleteStudent(student.studentID)"></i></td>
-              </tr>
-          </tbody>
-      </table>
-  </div>
-  <div *ngIf="!loading && filteredStudentDetails.length === 0">
-      No student details available.
-  </div>
+        <!-- No student details available -->
+        <div *ngIf="isStudentDetailsEmpty()">
+            <table style=" text-align: center;">
+                <tr>
+                    <td colspan="3" style="font-size: 18px; color: red;">
+                        Student details aren't available.
+                    </td>
+                </tr>
+            </table>
+        </div>
 
-  <!-- Add/Edit Student Form Modal -->
-  <div *ngIf="studentToEdit" class="modal-overlay">
-      <div class="modal-content">
-          <h3>{{ studentToEdit.studentID ? 'Edit Student' : 'Add Student' }}</h3>
-          <!-- (ngSubmit)="addOrUpdateStudent(studentToEdit)" -->
-          <form>
-              <label>First Name:
-                  <input [(ngModel)]="studentToEdit.firstName" name="firstName" required />
-              </label>
-              <label>Last Name:
-                  <input [(ngModel)]="studentToEdit.lastName" name="lastName" required />
-              </label>
-              <label>Email:
-                  <input [(ngModel)]="studentToEdit.email" name="email" required />
-              </label>
-              <label>Mobile Number:
-                  <input [(ngModel)]="studentToEdit.mobileNumber" name="mobileNumber" required />
-              </label>
-              <label>Date of Birth:
-                  <input [(ngModel)]="studentToEdit.dateOfBirth" name="dateOfBirth" type="date" required />
-              </label>
-              <button type="submit">{{ studentToEdit.studentID ? 'Update' : 'Add' }} Student</button>
-              <button type="button" (click)="closeModal()">Close</button>
-          </form>
-      </div>
-  </div>
+        <!-- Loading message -->
+        <div *ngIf="loading">
+            <table style=" text-align: center;">
+                <tr>
+                    <td colspan="3" style="font-size: 18px; color: red;">
+                        Student details are loading...
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+    </div>
+
+    <!-- Add/Edit Student Form Modal -->
+    <div *ngIf="studentToEdit" class="modal-overlay">
+        <div class="modal-content">
+            <h3>{{ studentToEdit.studentID ? 'Edit Student' : 'Add Student' }}</h3>
+            <div class="icon" (click)="closeModal()">
+                <i class="fa-solid fa-xmark fa-xl"></i>
+            </div>
+            <form (ngSubmit)="addOrUpdateStudent()" #studentForm="ngForm">
+                <!-- First Name -->
+                <label>First Name <span class="required">*</span>
+                    <input [(ngModel)]="studentToEdit.firstName" name="firstName" required #firstName="ngModel"
+                        placeholder="Enter first name" maxlength="15" />
+                    <div *ngIf="firstName.invalid && (studentForm.submitted)" class="invalid-feedback">First name is
+                        required.</div>
+                </label>
+
+                <!-- Last Name (no longer required) -->
+                <label>Last Name
+                    <input [(ngModel)]="studentToEdit.lastName" name="lastName" #lastName="ngModel"
+                        placeholder="Enter last name" maxlength="15" />
+                </label>
+
+                <!-- Email -->
+                <label>Email <span class="required">*</span>
+                    <input [(ngModel)]="studentToEdit.email" name="email" type="email" required #email="ngModel"
+                        placeholder="Enter email address" />
+                    <div *ngIf="email.invalid && (email.touched || studentForm.submitted)" class="invalid-feedback">
+                        Please enter a valid email.
+                    </div>
+                </label>
+
+                <!-- Mobile Number -->
+                <label>Mobile Number <span class="required">*</span>
+                    <input type="number" [(ngModel)]="studentToEdit.mobileNumber" name="mobileNumber" required
+                        #mobile="ngModel" placeholder="Enter mobile number" pattern="^[0-9()+-]*$" minlength="10"
+                        maxlength="15" />
+                    <div *ngIf="mobile.invalid && (mobile.touched || studentForm.submitted)" class="invalid-feedback">
+                        Mobile number is required </div>
+                </label>
+
+                <!-- Date of Birth -->
+                <label>Date of Birth <span class="required">*</span>
+                    <input [(ngModel)]="studentToEdit.dateOfBirth" name="dateOfBirth" type="date" required
+                        #dob="ngModel" placeholder="Select date of birth" max="2019-12-31" />
+                    <div *ngIf="dob.invalid && (dob.touched || studentForm.submitted)" class="invalid-feedback">Date of
+                        birth is required.</div>
+                </label>
+
+                <!-- Gender -->
+                <label for="gender">Gender <span class="required">*</span>
+                    <select [(ngModel)]="studentToEdit.gender" name="gender" required #gender="ngModel">
+                        <option value="" disabled selected>Select Gender</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Other">Other</option>
+                    </select>
+                    <div *ngIf="gender.invalid && (gender.touched || studentForm.submitted)" class="invalid-feedback">
+                        Gender is required.</div>
+                </label>
+
+                <div class="update-button">
+                    <button type="submit">{{ studentToEdit.studentID ? 'Update' : 'Add'}} Student</button>
+                    <button type="button" (click)="closeModal()">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>

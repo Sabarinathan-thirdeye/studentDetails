@@ -1,54 +1,75 @@
-﻿
-//        using Microsoft.AspNetCore.Mvc;
-//using studentDetails_Api.IRepository;
-//using studentDetails_Api.Models;
-//        using studentDetails_Api.NonEntity;
-//        using studentDetails_Api.Services;
+﻿using Microsoft.AspNetCore.Mvc;
+using studentDetails_Api.IRepository;
+using studentDetails_Api.Models;
+using studentDetails_Api.NonEntity;
+using studentDetails_Api.Services;
+using System;
 
-//namespace studentDetails_Api.Controllers
-//{
-//    [Route("api/[controller]")]
-//    [ApiController]
-//    public class AuthController : ControllerBase
-//    {
-//        private readonly IStudentRepo<studentDetail> _studentRepository; // Assuming IRepository is set up
-//        private readonly JwtServices _jwtServices;
-//        private readonly CryptoServices _cryptoServices;
+namespace studentDetails_Api.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class LogInController : ControllerBase
+    {
+        private readonly ILogInRepo _logInRepo;
+        private readonly JwtServices _jwtServices;
+        private readonly ILogger<LogInController> _logger;
 
-//        public AuthController(IStudentRepo<studentDetail> studentRepository, JwtServices jwtServices, CryptoServices cryptoServices)
-//        {
-//            _studentRepository = studentRepository;
-//            _jwtServices = jwtServices;
-//            _cryptoServices = cryptoServices;
-//        }
+        public LogInController(ILogInRepo logInRepo, JwtServices jwtServices, ILogger<LogInController> logger)
+        {
+            _logInRepo = logInRepo;
+            _jwtServices = jwtServices;
+            _logger = logger;
+        }
 
-//        [HttpPost("login")]
-//        public async Task<IActionResult> Login([FromBody] LogInRequest loginRequest)
-//        {
-//            // Validate input
-//            if (loginRequest == null || string.IsNullOrWhiteSpace(loginRequest.Email) || string.IsNullOrWhiteSpace(loginRequest.Password))
-//            {
-//                return BadRequest("Email and Password are required.");
-//            }
+        /// <summary>
+        /// Registers a new user in the user master.
+        /// </summary>
+        /// <param name="user">User details for registration.</param>
+        /// <returns>API result with registration status.</returns>
+        [HttpPost("RegisterUserDetail")]
+        public async Task<IActionResult> RegisterUserDetail(userMasterModel user)
+        {
+            ApiResult<userMasterModel> result = new ApiResult<userMasterModel>();
+            try
+            {
+                result = await _logInRepo.RegisterUserDetail(user);
 
-//            // Fetch the user by email
-//            var student = await _studentRepository.GetByEmailAsync(loginRequest.Email); // Assuming you have a method to get user by email
+                return result.ResponseCode == 1
+                    ? Ok(result)
+                    : StatusCode(StatusCodes.Status412PreconditionFailed, result);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error while registering user details.");
+                return StatusCode(StatusCodes.Status500InternalServerError, result.ExceptionResponse("Error while registering user details.", ex));
+            }
+        }
 
-//            // If student not found or password does not match
-//            if (student == null || student.studentPassword != _cryptoServices.DecryptStringFromBytes_Aes(loginRequest.Password))
-//            {
-//                return Unauthorized("Invalid email or password.");
-//            }
-
-//            // Generate JWT token
-//            var token = _jwtServices.GenerateToken(student);
-
-//            // Optionally, save the token in the database (encrypted)
-//            student.StudentToken = _cryptoServices.EncryptStringToBytes_Aes(token);
-//            await _studentRepository.UpdateAsync(student); // Assuming you have an Update method
-
-//            // Return token
-//            return Ok(new { Token = token });
-//        }
-//    }
-//}
+        /// <summary>
+        /// Login the student by validating email and password.
+        /// </summary>
+        /// <param name="loginRequest"></param>
+        /// <returns></returns>
+        [HttpPost("Authenticate")]
+        public async Task<IActionResult> Login(LoginRequestModel req)
+        {
+            ApiResult<LogInResponseModel> result = new ApiResult<LogInResponseModel>();
+            try
+            {
+                // Get student details by email
+                result = await _logInRepo.Login(req);
+                if (result.ResponseCode == 1)
+                {
+                    return Ok(result);
+                }
+                return StatusCode(StatusCodes.Status412PreconditionFailed, result);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error authenticating user");
+                return StatusCode(StatusCodes.Status500InternalServerError, result.ExceptionResponse("Error authenticating user", ex));
+            }
+        }
+    }
+}

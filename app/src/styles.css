@@ -1,1 +1,122 @@
+@import "primeng/resources/themes/lara-light-blue/theme.css";
+@import "primeng/resources/primeng.css";
+
 /* You can add global styles to this file, and also import other style files */
+* {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.fc * {
+    padding: 0;
+    margin: 0;
+}
+
+/* full calendar customize  */
+.fc .fc-toolbar.fc-header-toolbar {
+    padding: 12px 20px 0 30px;
+    margin-bottom: 10px;
+}
+
+a {
+    text-decoration: none;
+    color: #000;
+}
+
+.fc-theme-standard td,
+.fc-col-header th,
+table {
+    border-collapse: collapse;
+}
+
+.fc-scrollgrid-sync-inner {
+    border: 1px solid #2c3e50;
+}
+
+.fc-theme-standard th,
+.fc-theme-standard td {
+    border: 0
+}
+
+.fc-direction-ltr .fc-button-group>.fc-button:not(:first-child) {
+    margin-left: 3px;
+}
+
+.fc-toolbar-title {
+    font-weight: bold;
+}
+
+.fc .fc-scrollgrid-liquid {
+    height: 100%;
+    /* width: 95vw; */
+}
+
+.fc .fc-scroller {
+    overflow: hidden;
+}
+
+.fc-view-harness .fc-view-harness-active {
+    height: 100vh;
+}
+
+.fc-toolbar-title {
+    color: black;
+}
+
+.fc-daygrid-body .fc-daygrid-body-unbalanced {
+    width: 95vw;
+    overflow-x: hidden;
+}
+
+/* Add scrollable container for the events */
+.fc-daygrid-day-events {
+    height: 120px;
+    /* Adjust height as per your design */
+    overflow-y: auto;
+    /* Enable vertical scrolling */
+    padding: 5px;
+    /* Optional padding for better spacing */
+    scrollbar-width: thin;
+    /* For modern browsers */
+    scrollbar-color: #888 #e0e0e0;
+    /* Custom scrollbar colors */
+}
+
+/* Styling for Webkit-based browsers */
+.fc-daygrid-day-events::-webkit-scrollbar {
+    width: 6px;
+    /* Width of the scrollbar */
+}
+
+.fc-daygrid-day-events::-webkit-scrollbar-track {
+    background: #e0e0e0;
+    /* Scrollbar track color */
+}
+
+.fc-daygrid-day-events::-webkit-scrollbar-thumb {
+    background-color: #888;
+    /* Scrollbar thumb color */
+    border-radius: 10px;
+    /* Rounded edges for the scrollbar */
+}
+
+/* Customizing weekends' background color */
+.fc-day-sat,
+.fc-day-sun {
+    background-color: #dbeaf9;
+    /* Light red background for weekends */
+}
+
+.fc .fc-daygrid-day-frame {
+    max-height: 100%;
+    position: relative;
+}
+/* Hide scrollbar for all elements in Webkit browsers (Chrome, Safari, Edge) */
+::-webkit-scrollbar {
+    display: none;
+  }
+  
+  /* For Firefox, you can use the following to hide the scrollbar */
+  body {
+    scrollbar-width: none; /* Firefox */
+  }
+  

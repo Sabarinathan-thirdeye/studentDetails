@@ -1,44 +1,67 @@
 <div class="register-container">
   <h2>Register</h2>
-  <form (ngSubmit)="onSubmit()">
-    <!-- Form Fields Here -->
-    <div class="form-group">
-      <label for="firstName">First Name:</label>
-      <input type="text" id="firstName" [(ngModel)]="studentvalue.firstName" name="firstName" required />
+  <form (ngSubmit)="onSubmit()" #registerForm="ngForm">
+    <div class="icon" (click)="navigateToLoginform()">
+      <i class="fa-solid fa-xmark fa-xl"></i>
     </div>
-    <div class="form-group">
-      <label for="lastName">Last Name:</label>
-      <input type="text" id="lastName" [(ngModel)]="studentvalue.lastName" name="lastName" required />
+
+    <div class="wrap-sec">
+      <!-- First Name -->
+      <label>First Name <span class="required">*</span>
+        <input [(ngModel)]="user.firstName" name="firstName" required #firstName="ngModel"
+          placeholder="Enter your first name" maxlength="15" />
+        <div *ngIf="firstName.invalid && (registerForm.submitted)" class="invalid-feedback">First Name is required.
+        </div>
+      </label>
+
+      <!-- Last Name -->
+      <label>Last Name
+        <input [(ngModel)]="user.lastName" name="lastName" required #lastName="ngModel"
+          placeholder="Enter your last name" maxlength="15" />
+      </label>
+
+      <!-- Email -->
+      <label>Email <span class="required">*</span>
+        <input [(ngModel)]="user.email" name="email" type="email" required #email="ngModel"
+          placeholder="Enter your email address" />
+        <div *ngIf="email.invalid && (email.touched || registerForm.submitted)" class="invalid-feedback">Email is
+          required.</div>
+      </label>
+
+      <!-- User Name -->
+      <label>User Name
+        <input [(ngModel)]="user.userName" name="userName" required #userName="ngModel"
+          placeholder="Enter your User name" maxlength="15" />
+      </label>
+
+      <!-- Password -->
+      <label>Password <span class="required">*</span>
+        <input [(ngModel)]="user.userPassword" name="userPassword" type="password" required #userPassword="ngModel"
+          placeholder="Enter your password" maxlength="15" />
+        <div *ngIf="userPassword.invalid && (registerForm.submitted)" class="invalid-feedback">Password is required.
+        </div>
+      </label>
+
+      <!-- Confirm Password -->
+      <label>Confirm Password <span class="required">*</span>
+        <input [(ngModel)]="user.confirmPassword" name="confirmPassword" type="password" required
+          #confirmPassword="ngModel" placeholder="Confirm your password" maxlength="15" />
+        <div *ngIf="user.userPassword && user.confirmPassword && user.userPassword !== user.confirmPassword"
+          class="invalid-feedback">Passwords do not match.</div>
+        <div *ngIf="confirmPassword.invalid && (registerForm.submitted)" class="invalid-feedback">Confirm Password is
+          required.</div>
+      </label>
+
+
+
+
     </div>
-    <div class="form-group">
-      <label for="email">Email:</label>
-      <input type="email" id="email" [(ngModel)]="studentvalue.email" name="email" required />
-    </div>
-    <div class="form-group">
-      <label for="gender">Gender:</label>
-      <select id="gender" [(ngModel)]="studentvalue.gender" name="gender" required>
-        <option value="" disabled selected>Select Gender</option>
-        <option value="Male">Male</option>
-        <option value="Female">Female</option>
-        <option value="Other">Other</option>
-      </select>
-    </div>
-    <div class="form-group">
-      <label for="mobileNumber">Mobile Number:</label>
-      <input type="number" id="mobileNumber" [(ngModel)]="studentvalue.mobileNumber" name="mobileNumber" required />
-    </div>
-    <div class="form-group">
-      <label for="dateOfBirth">Date of Birth:</label>
-      <input type="date" id="dateOfBirth" [(ngModel)]="studentvalue.dateOfBirth" name="dateOfBirth" required />
-    </div>
-    <div class="form-group">
-      <label for="password">Password:</label>
-      <input type="password" id="password" [(ngModel)]="studentvalue.studentPassword" name="password" required />
-    </div>
-    <div class="form-group">
-      <label for="confirmPassword">Confirm Password:</label>
-      <input type="password" id="confirmPassword" [(ngModel)]="studentvalue.confirmPassword" name="confirmPassword" required />
-    </div>
-    <button type="submit" class="register-btn">register</button>
+
+    <button type="submit" class="btn btn-primary">Register</button>
   </form>
+  <div class="text">
+    you have an account,
+    <a><i class="fa-regular fa-hand-point-right"></i> Login here!!!</a>
+  </div>
+
 </div>

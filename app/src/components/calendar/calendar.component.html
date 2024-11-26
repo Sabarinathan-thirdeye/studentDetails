@@ -1,0 +1,134 @@
+<!-- Navbar Section -->
+<nav class="navbar">
+  <h2>Student Details</h2>
+  
+  <!-- home Icon -->
+  <div class="home" (click)="navigateTodashboard()">
+    <i class="fa-solid fa-house"></i>
+  </div>
+
+  <!-- Search and Add Buttons -->
+  <div class="actions">
+    <input 
+      type="text" 
+      placeholder="Search by name" 
+      [(ngModel)]="searchText" 
+      (input)="filterStudents()" />
+    
+    <!-- Logout Button -->
+    <button (click)="logOut()" class="logout-btn">
+      Logout 
+      <i class="fa-solid fa-right-from-bracket"></i>
+    </button>
+  </div>
+</nav>
+
+<!-- Main Content Section -->
+<div class="row">
+  <div class="col-5 left">
+    <!-- Calendar Component -->
+    <p-calendar class="max-w-full" [(ngModel)]="selectedDate" [inline]="true" [showWeek]="true" 
+                (onSelect)="onDateSelect($event)">
+    </p-calendar>
+  </div>
+
+  <div class="col-7 student-details">
+    <h3 *ngIf="selectedDate; else elseTemplateName" class="mt-1">
+      Students Registered on {{ selectedDate | date: 'longDate' }}
+    </h3>
+    <ng-template #elseTemplateName>
+      <h3 class="mt-1">Please select a register date</h3>
+    </ng-template>
+
+    <!-- Student details table -->
+    <div>
+      <table class="mt-4">
+        <thead>
+          <tr>
+            <th>Student Name</th>
+            <th>Email</th>
+            <th>Mobile Number</th>
+          </tr>
+        </thead>
+        <tbody *ngIf="selectedDate || getPaginatedData().length > 0">
+          <tr *ngFor="let student of getPaginatedData()">
+            <td (click)="showStudentDetails(student)" style="cursor: pointer;">{{ student.firstName }} {{ student.lastName }}</td>
+            <td>{{ student.email }}</td>
+            <td>{{ student.mobileNumber }}</td>
+          </tr>
+        </tbody>
+    
+        <!-- No Students Found or No Date Selected -->
+        <tbody *ngIf="!selectedDate && !loading">
+          <tr>
+            <td colspan="3" style="text-align: center; font-size: 18px; color: red;">
+              Please Select the Date
+            </td>
+          </tr>
+        </tbody>
+        <tbody *ngIf="selectedDate && getPaginatedData().length == 0">
+          <tr>
+            <td colspan="3" style="text-align: center; font-size: 18px; color: red;">
+              Student details aren't Registered on that date
+            </td>
+          </tr>
+        </tbody>
+        <tbody *ngIf="!selectedDate && loading">
+          <tr>
+            <td colspan="3" style="text-align: center; font-size: 18px; color: red;">
+              Student details are loading...
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</div>
+
+<!-- Pagination -->
+<div *ngIf="filteredStudentDetails.length > 0 || !loading" style="text-align: center; margin-top: 20px;" class="button-move">
+  <button (click)="prevPage()" [disabled]="currentPage === 1">
+    <i class="fa-solid fa-circle-left fa-2xl"></i>
+  </button>
+  <span>Page {{ currentPage }} of {{ totalPages }}</span>
+  <button (click)="nextPage()" [disabled]="currentPage === totalPages">
+    <i class="fa-solid fa-circle-right fa-2xl"></i>
+  </button>
+</div>
+
+<!-- Modal for student details -->
+<div *ngIf="selectedStudent" class="modal-overlay" (click)="closeModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <h3>{{ selectedStudent.firstName }} {{ selectedStudent.lastName }}'s Details</h3>
+
+    <table class="student-details-table">
+      <tr>
+        <td><strong>Student Name:</strong></td>
+        <td>{{ selectedStudent.firstName }} {{ selectedStudent.lastName }}</td>
+      </tr>
+      <tr>
+        <td><strong>Email:</strong></td>
+        <td>{{ selectedStudent.email }}</td>
+      </tr>
+      <tr>
+        <td><strong>Mobile Number:</strong></td>
+        <td>{{ selectedStudent.mobileNumber }}</td>
+      </tr>
+      <tr>
+        <td><strong>Date of Birth:</strong></td>
+        <td>{{ selectedStudent.dateOfBirth | date }}</td>
+      </tr>
+      <tr>
+        <td><strong>Gender:</strong></td>
+        <td>{{ selectedStudent.gender }}</td>
+      </tr>
+      <tr>
+        <td><strong>Created On:</strong></td>
+        <td>{{ selectedStudent.createdOn | date }}</td>
+      </tr>
+    </table>
+
+    <button class="close-btn" (click)="closeModal()">Close</button>
+  </div>
+</div>

@@ -1,47 +1,89 @@
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
-import { StudentDetail } from '../../model/student.model';
+import { UserMasterModel } from '../../model/login.model';
+import { AuthService } from '../../auth/auth.service';
 
 @Component({
   selector: 'app-register-page',
   templateUrl: './register-page.component.html',
   styleUrls: ['./register-page.component.css']
 })
-export class RegisterPageComponent implements OnInit {
-  constructor(private router: Router) {}
-
-  @Input() student: StudentDetail | null = null;
-  @Output() formSubmit = new EventEmitter<StudentDetail>();
-
-  
-  studentvalue: StudentDetail = {
-    studentID: 0,
+export class RegisterPageComponent {
+  user: UserMasterModel = {
     firstName: '',
     lastName: '',
     email: '',
-    studentPassword: '',
+    userPassword: '',
     confirmPassword: '',
-    gender: '',
-    mobileNumber: '',
-    dateOfBirth: '',
-    studentstatus: 0 // Adjust this field as needed based on your StudentDetail model
+    userMasterStatus: 0, // Default value set to 1 (Active)
+    userTypeID: 1,
+    userName: '',
+    countryCode: '' // Default empty, will prepend '+' when submitting
   };
 
-  ngOnInit() {
-    if (this.student) {
-      // Prefill form values if editing an existing student
-      this.studentvalue = { ...this.student };
+  formTitle: string = 'Register User';
+  formSubmitted = false;
+  errors: string[] = []; // Store error messages
+
+  constructor(private authService: AuthService, private router: Router) { }
+
+  // Handle form submission
+  onSubmit(): void {
+    this.formSubmitted = true;
+    this.errors = []; // Reset errors
+
+    // Validate the form
+    if (!this.validateForm()) {
+      return; // Stop submission if validation fails
+    }
+
+    // Check if passwords match
+    if (this.user.userPassword === this.user.confirmPassword) {
+      // Ensure country code starts with '+' if not present
+      if (this.user.countryCode && !this.user.countryCode.startsWith('+')) {
+        this.user.countryCode = '+' + this.user.countryCode;
+      }
+
+      // Call the register API
+      this.authService.registerUser(this.user).subscribe(
+        (response) => {
+          console.log('User registered successfully', response);
+          this.router.navigate(['/login']);
+        },
+        (error) => {
+          console.error('Registration failed', error);
+          // Capture and display error messages from backend
+          this.errors.push(error.error.message || 'Registration failed.');
+        }
+      );
+    } else {
+      this.errors.push('Passwords do not match.');
     }
   }
 
-  onSubmit() {
-    if (this.studentvalue.studentPassword === this.studentvalue.confirmPassword) {
-      this.formSubmit.emit(this.studentvalue); // Emit form data to parent component
-      console.log('Registration successful:', this.studentvalue);
-      alert('Register successful');
-      this.router.navigate(['/login']);
-    } else {
-      alert('Passwords do not match');
+  // Form validation logic
+  validateForm(): boolean {
+    let isValid = true;
+
+    if (!this.user.email) {
+      this.errors.push('Email is required.');
+      isValid = false;
+    } else if (!this.isValidEmail(this.user.email)) {
+      this.errors.push('Invalid email format.');
+      isValid = false;
     }
+
+    return isValid;
+  }
+
+  // Email format validation
+  isValidEmail(email: string): boolean {
+    const emailPattern = /^[\w-]+(\.[\w-]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*(\.[a-zA-Z]{2,})$/;
+    return emailPattern.test(email);
+  }
+
+  // Navigate to login page
+  navigateToLoginform() {
+    this.router.navigate(['/login']);
   }
 }

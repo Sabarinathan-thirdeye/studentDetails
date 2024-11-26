@@ -1,64 +1,143 @@
-﻿//using Microsoft.EntityFrameworkCore;
-//using Microsoft.IdentityModel.Tokens;
-//using studentDetails_Api.Common.NonEntities;
-//using studentDetails_Api.IRepository;
-//using studentDetails_Api.Models;
-//using studentDetails_Api.NonEntity;
-//using System.IdentityModel.Tokens.Jwt;
-//using System.Security.Claims;
-//using System.Text;
-//using LogInResponse = studentDetails_Api.Models.LogInResponse;
+﻿using studentDetails_Api.Models;
+using studentDetails_Api.NonEntity;
+using studentDetails_Api.IRepository;
+using Microsoft.EntityFrameworkCore;
+using studentDetails_Api.Services;
+using Microsoft.AspNetCore.Mvc;
+using System.Text.RegularExpressions;
 
-//namespace studentDetails_Api.Repository
-//{
-//    public class LogInRepo : ILogInRepo
-//    {
-//        private readonly StudentDBContext _context;
+namespace studentDetails_Api.Repository
+{
+    public class LogInRepo : ILogInRepo
+    {
+        private readonly StudentDBContext _context;
+        private readonly JwtServices _jwtServices;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IConfiguration _configuration;
+        private readonly CryptoServices _cryptoServices;
 
-//        public LogInRepo(StudentDBContext context)
-//        {
-//            _context = context;
-//        }
+        public LogInRepo(StudentDBContext context, JwtServices jwtservices, CryptoServices cryptoServices, IHttpContextAccessor httpContextAccessor, IConfiguration configuration)
+        {
+            _context = context;
+            _jwtServices = jwtservices;
+            _httpContextAccessor = httpContextAccessor;
+            _configuration = configuration;
+            _cryptoServices = cryptoServices;
+        }
 
-//        public async Task<ApiResult<LogInModel>> Login(LogInModel request)
-//        {
-//            ApiResult<LogInModel> result = new ApiResult<LogInModel>();
+        /// <summary>
+        /// Registers a new user with encrypted sensitive fields.
+        /// </summary>
+        public async Task<ApiResult<userMasterModel>> RegisterUserDetail(userMasterModel user)
+        {
+            var result = new ApiResult<userMasterModel>();
+            try
+            {
+                if (user == null)
+                    return result.ValidationErrorResponse("Please provide user details.");
 
-//            var student = await _context.studentDetails
-//                .FirstOrDefaultAsync(u => u.email == request.Email && u.studentPassword == request.Password);
+                // Validate required fields
+                if (string.IsNullOrWhiteSpace(user.firstName))
+                    return result.ValidationErrorResponse("Please provide the first name.");
+                if (string.IsNullOrWhiteSpace(user.email))
+                    return result.ValidationErrorResponse("Please provide an email.");
 
-//            if (student == null)
-//            {
-//                return result.ValidationErrorResponse("Invalid email or password.");
-//            }
+                string emailRegexPattern = @"^[\w-]+(\.[\w-]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*(\.[a-zA-Z]{2,})$";
+                if (!Regex.IsMatch(user.email, emailRegexPattern))
+                    return result.ValidationErrorResponse("Invalid email address format.");
 
-//            // Generate JWT token
-//            var token = GenerateJwtToken(student);
-//            LogInResponse logInResponse = new LogInResponse { Token = token };
-//            return result.SuccessResponse("Login successful.", logInResponse);
-//        }
+                if (string.IsNullOrWhiteSpace(user.userPassword))
+                    return result.ValidationErrorResponse("Please provide a password.");
+
+                // Encrypt the password
+                string encryptedPassword = _cryptoServices.EncryptStringToBytes_Aes(user.userPassword);
+
+                // Check if user already exists
+                var existingUser = await _context.userMasters.AsNoTracking() .FirstOrDefaultAsync(u => u.email == user.email);
+
+                if (existingUser != null)
+                    return result.ValidationErrorResponse("Email already exists.");
+
+                // Add new user record
+                var newUser = new userMaster
+                {
+                    firstName = user.firstName,
+                    lastName = user.lastName,
+                    userName = user.userName,
+                    email = user.email,
+                    userPassword = encryptedPassword,
+                    createdOn = DateTime.UtcNow,
+                    createdBy = 1, // Replace with actual user ID from claims
+                    userTypeID = 1,
+                    userMasterStatus = user.userMasterStatus
+                };
+
+                _context.userMasters.Add(newUser);
+                await _context.SaveChangesAsync();
+
+                return result.SuccessResponse("User registered successfully.", user);
+            }
+            catch (Exception ex)
+            {
+                result.ResponseCode = -1;
+                result.Message = "An error occurred while registering the user.";
+                result.ErrorDesc = ex.InnerException?.Message ?? ex.Message; // Log the inner exception message
+                return result;
+            }
+
+        }
+
+        /// <summary>
+        /// Authenticates a user by validating credentials and generating a JWT token.
+        /// </summary>
+        public async Task<ApiResult<LogInResponseModel>> Login(LoginRequestModel login)
+        {
+            var result = new ApiResult<LogInResponseModel>();
+            try
+            {
+                if (login == null)
+                    return result.ValidationErrorResponse("Please provide login credentials.");
+
+                if (string.IsNullOrWhiteSpace(login.userName))
+                    return result.ValidationErrorResponse("Please provide the username or email.");
+
+                if (string.IsNullOrWhiteSpace(login.userPassword))
+                    return result.ValidationErrorResponse("Please provide the password.");
+
+                // Find user by username or email
+                var user = await _context.userMasters
+                    .AsNoTracking()
+                    .FirstOrDefaultAsync(u => u.email == login.userName);
+
+                if (user == null)
+                    return result.ValidationErrorResponse("Invalid username or password.");
+
+                // encrypt stored password for validation
+                string encryptedPassword = _cryptoServices.EncryptStringToBytes_Aes(login.userPassword);
+
+                if (user.userPassword != encryptedPassword)
+                    return result.ValidationErrorResponse("Invalid password.");
+
+                // Prepare the response model
+                var response = new LogInResponseModel
+                {
+                    userName = user.userName,  // Mapping properties from userMaster
+                    email = user.email,
+                     // Generate JWT token
+                };
+                response.JwtToken = _jwtServices.GenerateToken(response);
 
 
+                return result.SuccessResponse("Login successful.", response);  // Return the response
+            }
+            catch (Exception ex)
+            {
+                result.ResponseCode = -1;
+                result.Message = "An error occurred while logging in.";
+                result.ErrorDesc = ex.Message;
+                return result;
+            }
+        }
 
-//        private string GenerateJwtToken(studentDetail student)
-//        {
-//            // Replace this with your actual configuration values
-//            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("SignSecRetK3y$End!nE@PikEy!nS3ckEy"));
-//            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-//            var claims = new[]
-//            {
-//                new Claim(ClaimTypes.NameIdentifier, student.studentID.ToString()),
-//                new Claim(ClaimTypes.Email, student.email),
-//            };
-
-//            var token = new JwtSecurityToken(
-//                issuer: "studentDetails_Api",
-//                audience: "studentDetails_Api",
-//                claims: claims,
-//                expires: DateTime.Now.AddMinutes(30),
-//                signingCredentials: creds);
-
-//            return new JwtSecurityTokenHandler().WriteToken(token);
-//        }
-//    }
-//}
+    }
+}
